@@ -219,6 +219,35 @@ section.hidden{display:none!important;visibility:hidden!important}
 </style>
 </head>
 <body>
+<!-- v41 navigation sidebar -->
+<div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+<aside id="sidebar" class="sidebar" aria-label="Recovery Journal navigation">
+  <div class="sidebar-head">
+    <div class="sidebar-brand">Recovery Journal</div>
+    <button class="secondary sidebar-close" id="sidebarClose" type="button" aria-label="Close navigation">✕</button>
+  </div>
+  <button class="sidebar-item" data-side-tab="today" type="button"><span class="side-icon">🏠</span><span>Today</span></button>
+  <button class="sidebar-item" data-side-tab="calendar" type="button"><span class="side-icon">📅</span><span>Calendar</span></button>
+  <button class="sidebar-item" data-side-tab="meetings" type="button"><span class="side-icon">🤝</span><span>Meetings</span></button>
+  <button class="sidebar-item" data-side-tab="search" type="button"><span class="side-icon">🔎</span><span>Search</span></button>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section-label">My Recovery</div>
+  <button class="sidebar-item" data-side-tab="goals" type="button"><span class="side-icon">🎯</span><span>My Goals</span><span class="sidebar-goal-badge" id="sidebarGoalCount">0</span></button>
+  <button class="sidebar-item" id="sidebarMessagesBtn" type="button"><span class="side-icon">💌</span><span>Messages to Myself</span></button>
+  <button class="sidebar-item" data-side-tab="settings" type="button"><span class="side-icon">🕐</span><span>Clean Time</span></button>
+  <button class="sidebar-item" data-side-tab="settings" type="button"><span class="side-icon">👥</span><span>Friends</span></button>
+  <button class="sidebar-item" data-side-tab="settings" type="button"><span class="side-icon">🏆</span><span>Milestones</span></button>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-section-label">Tools</div>
+  <button class="sidebar-item" data-side-tab="journal" type="button"><span class="side-icon">📖</span><span>My Journal</span></button>
+  <button class="sidebar-item" id="sidebarEmotionBtn" type="button"><span class="side-icon">🧠</span><span>Emotion Log</span></button>
+  <button class="sidebar-item" data-side-tab="search" type="button"><span class="side-icon">📊</span><span>Reports</span></button>
+  <div class="sidebar-divider"></div>
+  <button class="sidebar-item" data-side-tab="settings" type="button"><span class="side-icon">⚙️</span><span>Settings</span></button>
+  <button class="sidebar-item" data-side-tab="settings" type="button"><span class="side-icon">ⓘ</span><span>About</span></button>
+  <div class="sidebar-note">Your journal and recovery data remain stored locally on this device.</div>
+</aside>
+
 <div class="app">
 <header><div class="journal-header-brand"><button class="menu-top-btn" id="menuBtn" type="button" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 14h28M10 24h28M10 34h28"/></svg></button><button class="journal-top-btn" id="journalViewBtn" type="button" aria-label="My Journal" title="My Journal"><svg class="journal-top-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 10.5c0-1.4 1.1-2.5 2.5-2.5H23c3.2 0 6 1.3 8 3.4 2-2.1 4.8-3.4 8-3.4h.5c1.4 0 2.5 1.1 2.5 2.5v26c0 1.1-.9 2-2 2H39c-3.1 0-5.9 1.2-8 3.2-2.1-2-4.9-3.2-8-3.2H11c-1.1 0-2-.9-2-2z"/><path d="M23 11v25M31 11v25"/><path d="M15 17h5M15 23h5M34 17h-1M34 23h-1"/></svg></button><div><div class="eyebrow">RECOVERY JOURNAL</div><h1 id="title">Today</h1></div></div><div class="header-actions"><button class="message-top-btn" id="messagesBtn" type="button" aria-label="Messages to Myself" title="Messages to Myself"><svg class="message-top-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg></button><button class="secondary" id="settingsBtn">⚙️</button></div></header>
 <div class="personal-greeting"><h2 id="personalGreeting">Good morning.</h2><p id="personalGreetingSub" class="muted">Take a moment to check in with yourself today.</p></div>
@@ -414,7 +443,7 @@ section.hidden{display:none!important;visibility:hidden!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41 TEST BUILD • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41 TEST FIX • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
 </section>
 </div>
 <!-- v41 Goals -->

@@ -1,4 +1,4 @@
-const CACHE = "recovery-journal-v41-test";
+const CACHE = "recovery-journal-v41-test-fix-1";
 self.addEventListener("install", event => { self.skipWaiting(); });
 self.addEventListener("activate", event => {
   event.waitUntil(
@@ -14,10 +14,7 @@ self.addEventListener("fetch", event => {
   event.respondWith(
     fetch(request, { cache: "no-store" })
       .then(response => {
-        if (response.ok) {
-          const copy = response.clone();
-          caches.open(CACHE).then(cache => cache.put(request, copy)).catch(() => {});
-        }
+        if (response.ok) { const copy = response.clone(); caches.open(CACHE).then(cache => cache.put(request, copy)).catch(() => {}); }
         return response;
       })
       .catch(() => caches.match(request))
