@@ -13,20 +13,10 @@
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;color:#20312D;background:#F3F0E7;--ink:#20312D;--forest:#23433B;--sage:#DCE5DD;--mist:#EEF2EC;--cream:#FAF8F1;--sand:#E8E0D0;--line:#D5D8D0;--muted:#65716D;--rose:#D99A91;--bg:#F3F0E7;--card:#FAF8F1}
 :root[data-theme="dark"]{color-scheme:dark;--ink:#E8EEE9;--forest:#8DB8A8;--sage:#263C35;--mist:#1E2A26;--cream:#151B19;--sand:#2B332F;--line:#3B4843;--muted:#A5B2AD;--rose:#D99A91} [data-theme="dark"] body{background:linear-gradient(180deg,#111715 0%,#17211D 100%);color:var(--ink)} [data-theme="dark"] html{background:#111715} [data-theme="dark"] .card,[data-theme="dark"] .meeting,[data-theme="dark"] input,[data-theme="dark"] textarea,[data-theme="dark"] select,[data-theme="dark"] .day,[data-theme="dark"] .attendance-option-list label{background:#18211E;color:var(--ink)} [data-theme="dark"] .nav{background:rgba(21,27,25,.98)} [data-theme="dark"] .counter{background:linear-gradient(135deg,#10221D,#1C3930)} [data-theme="dark"] .help,[data-theme="dark"] .attendance-found{background:#1E2A26;color:var(--ink)} [data-theme="dark"] button.secondary{color:var(--ink)} [data-theme="dark"] .program-card{background:linear-gradient(135deg,#20332C,#202820)} [data-theme="dark"] .friend-reminder{background:#1E3128;color:var(--ink)} [data-theme="dark"] .milestone-pill{background:#263C35;color:var(--ink)} [data-theme="dark"] .backup-note{background:#2B2921;color:var(--ink)}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body.modal-open{overflow:hidden!important;height:100dvh}html{min-height:100%;background:#F3F0E7;overscroll-behavior-y:none}body{min-height:100dvh;overscroll-behavior-y:none;touch-action:manipulation}body{margin:0;background:linear-gradient(180deg,#F5F2E9 0%,#EEF2EC 100%);color:var(--ink);min-height:100dvh}
-/* v41 complete navigation */
-.app{padding-top:0}
-.v41-topbar{position:sticky;top:0;z-index:2500;height:104px;margin:0 -16px 18px;padding:calc(env(safe-area-inset-top) + 10px) max(16px,env(safe-area-inset-left)) 10px max(16px,env(safe-area-inset-right));display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;background:color-mix(in srgb,var(--cream) 94%,transparent);border-bottom:1px solid var(--line);box-shadow:0 5px 20px #00000008;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.v41-topbar-side{display:flex;align-items:center}.v41-topbar-left{justify-content:flex-start}.v41-topbar-right{justify-content:flex-end}.v41-topbar-title{text-align:center;min-width:0}.v41-topbar-title h1{margin:0;font-size:27px;line-height:1.05;white-space:nowrap}.v41-topbar-title .eyebrow{font-size:10px;line-height:1.1;margin-bottom:3px}
-.message-top-btn{position:relative;z-index:2;touch-action:manipulation;width:54px;height:54px;padding:0;border-radius:17px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px #00000010;cursor:pointer;flex:0 0 auto}.message-top-btn:active,.menu-top-btn:active{transform:scale(.97)}
-.message-top-icon{width:30px;height:30px;display:block;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.message-top-icon .heart{fill:var(--sage)}
-@media(max-width:480px){.v41-topbar{height:104px}.v41-topbar-title h1{font-size:26px}.message-top-btn,.menu-top-btn{width:52px;height:52px}}
-.v41-swipe-viewport{overflow:hidden;width:100%;touch-action:pan-y}.v41-page-track{display:flex;align-items:flex-start;width:400%;transition:transform .26s cubic-bezier(.22,.75,.18,1);will-change:transform}.v41-page-track>section{flex:0 0 25%;width:25%;min-width:25%;}.v41-page-track>section.hidden{display:block!important}.v41-page-track>section{height:max-content}.v41-swipe-hint{text-align:center;color:var(--muted);font-size:14px;margin:-2px 0 14px}
-.v41-dedicated-hidden{display:none!important}
-.app{max-width:720px;margin:auto;padding:16px max(16px,env(safe-area-inset-left)) calc(112px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right))}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body.modal-open{overflow:hidden!important;height:100dvh}html{min-height:100%;background:#F3F0E7;overscroll-behavior-y:none}body{min-height:100dvh;overscroll-behavior-y:none;touch-action:manipulation}body{margin:0;background:linear-gradient(180deg,#F5F2E9 0%,#EEF2EC 100%);color:var(--ink);min-height:100dvh}.app{max-width:720px;margin:auto;padding:16px max(16px,env(safe-area-inset-left)) calc(112px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-right))}
 header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
 /* v41 Sidebar + Goals */
-.menu-top-btn{position:relative;z-index:2;touch-action:manipulation;width:44px;height:44px;padding:0;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px #00000010;cursor:pointer;flex:0 0 auto}.menu-top-btn svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}.menu-top-btn:hover{transform:translateY(-1px)}
+.menu-top-btn{width:44px;height:44px;padding:0;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 16px #00000010;cursor:pointer;flex:0 0 auto}.menu-top-btn svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}.menu-top-btn:hover{transform:translateY(-1px)}
 .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:26000;opacity:0;pointer-events:none;transition:opacity .22s ease}.sidebar-overlay.open{opacity:1;pointer-events:auto}.sidebar{position:fixed;top:0;bottom:0;left:0;width:min(320px,88vw);z-index:26001;background:var(--cream);color:var(--ink);box-shadow:18px 0 50px #0005;transform:translateX(-102%);transition:transform .24s cubic-bezier(.22,.75,.18,1);padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 14px);overflow-y:auto;-webkit-overflow-scrolling:touch}.sidebar.open{transform:translateX(0)}.sidebar-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 4px 14px}.sidebar-brand{font-weight:900;letter-spacing:.02em}.sidebar-close{min-width:42px!important;padding:9px!important;border-radius:13px!important}.sidebar-section-label{font-size:10px;font-weight:900;letter-spacing:.13em;color:var(--muted);padding:13px 10px 6px;text-transform:uppercase}.sidebar-divider{height:1px;background:var(--line);margin:8px 6px}.sidebar-item{width:100%;display:flex;align-items:center;gap:11px;padding:12px 12px;margin:3px 0;border:1px solid transparent;border-radius:14px;background:transparent;color:var(--ink);font:inherit;font-weight:750;text-align:left;cursor:pointer}.sidebar-item:hover,.sidebar-item:active{background:var(--sage);border-color:var(--line)}.sidebar-item.active{background:var(--sage);border-color:var(--line)}.sidebar-item .side-icon{width:25px;text-align:center;font-size:20px;flex:0 0 25px}.sidebar-sub{padding-left:16px}.sidebar-sub .sidebar-item{font-size:14px}.sidebar-caret{margin-left:auto;color:var(--muted);font-size:15px}.sidebar-note{padding:12px 10px;color:var(--muted);font-size:11px;line-height:1.45}.goals-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.goals-tabs{display:flex;gap:7px;overflow-x:auto;padding:12px 2px 4px;scrollbar-width:none}.goals-tabs::-webkit-scrollbar{display:none}.goal-tab{white-space:nowrap;padding:9px 13px;border-radius:999px;background:var(--sage);color:var(--ink);border:1px solid var(--line);font-weight:800;font-size:13px}.goal-tab.active{background:var(--forest);color:#fff;border-color:var(--forest)}.goal-list{display:grid;gap:11px;margin-top:10px}.goal-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 5px 18px #34473B12;cursor:pointer}.goal-card:active{transform:scale(.995)}.goal-card-head{display:flex;gap:10px;align-items:flex-start}.goal-check{width:23px;height:23px;border-radius:50%;border:2px solid var(--line);background:var(--card);flex:0 0 23px;margin-top:1px}.goal-title{font-weight:900;font-size:17px;line-height:1.25}.goal-meta{margin-top:5px;display:flex;gap:7px;flex-wrap:wrap}.goal-status,.goal-type-pill{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:850;background:var(--sage);color:var(--ink)}.goal-status.complete{background:#BFE4C8;color:#174C29}.goal-status.paused{background:#E8DCC2}.goal-target{font-size:11px;color:var(--muted);margin-top:7px}.goal-reason{margin-top:10px;color:var(--muted);line-height:1.45;font-size:13px}.goal-progress{margin-top:11px}.goal-progress-track{height:7px;border-radius:999px;background:var(--sage);overflow:hidden}.goal-progress-fill{height:100%;background:var(--forest);border-radius:999px}.goal-progress-label{font-size:10px;color:var(--muted);margin-top:5px}.goal-empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:18px;color:var(--muted);background:var(--card)}.goal-guide{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:var(--mist);overflow:hidden}.goal-guide summary{padding:11px 12px;font-size:13px;font-weight:800}.goal-guide-body{padding:0 12px 12px;color:var(--muted);font-size:13px;line-height:1.5}.goal-milestones{display:grid;gap:8px;margin-top:10px}.goal-milestone-row{display:flex;align-items:flex-start;gap:9px;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.goal-milestone-row input{margin-top:2px;flex:0 0 auto}.goal-detail-meta{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0}.goal-reflection{padding:11px 12px;border-radius:13px;background:var(--sage);color:var(--muted);line-height:1.45;margin-top:10px}.goal-modal{position:fixed;inset:0;background:rgba(5,7,14,.78);display:flex;align-items:center;justify-content:center;z-index:28000;padding:14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}.goal-modal.hidden{display:none!important}.goal-sheet{width:min(680px,100%);max-height:94dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;background:var(--cream);color:var(--ink);border-radius:24px;padding:18px;box-shadow:0 18px 60px #0009}.goal-sheet textarea{min-height:84px}.goal-actions{display:flex;gap:8px;margin-top:14px}.goal-actions button{flex:1}.goal-danger{border-color:#C97870!important;color:#A63E36!important}.sidebar-goal-badge{margin-left:auto;font-size:10px;padding:4px 7px;border-radius:999px;background:var(--sage);color:var(--muted)}
 @media(max-width:520px){.journal-header-brand{gap:6px}.journal-top-btn,.menu-top-btn,.message-top-btn{width:42px;height:42px}.journal-header-brand>div{min-width:0}.eyebrow{font-size:10px}.sidebar{width:min(310px,90vw)}}
 @media(prefers-reduced-motion:reduce){.sidebar,.sidebar-overlay{transition:none!important}.goal-card,.sidebar-item{transition:none!important}}
@@ -226,6 +216,12 @@ section.hidden{display:none!important;visibility:hidden!important}
 [data-theme="contrast"] .emotion-wheel-help button.secondary{background:#000;color:#FFF;border:2px solid #FFF}
 [data-theme="contrast"] .emotion-wheel-sheet{background:#000;color:#FFF;border:2px solid #FFF}
 [data-theme="contrast"] .emotion-wheel-title,[data-theme="contrast"] .emotion-wheel-sub{color:#FFF}
+
+/* v41.1 repair styles */
+header.v41-fixed-header{position:fixed;top:0;left:0;right:0;z-index:24000;max-width:720px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 12px) max(16px,env(safe-area-inset-left)) 12px max(16px,env(safe-area-inset-right));background:rgba(250,248,241,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+:root[data-theme="dark"] header.v41-fixed-header{background:rgba(21,27,25,.96)}
+body{padding-top:88px!important}.app{padding-top:16px!important}.v41-primary-viewport{width:100%;overflow:hidden;touch-action:pan-y;position:relative}.v41-primary-track{width:100%}.v41-primary-viewport> .hidden{display:none!important}.v41-slide-left{animation:v41SlideLeft .18s ease-out}.v41-slide-right{animation:v41SlideRight .18s ease-out}@keyframes v41SlideLeft{from{transform:translateX(28px);opacity:.85}to{transform:translateX(0);opacity:1}}@keyframes v41SlideRight{from{transform:translateX(-28px);opacity:.85}to{transform:translateX(0);opacity:1}}
+@media(max-width:720px){header.v41-fixed-header{max-width:none}.app{padding-top:8px!important}}
 </style>
 </head>
 <body>
@@ -259,35 +255,12 @@ section.hidden{display:none!important;visibility:hidden!important}
 </aside>
 
 <div class="app">
-<header class="v41-topbar">
-  <div class="v41-topbar-side v41-topbar-left">
-    <button class="menu-top-btn" id="menuBtn" type="button" aria-label="Open navigation" title="Open navigation" onclick="openSidebar()">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 14h28M10 24h28M10 34h28"/></svg>
-    </button>
-  </div>
-  <div class="v41-topbar-title">
-    <div class="eyebrow">RECOVERY JOURNAL</div>
-    <h1 id="title">Today</h1>
-  </div>
-  <div class="v41-topbar-side v41-topbar-right">
-    <button class="message-top-btn" id="messagesBtn" type="button" aria-label="Messages to Myself" title="Messages to Myself" onclick="openMessages()">
-      <svg class="message-top-icon" viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/>
-        <path d="M16 18h16M16 23h11"/>
-        <path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/>
-        <path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/>
-        <path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/>
-      </svg>
-    </button>
-  </div>
-</header>
+<header><div class="journal-header-brand"><button class="menu-top-btn" id="menuBtn" type="button" aria-label="Open navigation" title="Open navigation"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 14h28M10 24h28M10 34h28"/></svg></button><button class="journal-top-btn" id="journalViewBtn" type="button" aria-label="My Journal" title="My Journal"><svg class="journal-top-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 10.5c0-1.4 1.1-2.5 2.5-2.5H23c3.2 0 6 1.3 8 3.4 2-2.1 4.8-3.4 8-3.4h.5c1.4 0 2.5 1.1 2.5 2.5v26c0 1.1-.9 2-2 2H39c-3.1 0-5.9 1.2-8 3.2-2.1-2-4.9-3.2-8-3.2H11c-1.1 0-2-.9-2-2z"/><path d="M23 11v25M31 11v25"/><path d="M15 17h5M15 23h5M34 17h-1M34 23h-1"/></svg></button><div><div class="eyebrow">RECOVERY JOURNAL</div><h1 id="title">Today</h1></div></div><div class="header-actions"><button class="message-top-btn" id="messagesBtn" type="button" aria-label="Messages to Myself" title="Messages to Myself"><svg class="message-top-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg></button><button class="secondary" id="settingsBtn">⚙️</button></div></header>
 <div class="personal-greeting"><h2 id="personalGreeting">Good morning.</h2><p id="personalGreetingSub" class="muted">Take a moment to check in with yourself today.</p></div>
 <div class="counter"><div class="eyebrow" style="color:#c7cbd1" id="counterName">Your Recovery</div><div class="big" id="counter">Set your clean date</div><small id="daysClean"></small></div>
 <div id="friendReminders"></div>
 
-
-
-<div class="v41-swipe-viewport" id="v41SwipeViewport"><div class="v41-page-track" id="v41PageTrack"><section id="todayView">
+<section id="todayView">
 <div class="card"><div class="row between"><h2>📅 <span id="dateLabel"></span></h2><button class="secondary" id="todayBtn">Today</button></div><div class="row between" style="margin-top:12px"><button class="secondary" id="prevDay">‹</button><button class="secondary" id="nextDay">›</button></div></div>
 <div class="card"><h3>✨ Positive affirmations</h3>
 <textarea class="entrybox" id="a1" placeholder="Affirmation 1" rows="1"></textarea>
@@ -306,13 +279,21 @@ section.hidden{display:none!important;visibility:hidden!important}
 <div class="card"><div class="row between"><h3>🤝 Meetings</h3><button class="primary" id="addMeeting">+ Add</button></div><div id="meetingList"></div>
 </div>
 <button class="primary" style="width:100%" id="saveDay">Save today's entry</button>
-</section><section id="calendarView" class="hidden"><div class="card"><div class="row between"><button class="secondary" id="prevMonth">‹</button><h2 id="monthLabel"></h2><button class="secondary" id="nextMonth">›</button></div><div class="calendar" id="calendar"></div></div></section><section id="meetingsView" class="hidden">
-<div class="card"><div class="row between"><div><h2>🤝 Meetings</h2><p class="muted" style="margin-top:5px">Keep your meeting history organized and easy to review.</p></div><button class="primary" id="meetingsAddBtn">+ Add Meeting</button></div></div>
-<div class="card"><div class="row between"><h3 id="meetingsTodayHeading">Today’s Meetings</h3><button class="secondary" id="meetingsTodayBtn">Today</button></div><div id="meetingsTodayList" style="margin-top:10px"></div></div>
-<div class="card"><button id="recentMeetingsToggle" class="secondary" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center" data-open="false" aria-expanded="false"><span><strong>Recent Meetings</strong> <span class="setting-count" id="recentMeetingsCount">0</span></span><span id="recentMeetingsChevron">＋</span></button><div id="recentMeetingsPanel" class="hidden"><div class="muted" style="margin-top:10px">Newest first</div><div id="recentMeetingsList" style="margin-top:4px"></div></div></div>
-<div class="card quick-enter-card"><details><summary><strong>⚡ Quick Enter Meetings</strong> <span class="setting-count" id="meetingsQuickCount">0</span></summary><div class="quick-enter-body"><p class="muted" style="margin-top:5px">Saved meeting templates stay available when you add a meeting.</p><div id="meetingsQuickList" style="margin-top:10px"></div></div></details></div>
-<div class="card"><button class="secondary" style="width:100%" id="meetingsAttendanceBtn">Print meeting attendance sheet</button><p class="muted" style="margin-top:8px">Print meetings chronologically without notes. Chairperson initials can be included when enabled in Meeting Settings.</p></div>
-</section><section id="searchView" class="hidden">
+</section>
+
+<section id="journalView" class="hidden"><div class="card journal-view-head"><div><h2>📖 My Journal</h2><p class="journal-view-sub">Your recovery story, one day at a time.</p></div><div class="journal-tools"><input class="journal-search" id="journalQuery" placeholder="🔎 Search your journal..." autocomplete="off"><button class="secondary journal-tool-btn" id="journalDateBtn" type="button" aria-label="Filter by date">📅</button><button class="secondary journal-tool-btn" id="journalClearBtn" type="button" aria-label="Clear filters">↻</button></div><div class="journal-date-wrap" id="journalDateWrap"><div class="row"><input type="date" id="journalDateFilter"><button class="secondary" id="journalDateToday" type="button">Today</button></div></div><div class="journal-filters" id="journalFilters"><button class="journal-filter active" data-journal-filter="all" type="button">All</button><button class="journal-filter" data-journal-filter="journal" type="button">Journal</button><button class="journal-filter" data-journal-filter="gratitude" type="button">Gratitude</button><button class="journal-filter" data-journal-filter="focus" type="button">Focus</button><button class="journal-filter" data-journal-filter="emotions" type="button">Emotions</button><button class="journal-filter" data-journal-filter="meetings" type="button">Meetings</button></div></div><button class="journal-story-btn" id="journalReadStoryBtn" type="button">📖 Read My Story</button><div id="journalList" class="journal-list"></div></section>
+
+<section id="goalsView" class="hidden">
+  <div class="card">
+    <div class="goals-head"><div><h2>🎯 My Goals</h2><p class="muted" style="margin-top:5px">Keep track of what you're working toward.</p></div><button class="primary" id="addGoalBtn" type="button">＋ Add Goal</button></div>
+    <div class="goals-tabs" id="goalTabs"><button class="goal-tab active" data-goal-tab="active" type="button">Active</button><button class="goal-tab" data-goal-tab="short" type="button">Short-Term</button><button class="goal-tab" data-goal-tab="long" type="button">Long-Term</button><button class="goal-tab" data-goal-tab="completed" type="button">Completed</button></div>
+  </div>
+  <div id="goalList" class="goal-list"></div>
+</section>
+
+<section id="calendarView" class="hidden"><div class="card"><div class="row between"><button class="secondary" id="prevMonth">‹</button><h2 id="monthLabel"></h2><button class="secondary" id="nextMonth">›</button></div><div class="calendar" id="calendar"></div></div></section>
+
+<section id="searchView" class="hidden">
 <div class="card">
   <h2>🔎 Search & Reports</h2>
   <label>Keyword</label>
@@ -346,24 +327,18 @@ section.hidden{display:none!important;visibility:hidden!important}
 </div>
 
 <div id="results"></div>
-</section></div></div><section id="journalView" class="hidden"><div class="card journal-view-head"><div><h2>📖 My Journal</h2><p class="journal-view-sub">Your recovery story, one day at a time.</p></div><div class="journal-tools"><input class="journal-search" id="journalQuery" placeholder="🔎 Search your journal..." autocomplete="off"><button class="secondary journal-tool-btn" id="journalDateBtn" type="button" aria-label="Filter by date">📅</button><button class="secondary journal-tool-btn" id="journalClearBtn" type="button" aria-label="Clear filters">↻</button></div><div class="journal-date-wrap" id="journalDateWrap"><div class="row"><input type="date" id="journalDateFilter"><button class="secondary" id="journalDateToday" type="button">Today</button></div></div><div class="journal-filters" id="journalFilters"><button class="journal-filter active" data-journal-filter="all" type="button">All</button><button class="journal-filter" data-journal-filter="journal" type="button">Journal</button><button class="journal-filter" data-journal-filter="gratitude" type="button">Gratitude</button><button class="journal-filter" data-journal-filter="focus" type="button">Focus</button><button class="journal-filter" data-journal-filter="emotions" type="button">Emotions</button><button class="journal-filter" data-journal-filter="meetings" type="button">Meetings</button></div></div><button class="journal-story-btn" id="journalReadStoryBtn" type="button">📖 Read My Story</button><div id="journalList" class="journal-list"></div></section>
-
-<section id="goalsView" class="hidden">
-  <div class="card">
-    <div class="goals-head"><div><h2>🎯 My Goals</h2><p class="muted" style="margin-top:5px">Keep track of what you're working toward.</p></div><button class="primary" id="addGoalBtn" type="button">＋ Add Goal</button></div>
-    <div class="goals-tabs" id="goalTabs"><button class="goal-tab active" data-goal-tab="active" type="button">Active</button><button class="goal-tab" data-goal-tab="short" type="button">Short-Term</button><button class="goal-tab" data-goal-tab="long" type="button">Long-Term</button><button class="goal-tab" data-goal-tab="completed" type="button">Completed</button></div>
-  </div>
-  <div id="goalList" class="goal-list"></div>
 </section>
-
-
-
-
 
 <!-- Print output lives outside the tab sections so it can be printed directly from any tab. -->
 <div id="printReportArea" class="print-only"></div>
 
-
+<section id="meetingsView" class="hidden">
+<div class="card"><div class="row between"><div><h2>🤝 Meetings</h2><p class="muted" style="margin-top:5px">Keep your meeting history organized and easy to review.</p></div><button class="primary" id="meetingsAddBtn">+ Add Meeting</button></div></div>
+<div class="card"><div class="row between"><h3 id="meetingsTodayHeading">Today’s Meetings</h3><button class="secondary" id="meetingsTodayBtn">Today</button></div><div id="meetingsTodayList" style="margin-top:10px"></div></div>
+<div class="card"><button id="recentMeetingsToggle" class="secondary" style="width:100%;text-align:left;display:flex;justify-content:space-between;align-items:center" data-open="false" aria-expanded="false"><span><strong>Recent Meetings</strong> <span class="setting-count" id="recentMeetingsCount">0</span></span><span id="recentMeetingsChevron">＋</span></button><div id="recentMeetingsPanel" class="hidden"><div class="muted" style="margin-top:10px">Newest first</div><div id="recentMeetingsList" style="margin-top:4px"></div></div></div>
+<div class="card quick-enter-card"><details><summary><strong>⚡ Quick Enter Meetings</strong> <span class="setting-count" id="meetingsQuickCount">0</span></summary><div class="quick-enter-body"><p class="muted" style="margin-top:5px">Saved meeting templates stay available when you add a meeting.</p><div id="meetingsQuickList" style="margin-top:10px"></div></div></details></div>
+<div class="card"><button class="secondary" style="width:100%" id="meetingsAttendanceBtn">Print meeting attendance sheet</button><p class="muted" style="margin-top:8px">Print meetings chronologically without notes. Chairperson initials can be included when enabled in Meeting Settings.</p></div>
+</section>
 
 <section id="settingsView" class="hidden">
 <div class="card about-card">
@@ -435,7 +410,7 @@ section.hidden{display:none!important;visibility:hidden!important}
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
 <ul><li><strong>Affirmations</strong> — three positive statements for today.</li><li><strong>Gratitude</strong> — three things you're grateful for.</li><li><strong>Today's Focus</strong> — one thing you want to practice, remember, or carry with you today.</li><li><strong>Living the Program</strong> — an optional daily reflection with an original prompt. Tap <strong>Another</strong> for a different reflection.</li><li><strong>Emotion Log</strong> — slow down and record what you're feeling, how intense it was, what happened, how you responded, and what you need now.</li><li><strong>Emotion Wheel</strong> — use the wheel when you know something is going on but need help finding the words. Start broad, choose a more specific feeling, or use the guided “I don't know what I'm feeling” path.</li><li><strong>Journal</strong> — write whatever you need to get out.</li><li><strong>Meetings</strong> — record meetings, topics, notes, time, and place. If enabled in Settings, you can collect drawn chairperson initials for attendance records.</li></ul>
-<h4>Journal View</h4><p>Open <strong>My Journal</strong> from the navigation menu to browse your recovery story chronologically. Use the navigation menu to reach My Goals and other Recovery Journal areas. Search your entries, filter by date or category, and tap any day to open the Journal Reader. In the reader, scroll through the complete day like a report, including full Emotion Log details, then swipe left or right to move between saved journal days without returning to Today. Journal View stays on this device with the rest of your local journal data.</p><h4>Navigation</h4><p>Use the fixed menu button to open navigation. Swipe left or right between Today, Calendar, Meetings, and Search. The Messages to Myself button stays available at the top of every main screen.</p><h4>My Goals</h4><p>Track short-term and long-term goals, optional milestones, status, target dates, and personal reflections. Goals are managed from the navigation sidebar and stay on this device.</p><h4>Messages to Myself</h4><p>Keep one or more personal letters for your future self. The letter icon at the top opens a clean, scrollable reading view. Create, edit, add, or delete messages from <strong>Settings → My Recovery</strong>. The optional Writing Guide offers ideas without turning the letter into a questionnaire.</p><h4>Your Recovery</h4><p>Your clean date powers your personal clean-time counter. You can change it from Settings.</p>
+<h4>Journal View</h4><p>Open the book icon at the top of the app to browse your recovery story chronologically. Use the navigation menu to reach My Goals and other Recovery Journal areas. Search your entries, filter by date or category, and tap any day to open the Journal Reader. In the reader, scroll through the complete day like a report, including full Emotion Log details, then swipe left or right to move between saved journal days without returning to Today. Journal View stays on this device with the rest of your local journal data.</p><h4>My Goals</h4><p>Track short-term and long-term goals, optional milestones, status, target dates, and personal reflections. Goals are managed from the navigation sidebar and stay on this device.</p><h4>Messages to Myself</h4><p>Keep one or more personal letters for your future self. The letter icon at the top opens a clean, scrollable reading view. Create, edit, add, or delete messages from <strong>Settings → My Recovery</strong>. The optional Writing Guide offers ideas without turning the letter into a questionnaire.</p><h4>Your Recovery</h4><p>Your clean date powers your personal clean-time counter. You can change it from Settings.</p>
 <h4>Your Recovery Community</h4><p>Add friends' clean dates and choose which milestones you want the app to recognize, from 30 days through yearly anniversaries.</p>
 <h4>Calendar & Search</h4><p>Look back through previous entries, meetings, emotions, and milestones, or search your journal when you want to find something specific.</p>
 <h4>Reports</h4><p>Create PDFs of individual days, date ranges, selected sections, or your complete journal in chronological order. Emotion Logs and meeting attendance records can be included.</p>
@@ -474,7 +449,7 @@ section.hidden{display:none!important;visibility:hidden!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41 Complete • Swipe Navigation + Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41 TEST FIX • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -587,7 +562,7 @@ section.hidden{display:none!important;visibility:hidden!important}
 <div class="row" style="margin-top:10px"><button class="primary" id="saveMeeting">Save meeting</button><button class="secondary" id="cancelMeeting">Cancel</button></div>
 </div></div></div>
 <div id="initialsModal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="initialsTitle"><div class="initials-sheet"><div class="row between"><div><h3 id="initialsTitle">✍️ Chairperson initials</h3><p class="muted" style="margin-top:5px">Have the meeting chairperson draw their initials below with a finger or stylus.</p></div><button class="secondary" id="closeInitials" type="button">✕</button></div><div class="initials-canvas-wrap"><canvas id="initialsCanvas" class="initials-canvas"></canvas></div><div class="initials-actions"><button class="secondary" id="clearInitials" type="button">Clear</button><button class="primary" id="saveInitials" type="button">Save initials</button></div><p class="muted" style="margin-top:8px">The saved drawing is kept with this meeting and can be included on the printed attendance sheet.</p></div></div>
-
+<nav class="nav"><button data-tab="today" class="active">Today</button><button data-tab="calendar">Calendar</button><button data-tab="meetings">Meetings</button><button data-tab="search">Search</button></nav>
 
 <script>
 function growTextArea(el){if(!el)return;el.style.height="auto";el.style.height=Math.max(el.scrollHeight,52)+"px";}
@@ -838,35 +813,9 @@ function openJournalReader(date,dates){journalReaderDates=Array.isArray(dates)&&
 function closeJournalReader(){$("journalReaderModal").classList.add("hidden");document.body.classList.remove("modal-open")}
 let journalReaderAnimating=false;function moveJournalReader(direction){const next=journalReaderIndex+direction;if(journalReaderAnimating||next<0||next>=journalReaderDates.length)return;const paper=$("journalReaderPaper");const page=$("journalReaderPage");journalReaderAnimating=true;const exitX=direction<0?-42:42;const enterX=-exitX;paper.style.transition="transform .28s cubic-bezier(.22,.75,.18,1)";paper.style.transform=`translate3d(${exitX}px,0,0)`;setTimeout(()=>{paper.style.transition="none";paper.style.transform=`translate3d(${enterX}px,0,0)`;journalReaderIndex=next;renderJournalReader();page.scrollTo({top:0,behavior:"auto"});void paper.offsetWidth;requestAnimationFrame(()=>{paper.style.transition="transform .28s cubic-bezier(.22,.75,.18,1)";paper.style.transform="translate3d(0,0,0)"});setTimeout(()=>{paper.style.transition="";paper.style.transform="translate3d(0,0,0)";journalReaderAnimating=false},300)},280)}
 
-const V41_TABS=["today","calendar","meetings","search"];
-let v41PrimaryTab="today";
-function show(tab){
-  const primary=V41_TABS.includes(tab);
-  const allViews=["journal","settings","goals"];
-  V41_TABS.forEach(x=>$(x+"View").classList.toggle("hidden",!primary));
-  allViews.forEach(x=>{const el=$(x+"View");if(el)el.classList.toggle("hidden",x!==tab)});
-  const track=$("v41PageTrack");
-  const viewport=$("v41SwipeViewport");
-  if(track&&viewport){
-    if(primary){viewport.classList.remove("v41-dedicated-hidden");track.style.transform=`translate3d(-${V41_TABS.indexOf(tab)*25}%,0,0)`;v41PrimaryTab=tab}
-    else viewport.classList.add("v41-dedicated-hidden");
-  }
-  const titles={today:"Today",journal:"My Journal",calendar:"Calendar",meetings:"Meetings",search:"Search",settings:"Settings",goals:"My Goals"};
-  $("title").textContent=titles[tab]||"Today";
-  if(tab==="search"){$("from").value=iso(selected);$("to").value=iso(selected)}
-  if(tab==="calendar")renderCalendar();
-  if(tab==="meetings")renderMeetingsTab();
-  if(tab==="journal")renderJournalView();
-  if(tab==="goals")renderGoals();
-  if(tab==="settings"){
-    $("userName").value=db.name||"";$("cleanDate").value=db.cleanDate;renderMessageList();renderTemplates();renderFriends();renderCustomEmotions();
-    $("friendRemindersEnabled").checked=db.friendRemindersEnabled;
-    document.querySelectorAll(".milestoneToggle").forEach(x=>x.checked=!!db.milestones[x.value]);
-    applyMeetingSettings();applyTheme()
-  }
-}
+function show(tab){["today","journal","calendar","meetings","search","settings","goals"].forEach(x=>$(x+"View").classList.toggle("hidden",x!==tab));if(tab==="search"){$("from").value=iso(selected);$("to").value=iso(selected)}const titles={today:"Today",journal:"My Journal",calendar:"Calendar",meetings:"Meetings",search:"Search",settings:"Settings",goals:"My Goals"};$("title").textContent=titles[tab]||"Today";document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));if(tab==="calendar")renderCalendar();if(tab==="meetings")renderMeetingsTab();if(tab==="journal")renderJournalView();if(tab==="goals")renderGoals();if(tab==="settings"){$("userName").value=db.name||"";$('cleanDate').value=db.cleanDate;renderMessageList();renderTemplates();renderFriends();renderCustomEmotions();$("friendRemindersEnabled").checked=db.friendRemindersEnabled;document.querySelectorAll(".milestoneToggle").forEach(x=>x.checked=!!db.milestones[x.value]);applyMeetingSettings();applyTheme()}}
 function renderTemplates(){const count=$("templateCount");updateQuickEnterCount();if(count)count.textContent=db.templates.length;$("templates").innerHTML=db.templates.length?db.templates.map((x,i)=>`<div class="meeting template-row"><div><strong>${esc(x.name)}</strong><div class="muted">${esc(x.place)} • ${esc(x.time)}</div></div><button class="secondary" data-template-edit="${i}">Edit</button><button class="danger" data-template-del="${i}">Delete</button></div>`).join(""):"<p class='muted'>No Quick Enter meetings saved yet.</p>";document.querySelectorAll("[data-template-edit]").forEach(b=>b.onclick=()=>openTemplateEditor(Number(b.dataset.templateEdit)));document.querySelectorAll("[data-template-del]").forEach(b=>b.onclick=()=>{const i=Number(b.dataset.templateDel);if(confirm("Delete this Quick Enter meeting?")){db.templates.splice(i,1);persist();renderTemplates();renderMeetingsTab()}})}
-$("recentMeetingsToggle").onclick=()=>{const p=$("recentMeetingsPanel"),open=p.classList.toggle("hidden")===false;$("recentMeetingsToggle").dataset.open=open?"true":"false";$("recentMeetingsToggle").setAttribute("aria-expanded",open?"true":"false");$("recentMeetingsChevron").textContent=open?"−":"＋"};
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{if(confirmLeaveDay())show(b.dataset.tab)});$("recentMeetingsToggle").onclick=()=>{const p=$("recentMeetingsPanel"),open=p.classList.toggle("hidden")===false;$("recentMeetingsToggle").dataset.open=open?"true":"false";$("recentMeetingsToggle").setAttribute("aria-expanded",open?"true":"false");$("recentMeetingsChevron").textContent=open?"−":"＋"};
 $("meetingsAddBtn").onclick=()=>{show("today");openMeetingForm()};$("meetingsTodayBtn").onclick=()=>{selected=new Date();selected.setHours(12,0,0,0);loadDay();show("meetings")};$("meetingsAttendanceBtn").onclick=openAttendanceModal;
 $("journalViewBtn").onclick=()=>{if(confirmLeaveDay()){show("journal");window.scrollTo({top:0,behavior:"smooth"})}};
 $("journalQuery").oninput=()=>renderJournalView();
@@ -880,26 +829,11 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
-const menuBtn=$("menuBtn"),sidebarClose=$("sidebarClose"),sidebarOverlay=$("sidebarOverlay"),messagesBtn=$("messagesBtn");
-if(menuBtn)menuBtn.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();openSidebar()});
-if(sidebarClose)sidebarClose.addEventListener("click",e=>{e.preventDefault();closeSidebar()});
-if(sidebarOverlay)sidebarOverlay.addEventListener("click",closeSidebar);
-const v41SwipeViewport=$("v41SwipeViewport");
-let v41TouchX=0,v41TouchY=0,v41TouchActive=false;
-if(v41SwipeViewport){
-  v41SwipeViewport.addEventListener("touchstart",e=>{const t=e.touches[0];v41TouchX=t.clientX;v41TouchY=t.clientY;v41TouchActive=true},{passive:true});
-  v41SwipeViewport.addEventListener("touchend",e=>{
-    if(!v41TouchActive)return;v41TouchActive=false;
-    const t=e.changedTouches[0],dx=t.clientX-v41TouchX,dy=t.clientY-v41TouchY;
-    if(Math.abs(dx)<65||Math.abs(dx)<=Math.abs(dy)*1.25)return;
-    const i=V41_TABS.indexOf(v41PrimaryTab),next=i+(dx<0?1:-1);
-    if(next>=0&&next<V41_TABS.length&&confirmLeaveDay())show(V41_TABS[next]);
-  },{passive:true});
-}if($("sidebarMessagesBtn"))$("sidebarMessagesBtn").onclick=()=>{closeSidebar();openMessages()};$("sidebarEmotionBtn").onclick=()=>{closeSidebar();if(confirmLeaveDay()){show("today");setTimeout(()=>{$("emotionLogDetails")?.setAttribute("open","");$("emotionLogDetails")?.scrollIntoView({behavior:"smooth",block:"center"})},60)}};document.querySelectorAll("[data-side-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.sideTab;closeSidebar();if(confirmLeaveDay())show(tab)});document.querySelectorAll("[data-goal-tab]").forEach(b=>b.onclick=()=>{goalTab=b.dataset.goalTab;renderGoals()});$("addGoalBtn").onclick=()=>openGoalEditor();$("goalModalClose").onclick=closeGoalEditor;$("goalCancelBtn").onclick=closeGoalEditor;$("goalSaveBtn").onclick=saveGoal;$("goalDetailClose").onclick=closeGoalDetail;$("journalReaderMessagesBtn").onclick=openMessages;if(messagesBtn)messagesBtn.onclick=openMessages;$("messageIntroClose").onclick=closeMessageIntro;$("messageIntroNotNow").onclick=closeMessageIntro;$("messageIntroWrite").onclick=()=>{closeMessageIntro();openMessageEditor()};$("messageReadClose").onclick=closeMessageReader;$("messageReadDone").onclick=closeMessageReader;$("messageReadList").onclick=showMessageList;$("messagePrev").onclick=()=>{currentMessageIndex=(currentMessageIndex-1+db.messages.length)%db.messages.length;renderMessageReader()};$("messageNext").onclick=()=>{currentMessageIndex=(currentMessageIndex+1)%db.messages.length;renderMessageReader()};$("messageEditorClose").onclick=closeMessageEditor;$("messageEditorCancel").onclick=closeMessageEditor;$("messageEditorSave").onclick=saveMessage;$("addMessageBtn").onclick=()=>openMessageEditor();$("addFriend").onclick=saveFriend;$("cancelFriendEdit").onclick=cancelFriendEdit;$("friendRemindersEnabled").onchange=saveMilestoneSettings;document.querySelectorAll(".milestoneToggle").forEach(x=>x.onchange=saveMilestoneSettings);
+$("menuBtn").onclick=openSidebar;$("sidebarClose").onclick=closeSidebar;$("sidebarOverlay").onclick=closeSidebar;$("sidebarMessagesBtn").onclick=()=>{closeSidebar();openMessages()};$("sidebarEmotionBtn").onclick=()=>{closeSidebar();if(confirmLeaveDay()){show("today");setTimeout(()=>{$("emotionLogDetails")?.setAttribute("open","");$("emotionLogDetails")?.scrollIntoView({behavior:"smooth",block:"center"})},60)}};document.querySelectorAll("[data-side-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.sideTab;closeSidebar();if(confirmLeaveDay())show(tab)});document.querySelectorAll("[data-goal-tab]").forEach(b=>b.onclick=()=>{goalTab=b.dataset.goalTab;renderGoals()});$("addGoalBtn").onclick=()=>openGoalEditor();$("goalModalClose").onclick=closeGoalEditor;$("goalCancelBtn").onclick=closeGoalEditor;$("goalSaveBtn").onclick=saveGoal;$("goalDetailClose").onclick=closeGoalDetail;$("journalReaderMessagesBtn").onclick=openMessages;$("messagesBtn").onclick=openMessages;$("messageIntroClose").onclick=closeMessageIntro;$("messageIntroNotNow").onclick=closeMessageIntro;$("messageIntroWrite").onclick=()=>{closeMessageIntro();openMessageEditor()};$("messageReadClose").onclick=closeMessageReader;$("messageReadDone").onclick=closeMessageReader;$("messageReadList").onclick=showMessageList;$("messagePrev").onclick=()=>{currentMessageIndex=(currentMessageIndex-1+db.messages.length)%db.messages.length;renderMessageReader()};$("messageNext").onclick=()=>{currentMessageIndex=(currentMessageIndex+1)%db.messages.length;renderMessageReader()};$("messageEditorClose").onclick=closeMessageEditor;$("messageEditorCancel").onclick=closeMessageEditor;$("messageEditorSave").onclick=saveMessage;$("addMessageBtn").onclick=()=>openMessageEditor();$("addFriend").onclick=saveFriend;$("cancelFriendEdit").onclick=cancelFriendEdit;$("friendRemindersEnabled").onchange=saveMilestoneSettings;document.querySelectorAll(".milestoneToggle").forEach(x=>x.onchange=saveMilestoneSettings);
 $("printAllReports").onclick=printAllReports;$("printMeetingAttendance").onclick=openAttendanceModal;$('chairInitialsPrompt').onchange=saveMeetingSettings;$('includeInitialsOnAttendance').onchange=saveMeetingSettings;$('rememberNewMeetings').onchange=saveMeetingSettings;
 $("attendanceModalClose").onclick=closeAttendanceModal;$("attendanceCancel").onclick=closeAttendanceModal;document.querySelectorAll('input[name="attendanceMode"]').forEach(x=>x.onchange=updateAttendanceOptions);document.querySelectorAll('input[name="attendanceCountOption"]').forEach(x=>x.onchange=()=>{$("attendanceCount").value=x.value;updateAttendanceOptions()});$("attendanceFrom").onchange=updateAttendanceOptions;$("attendanceTo").onchange=updateAttendanceOptions;$("attendancePrintBtn").onclick=printSelectedMeetingAttendance;$("exportBackup").onclick=exportBackup;
 $("importBackup").onclick=()=>$("backupFile").click();
-$("backupFile").onchange=e=>{importBackupFile(e.target.files[0]);e.target.value=""};$("todayBtn").onclick=()=>{if(!confirmLeaveDay())return;selected=new Date();selected.setHours(12,0,0,0);loadDay()};$("prevDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()-1);loadDay()};$("nextDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()+1);loadDay()};$("saveDay").onclick=saveDay;$("rerollReflection").onclick=()=>{rerollReflection();markDayDirty()};$("addMeeting").onclick=openMeetingForm;$("meetingTemplate").onchange=fillTemplate;$("closeMeetingModal").onclick=closeMeetingForm;$("saveMeeting").onclick=saveMeeting;$("cancelMeeting").onclick=closeMeetingForm;$("prevMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()-1);renderCalendar()};$("nextMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()+1);renderCalendar()};$("runSearch").onclick=runSearch;$("printReport").onclick=printReport;$("setWholeDay").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=true);$("clearFields").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=false);const settingsBtn=$("settingsBtn");if(settingsBtn)settingsBtn.onclick=()=>{if(confirmLeaveDay())show("settings")};$("saveRecoverySettings").onclick=saveRecoverySettings;document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.onchange=()=>setAppearance(x.value));$("darkModeToggle").onchange=()=>setAppearance($("darkModeToggle").checked?"dark":"serene");$("addTemplateBtn").onclick=()=>openTemplateEditor();$("templateModalClose").onclick=closeTemplateEditor;$("templateCancel").onclick=closeTemplateEditor;$("templateSave").onclick=saveTemplate;$("addEmotion").onclick=()=>openEmotionModal();$("emotionModalClose").onclick=closeEmotionModal;$("emotionCancel").onclick=closeEmotionModal;$("emotionSave").onclick=saveEmotion;$("emotionType").onchange=updateEmotionForm;$("emotionWheelOpen").onclick=openEmotionWheel;$("emotionWheelClose").onclick=closeEmotionWheel;$("emotionWheelModal").onclick=e=>{if(e.target===$("emotionWheelModal"))closeEmotionWheel()};$("emotionIntensity").oninput=()=>$("emotionIntensityValue").textContent=Number($("emotionIntensity").value).toFixed(1);$("addCustomEmotion").onclick=()=>{const n=$("customEmotionName").value.trim();if(!n){alert("Enter an emotion name.");return}if(DEFAULT_EMOTIONS.includes(n)){alert("That emotion is already in the list.");return}if(!db.emotionTypes.includes(n))db.emotionTypes.push(n);populateEmotionTypes();$("emotionType").value=n;$("customEmotionWrap").classList.add("hidden");updateEmotionForm();persist();renderCustomEmotions()};$("viewEmotionLogs").onclick=()=>{if(!confirmLeaveDay())return;$("q").value="";show("search");$("from").value="";$("to").value="";runSearch()};/* v38.1 touch lock removed: Emotion Log is natively scrollable in v39.2. */
+$("backupFile").onchange=e=>{importBackupFile(e.target.files[0]);e.target.value=""};$("todayBtn").onclick=()=>{if(!confirmLeaveDay())return;selected=new Date();selected.setHours(12,0,0,0);loadDay()};$("prevDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()-1);loadDay()};$("nextDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()+1);loadDay()};$("saveDay").onclick=saveDay;$("rerollReflection").onclick=()=>{rerollReflection();markDayDirty()};$("addMeeting").onclick=openMeetingForm;$("meetingTemplate").onchange=fillTemplate;$("closeMeetingModal").onclick=closeMeetingForm;$("saveMeeting").onclick=saveMeeting;$("cancelMeeting").onclick=closeMeetingForm;$("prevMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()-1);renderCalendar()};$("nextMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()+1);renderCalendar()};$("runSearch").onclick=runSearch;$("printReport").onclick=printReport;$("setWholeDay").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=true);$("clearFields").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=false);$("settingsBtn").onclick=()=>{if(confirmLeaveDay())show("settings")};$("saveRecoverySettings").onclick=saveRecoverySettings;document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.onchange=()=>setAppearance(x.value));$("darkModeToggle").onchange=()=>setAppearance($("darkModeToggle").checked?"dark":"serene");$("addTemplateBtn").onclick=()=>openTemplateEditor();$("templateModalClose").onclick=closeTemplateEditor;$("templateCancel").onclick=closeTemplateEditor;$("templateSave").onclick=saveTemplate;$("addEmotion").onclick=()=>openEmotionModal();$("emotionModalClose").onclick=closeEmotionModal;$("emotionCancel").onclick=closeEmotionModal;$("emotionSave").onclick=saveEmotion;$("emotionType").onchange=updateEmotionForm;$("emotionWheelOpen").onclick=openEmotionWheel;$("emotionWheelClose").onclick=closeEmotionWheel;$("emotionWheelModal").onclick=e=>{if(e.target===$("emotionWheelModal"))closeEmotionWheel()};$("emotionIntensity").oninput=()=>$("emotionIntensityValue").textContent=Number($("emotionIntensity").value).toFixed(1);$("addCustomEmotion").onclick=()=>{const n=$("customEmotionName").value.trim();if(!n){alert("Enter an emotion name.");return}if(DEFAULT_EMOTIONS.includes(n)){alert("That emotion is already in the list.");return}if(!db.emotionTypes.includes(n))db.emotionTypes.push(n);populateEmotionTypes();$("emotionType").value=n;$("customEmotionWrap").classList.add("hidden");updateEmotionForm();persist();renderCustomEmotions()};$("viewEmotionLogs").onclick=()=>{if(!confirmLeaveDay())return;$("q").value="";show("search");$("from").value="";$("to").value="";runSearch()};/* v38.1 touch lock removed: Emotion Log is natively scrollable in v39.2. */
 
 let currentGoalEditId=null,currentGoalDetailId=null,goalTab="active";
 function goalId(){return "goal-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8)}
@@ -975,5 +909,85 @@ function updateQuickEnterCount(){const el=$("meetingsQuickCount");if(el)el.textC
 
 document.querySelectorAll("#a1,#a2,#a3,#g1,#g2,#g3,#focus,#journal,#reflectionResponse").forEach(el=>el.addEventListener("input",markDayDirty));loadDay();initGrowingFields();applyTheme();cleanCounter();renderEmotionToday();renderMessageList();renderGoals();setInterval(cleanCounter,60000);
 if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
+
+/* ===== v41.1 navigation repair ===== */
+(function(){
+  const primary=['today','calendar','meetings','search'];
+  let activePrimary='today';
+  let touchX=0,touchY=0,touchStarted=false;
+  const $v=id=>document.getElementById(id);
+  const safeConfirm=()=>{ try{return typeof confirmLeaveDay==='function'?confirmLeaveDay():true}catch(e){return true} };
+  function updateHeader(tab){
+    const titles={today:'Today',calendar:'Calendar',meetings:'Meetings',search:'Search',journal:'My Journal',goals:'My Goals',settings:'Settings'};
+    const t=$v('title'); if(t)t.textContent=titles[tab]||'Today';
+  }
+  function repairShow(tab,opts={}){
+    if(!opts.skipConfirm && tab!==activePrimary && !safeConfirm()) return;
+    const all=['today','journal','calendar','meetings','search','settings','goals'];
+    all.forEach(x=>{const el=$v(x+'View'); if(el)el.classList.toggle('hidden',x!==tab)});
+    activePrimary=primary.includes(tab)?tab:activePrimary;
+    updateHeader(tab);
+    if(tab==='calendar'&&typeof renderCalendar==='function')renderCalendar();
+    if(tab==='meetings'&&typeof renderMeetingsTab==='function')renderMeetingsTab();
+    if(tab==='journal'&&typeof renderJournalView==='function')renderJournalView();
+    if(tab==='goals'&&typeof renderGoals==='function')renderGoals();
+    if(tab==='settings'){
+      try{$v('userName').value=db.name||'';$v('cleanDate').value=db.cleanDate||'';renderMessageList();renderTemplates();renderFriends();renderCustomEmotions();$v('friendRemindersEnabled').checked=!!db.friendRemindersEnabled;document.querySelectorAll('.milestoneToggle').forEach(x=>x.checked=!!db.milestones[x.value]);applyMeetingSettings();applyTheme()}catch(e){}
+    }
+    window.scrollTo({top:0,behavior:'auto'});
+    const vp=$v('v41PrimaryViewport');
+    if(vp){vp.classList.remove('v41-slide-left','v41-slide-right');void vp.offsetWidth;if(opts.direction)vp.classList.add(opts.direction==='left'?'v41-slide-left':'v41-slide-right');}
+    closeSidebar();
+  }
+  window.show=repairShow;
+
+  // Build a real primary swipe viewport around the four main screens.
+  const today=$v('todayView'),cal=$v('calendarView'),meet=$v('meetingsView'),search=$v('searchView');
+  if(today&&cal&&meet&&search&&!$v('v41PrimaryViewport')){
+    const vp=document.createElement('div');vp.id='v41PrimaryViewport';vp.className='v41-primary-viewport';
+    const track=document.createElement('div');track.className='v41-primary-track';
+    const parent=today.parentNode;
+    parent.insertBefore(vp,today);
+    [today,cal,meet,search].forEach(el=>track.appendChild(el));
+    vp.appendChild(track);
+  }
+
+  // Fixed top bar: menu on left, title centered, Messages to Myself on far right.
+  const header=document.querySelector('header');
+  if(header){
+    const brand=header.querySelector('.journal-header-brand');
+    const journalBtn=$v('journalViewBtn');
+    const settingsBtn=$v('settingsBtn');
+    if(journalBtn)journalBtn.style.display='none';
+    if(settingsBtn)settingsBtn.style.display='none';
+    header.classList.add('v41-fixed-header');
+  }
+  document.querySelectorAll('.nav').forEach(n=>n.style.display='none');
+
+  // Event delegation makes sidebar controls reliable even if earlier handlers fail.
+  document.addEventListener('click',function(e){
+    const menu=e.target.closest('#menuBtn');
+    if(menu){e.preventDefault();e.stopPropagation();openSidebar();return;}
+    const close=e.target.closest('#sidebarClose,#sidebarOverlay');
+    if(close){e.preventDefault();e.stopPropagation();closeSidebar();return;}
+    const item=e.target.closest('#sidebar [data-side-tab]');
+    if(item){e.preventDefault();e.stopPropagation();const tab=item.dataset.sideTab;closeSidebar();repairShow(tab);return;}
+    const msg=e.target.closest('#sidebarMessagesBtn,#messagesBtn');
+    if(msg){e.preventDefault();e.stopPropagation();closeSidebar();openMessages();return;}
+    const emotion=e.target.closest('#sidebarEmotionBtn');
+    if(emotion){e.preventDefault();e.stopPropagation();closeSidebar();repairShow('today',{skipConfirm:true});setTimeout(()=>{$v('emotionLogDetails')?.setAttribute('open','');$v('emotionLogDetails')?.scrollIntoView({behavior:'smooth',block:'center'});},50);return;}
+  },true);
+
+  // Make the primary swipe area actually respond on iPhone.
+  const vp=$v('v41PrimaryViewport');
+  if(vp){
+    vp.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;touchStarted=true;touchX=e.touches[0].clientX;touchY=e.touches[0].clientY;},{passive:true});
+    vp.addEventListener('touchend',e=>{if(!touchStarted)return;touchStarted=false;const t=e.changedTouches[0];const dx=t.clientX-touchX,dy=t.clientY-touchY;if(Math.abs(dx)<65||Math.abs(dx)<Math.abs(dy)*1.25)return;const i=primary.indexOf(activePrimary);const ni=dx<0?Math.min(primary.length-1,i+1):Math.max(0,i-1);if(ni===i)return;repairShow(primary[ni],{direction:dx<0?'left':'right'});},{passive:true});
+  }
+
+  // Ensure Today's date and controls are populated after the repair layer is installed.
+  try{if(typeof loadDay==='function')loadDay();}catch(e){console.error('Recovery Journal loadDay repair',e)}
+  repairShow('today',{skipConfirm:true});
+})();
 </script>
 </body></html>
