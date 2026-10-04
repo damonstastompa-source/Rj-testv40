@@ -529,7 +529,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.5 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.6 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -909,7 +909,23 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
-// v41.5: swipe right from Today to My Journal. Keep Journal Reader day-swipe independent.
+// v41.6: swipe right from My Journal back to Today.
+let journalViewSwipeStartX=0,journalViewSwipeStartY=0,journalViewSwipeTracking=false;
+$("journalView").addEventListener("touchstart",e=>{
+  const t=e.changedTouches[0],el=e.target;
+  if(el && el.closest && el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]")){journalViewSwipeTracking=false;return;}
+  journalViewSwipeTracking=true;journalViewSwipeStartX=t.clientX;journalViewSwipeStartY=t.clientY;
+},{passive:true});
+$("journalView").addEventListener("touchend",e=>{
+  if(!journalViewSwipeTracking)return;
+  journalViewSwipeTracking=false;
+  const t=e.changedTouches[0],dx=t.clientX-journalViewSwipeStartX,dy=t.clientY-journalViewSwipeStartY;
+  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.25 && dx>0){
+    repairShow('today',{skipConfirm:true,direction:'right'});
+  }
+},{passive:true});
+
+// v41.6: swipe right from Today to My Journal. Keep Journal Reader day-swipe independent.
 let todaySwipeStartX=0,todaySwipeStartY=0,todaySwipeTracking=false;
 $("todayView").addEventListener("touchstart",e=>{
   const t=e.changedTouches[0];
