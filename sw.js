@@ -1,4 +1,4 @@
-const CACHE = "recovery-journal-v41-complete";
+const CACHE = "recovery-journal-v41-complete-swipe-2";
 self.addEventListener("install", event => { self.skipWaiting(); });
 self.addEventListener("activate", event => {
   event.waitUntil(
