@@ -1,4 +1,4 @@
-const CACHE = "recovery-journal-v41.1-navigation-repair";
+const CACHE = "recovery-journal-v41-2-goals-fix";
 self.addEventListener("install", event => { self.skipWaiting(); });
 self.addEventListener("activate", event => {
   event.waitUntil(
