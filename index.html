@@ -529,7 +529,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.4 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.5 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -909,6 +909,24 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
+// v41.5: swipe right from Today to My Journal. Keep Journal Reader day-swipe independent.
+let todaySwipeStartX=0,todaySwipeStartY=0,todaySwipeTracking=false;
+$("todayView").addEventListener("touchstart",e=>{
+  const t=e.changedTouches[0];
+  const el=e.target;
+  if(el && el.closest && el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]")){todaySwipeTracking=false;return;}
+  todaySwipeTracking=true; todaySwipeStartX=t.clientX; todaySwipeStartY=t.clientY;
+},{passive:true});
+$("todayView").addEventListener("touchend",e=>{
+  if(!todaySwipeTracking)return;
+  todaySwipeTracking=false;
+  const t=e.changedTouches[0],dx=t.clientX-todaySwipeStartX,dy=t.clientY-todaySwipeStartY;
+  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.25 && dx>0){
+    if(typeof confirmLeaveDay==='function' && !confirmLeaveDay()) return;
+    show("journal");
+  }
+},{passive:true});
+
 $("menuBtn").onclick=openSidebar;$("sidebarClose").onclick=closeSidebar;$("sidebarOverlay").onclick=closeSidebar;$("sidebarMessagesBtn").onclick=()=>{closeSidebar();openMessages()};$("sidebarEmotionBtn").onclick=()=>{closeSidebar();if(confirmLeaveDay()){show("today");setTimeout(()=>{$("emotionLogDetails")?.setAttribute("open","");$("emotionLogDetails")?.scrollIntoView({behavior:"smooth",block:"center"})},60)}};document.querySelectorAll("[data-side-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.sideTab;closeSidebar();if(confirmLeaveDay())show(tab)});document.querySelectorAll("[data-goal-tab]").forEach(b=>b.onclick=()=>{goalTab=b.dataset.goalTab;renderGoals()});$("addGoalBtn").onclick=()=>openGoalEditor();$("goalModalClose").onclick=closeGoalEditor;$("goalCancelBtn").onclick=closeGoalEditor;$("goalSaveBtn").onclick=saveGoal;$("goalDetailClose").onclick=closeGoalDetail;$("journalReaderMessagesBtn").onclick=openMessages;$("messagesBtn").onclick=openMessages;$("messageIntroClose").onclick=closeMessageIntro;$("messageIntroNotNow").onclick=closeMessageIntro;$("messageIntroWrite").onclick=()=>{closeMessageIntro();openMessageEditor()};$("messageReadClose").onclick=closeMessageReader;$("messageReadDone").onclick=closeMessageReader;$("messageReadList").onclick=showMessageList;$("messagePrev").onclick=()=>{currentMessageIndex=(currentMessageIndex-1+db.messages.length)%db.messages.length;renderMessageReader()};$("messageNext").onclick=()=>{currentMessageIndex=(currentMessageIndex+1)%db.messages.length;renderMessageReader()};$("messageEditorClose").onclick=closeMessageEditor;$("messageEditorCancel").onclick=closeMessageEditor;$("messageEditorSave").onclick=saveMessage;$("addMessageBtn").onclick=()=>openMessageEditor();$("addFriend").onclick=saveFriend;$("cancelFriendEdit").onclick=cancelFriendEdit;$("friendRemindersEnabled").onchange=saveMilestoneSettings;document.querySelectorAll(".milestoneToggle").forEach(x=>x.onchange=saveMilestoneSettings);
 $("printAllReports").onclick=printAllReports;$("printMeetingAttendance").onclick=openAttendanceModal;$('chairInitialsPrompt').onchange=saveMeetingSettings;$('includeInitialsOnAttendance').onchange=saveMeetingSettings;$('rememberNewMeetings').onchange=saveMeetingSettings;
 $("attendanceModalClose").onclick=closeAttendanceModal;$("attendanceCancel").onclick=closeAttendanceModal;document.querySelectorAll('input[name="attendanceMode"]').forEach(x=>x.onchange=updateAttendanceOptions);document.querySelectorAll('input[name="attendanceCountOption"]').forEach(x=>x.onchange=()=>{$("attendanceCount").value=x.value;updateAttendanceOptions()});$("attendanceFrom").onchange=updateAttendanceOptions;$("attendanceTo").onchange=updateAttendanceOptions;$("attendancePrintBtn").onclick=printSelectedMeetingAttendance;$("exportBackup").onclick=exportBackup;
