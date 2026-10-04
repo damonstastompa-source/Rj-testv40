@@ -218,6 +218,7 @@ section.hidden{display:none!important;visibility:hidden!important}
 [data-theme="contrast"] .emotion-wheel-title,[data-theme="contrast"] .emotion-wheel-sub{color:#FFF}
 
 /* v41.1 repair styles */
+#journalView,#todayView{touch-action:pan-y;}
 header.v41-fixed-header{position:fixed;top:0;left:0;right:0;z-index:24000;max-width:720px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 12px) max(16px,env(safe-area-inset-left)) 12px max(16px,env(safe-area-inset-right));background:rgba(250,248,241,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
 :root[data-theme="dark"] header.v41-fixed-header{background:rgba(21,27,25,.96)}
 body{padding-top:88px!important}.app{padding-top:16px!important}.v41-primary-viewport{width:100%;overflow:hidden;touch-action:pan-y;position:relative}.v41-primary-track{width:100%}.v41-primary-viewport> .hidden{display:none!important}.v41-slide-left{animation:v41SlideLeft .18s ease-out}.v41-slide-right{animation:v41SlideRight .18s ease-out}@keyframes v41SlideLeft{from{transform:translateX(28px);opacity:.85}to{transform:translateX(0);opacity:1}}@keyframes v41SlideRight{from{transform:translateX(-28px);opacity:.85}to{transform:translateX(0);opacity:1}}
@@ -909,39 +910,35 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
-// v41.6: swipe right from My Journal back to Today.
-let journalViewSwipeStartX=0,journalViewSwipeStartY=0,journalViewSwipeTracking=false;
-$("journalView").addEventListener("touchstart",e=>{
-  const t=e.changedTouches[0],el=e.target;
-  if(el && el.closest && el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]")){journalViewSwipeTracking=false;return;}
-  journalViewSwipeTracking=true;journalViewSwipeStartX=t.clientX;journalViewSwipeStartY=t.clientY;
-},{passive:true});
-$("journalView").addEventListener("touchend",e=>{
-  if(!journalViewSwipeTracking)return;
-  journalViewSwipeTracking=false;
-  const t=e.changedTouches[0],dx=t.clientX-journalViewSwipeStartX,dy=t.clientY-journalViewSwipeStartY;
-  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.25 && dx>0){
-    repairShow('today',{skipConfirm:true,direction:'right'});
-  }
-},{passive:true});
-
-// v41.6: swipe right from Today to My Journal. Keep Journal Reader day-swipe independent.
-let todaySwipeStartX=0,todaySwipeStartY=0,todaySwipeTracking=false;
-$("todayView").addEventListener("touchstart",e=>{
-  const t=e.changedTouches[0];
-  const el=e.target;
-  if(el && el.closest && el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]")){todaySwipeTracking=false;return;}
-  todaySwipeTracking=true; todaySwipeStartX=t.clientX; todaySwipeStartY=t.clientY;
-},{passive:true});
-$("todayView").addEventListener("touchend",e=>{
-  if(!todaySwipeTracking)return;
-  todaySwipeTracking=false;
-  const t=e.changedTouches[0],dx=t.clientX-todaySwipeStartX,dy=t.clientY-todaySwipeStartY;
-  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.25 && dx>0){
-    if(typeof confirmLeaveDay==='function' && !confirmLeaveDay()) return;
-    show("journal");
-  }
-},{passive:true});
+// v41.7: robust iPhone swipe navigation between Today and My Journal.
+// Uses capture-phase touch events so nested cards/buttons and Safari scrolling do not swallow the gesture.
+(function(){
+  const journal=$("journalView"), today=$("todayView");
+  if(!journal||!today)return;
+  let sx=0,sy=0,tracking=false,origin="";
+  const blocked=el=>!!(el&&el.closest&&el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]"));
+  document.addEventListener("touchstart",e=>{
+    if(e.touches.length!==1)return;
+    const t=e.touches[0],target=e.target;
+    if(journal.contains(target)){origin="journal";}
+    else if(today.contains(target)){origin="today";}
+    else {origin="";tracking=false;return;}
+    if(blocked(target)){tracking=false;return;}
+    sx=t.clientX;sy=t.clientY;tracking=true;
+  },{passive:true,capture:true});
+  document.addEventListener("touchend",e=>{
+    if(!tracking||!origin)return;
+    tracking=false;
+    const t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+    if(Math.abs(dx)<55 || Math.abs(dx)<Math.abs(dy)*1.15)return;
+    if(origin==="journal" && dx>0){
+      repairShow("today",{skipConfirm:true,direction:"right"});
+    }else if(origin==="today" && dx>0){
+      if(typeof confirmLeaveDay==='function'&&!confirmLeaveDay())return;
+      repairShow("journal",{skipConfirm:true,direction:"right"});
+    }
+  },{passive:true,capture:true});
+})();
 
 $("menuBtn").onclick=openSidebar;$("sidebarClose").onclick=closeSidebar;$("sidebarOverlay").onclick=closeSidebar;$("sidebarMessagesBtn").onclick=()=>{closeSidebar();openMessages()};$("sidebarEmotionBtn").onclick=()=>{closeSidebar();if(confirmLeaveDay()){show("today");setTimeout(()=>{$("emotionLogDetails")?.setAttribute("open","");$("emotionLogDetails")?.scrollIntoView({behavior:"smooth",block:"center"})},60)}};document.querySelectorAll("[data-side-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.sideTab;closeSidebar();if(confirmLeaveDay())show(tab)});document.querySelectorAll("[data-goal-tab]").forEach(b=>b.onclick=()=>{goalTab=b.dataset.goalTab;renderGoals()});$("addGoalBtn").onclick=()=>openGoalEditor();$("goalModalClose").onclick=closeGoalEditor;$("goalCancelBtn").onclick=closeGoalEditor;$("goalSaveBtn").onclick=saveGoal;$("goalDetailClose").onclick=closeGoalDetail;$("journalReaderMessagesBtn").onclick=openMessages;$("messagesBtn").onclick=openMessages;$("messageIntroClose").onclick=closeMessageIntro;$("messageIntroNotNow").onclick=closeMessageIntro;$("messageIntroWrite").onclick=()=>{closeMessageIntro();openMessageEditor()};$("messageReadClose").onclick=closeMessageReader;$("messageReadDone").onclick=closeMessageReader;$("messageReadList").onclick=showMessageList;$("messagePrev").onclick=()=>{currentMessageIndex=(currentMessageIndex-1+db.messages.length)%db.messages.length;renderMessageReader()};$("messageNext").onclick=()=>{currentMessageIndex=(currentMessageIndex+1)%db.messages.length;renderMessageReader()};$("messageEditorClose").onclick=closeMessageEditor;$("messageEditorCancel").onclick=closeMessageEditor;$("messageEditorSave").onclick=saveMessage;$("addMessageBtn").onclick=()=>openMessageEditor();$("addFriend").onclick=saveFriend;$("cancelFriendEdit").onclick=cancelFriendEdit;$("friendRemindersEnabled").onchange=saveMilestoneSettings;document.querySelectorAll(".milestoneToggle").forEach(x=>x.onchange=saveMilestoneSettings);
 $("printAllReports").onclick=printAllReports;$("printMeetingAttendance").onclick=openAttendanceModal;$('chairInitialsPrompt').onchange=saveMeetingSettings;$('includeInitialsOnAttendance').onchange=saveMeetingSettings;$('rememberNewMeetings').onchange=saveMeetingSettings;
