@@ -473,7 +473,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v41.5.3</strong></p>
+<p><strong>Recovery Journal v41.5.4</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -517,7 +517,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v41.5.3</strong></p><h4>What is Recovery Journal?</h4>
+<p><strong>Recovery Journal v41.5.4</strong></p><h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
 <ul><li><strong>Affirmations</strong> — three positive statements for today.</li><li><strong>Gratitude</strong> — three things you're grateful for.</li><li><strong>Today's Focus</strong> — one thing you want to practice, remember, or carry with you today.</li><li><strong>Living the Program</strong> — an optional daily reflection with an original prompt. Tap <strong>Another</strong> for a different reflection.</li><li><strong>Emotion Log</strong> — slow down and record what you're feeling, how intense it was, what happened, how you responded, and what you need now.</li><li><strong>Emotion Wheel</strong> — use the wheel when you know something is going on but need help finding the words. Start broad, choose a more specific feeling, or use the guided “I don't know what I'm feeling” path.</li><li><strong>Journal</strong> — write whatever you need to get out.</li><li><strong>Meetings</strong> — record meetings, topics, notes, time, and place. If enabled in Settings, you can collect drawn chairperson initials for attendance records.</li></ul>
@@ -560,7 +560,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.5.3 • Clean Time + Friends Pages + My Journal Swipe Back + My Goals + Reports</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.5.4 • Clean Time + Friends Pages + My Journal Swipe Back + My Goals + Reports</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -940,7 +940,7 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
-// v41.5.3: My Journal swipes right back to Today. Clean Time and Friends are dedicated pages; Milestones remain in Settings.
+// rj_v41.5.4: My Journal swipes right back to Today. Clean Time and Friends are dedicated pages; Milestones remain in Settings.
 let todaySwipeStartX=0,todaySwipeStartY=0,todaySwipeTracking=false;
 $("todayView").addEventListener("touchstart",e=>{
   const t=e.changedTouches[0];
@@ -1111,42 +1111,46 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
       renderFriendReminders(); renderCalendar();
     }
   },true);
-  // My Journal -> Today: isolated right-swipe. Keep this independent of primary navigation.
+  // rj_v41.5.4: My Journal -> Today. Use a document-level capture handler
+  // because iPhone Safari can let nested journal content consume the gesture.
   const journalView=$v('journalView');
   if(journalView){
     journalView.classList.add('v41-journal-swipe-zone');
-    let jStartX=0,jStartY=0,jTracking=false;
-    const beginJournalSwipe=e=>{
-      const t=e.touches?.[0] || e;
-      if(!t)return;
+    let jStartX=0,jStartY=0,jTracking=false,jHandled=false;
+    const journalTouchStart=e=>{
+      if(journalView.classList.contains('hidden')){jTracking=false;return;}
+      const t=e.touches?.[0]; if(!t)return;
       const target=e.target;
       if(target?.closest?.('input,textarea,select,button,a,[contenteditable="true"]')){jTracking=false;return;}
-      if(journalView.classList.contains('hidden')){jTracking=false;return;}
-      jStartX=t.clientX;jStartY=t.clientY;jTracking=true;
+      jStartX=t.clientX; jStartY=t.clientY; jTracking=true; jHandled=false;
     };
-    const endJournalSwipe=e=>{
-      if(!jTracking)return;
-      jTracking=false;
-      const t=e.changedTouches?.[0] || e;
-      if(!t)return;
+    const journalTouchMove=e=>{
+      if(!jTracking || jHandled || journalView.classList.contains('hidden')) return;
+      const t=e.touches?.[0]; if(!t)return;
       const dx=t.clientX-jStartX,dy=t.clientY-jStartY;
-      if(dx>70 && Math.abs(dx)>Math.abs(dy)*1.15){
+      if(dx>55 && dx>Math.abs(dy)*1.15){
+        e.preventDefault();
+        jHandled=true; jTracking=false;
+        repairShow('today',{skipConfirm:true,direction:'right'});
+      } else if(Math.abs(dy)>35 && Math.abs(dy)>Math.abs(dx)*1.15){
+        jTracking=false;
+      }
+    };
+    const journalTouchEnd=e=>{
+      if(!jTracking || jHandled)return;
+      const t=e.changedTouches?.[0]; if(!t){jTracking=false;return;}
+      const dx=t.clientX-jStartX,dy=t.clientY-jStartY;
+      jTracking=false;
+      if(dx>70 && dx>Math.abs(dy)*1.15){
         e.preventDefault?.();
+        jHandled=true;
         repairShow('today',{skipConfirm:true,direction:'right'});
       }
     };
-    journalView.addEventListener('touchstart',beginJournalSwipe,{passive:true,capture:true});
-    journalView.addEventListener('touchend',endJournalSwipe,{passive:false,capture:true});
-    journalView.addEventListener('touchcancel',()=>{jTracking=false;},{passive:true,capture:true});
-    journalView.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')beginJournalSwipe(e);},{passive:true,capture:true});
-    journalView.addEventListener('pointerup',e=>{if(e.pointerType==='touch')endJournalSwipe(e);},{passive:false,capture:true});
-    // Final document-level fallback: only active while My Journal is visible.
-    document.addEventListener('touchstart',e=>{
-      if(!journalView.classList.contains('hidden')) beginJournalSwipe(e);
-    },{passive:true,capture:true});
-    document.addEventListener('touchend',e=>{
-      if(!journalView.classList.contains('hidden')) endJournalSwipe(e);
-    },{passive:false,capture:true});
+    document.addEventListener('touchstart',journalTouchStart,{passive:true,capture:true});
+    document.addEventListener('touchmove',journalTouchMove,{passive:false,capture:true});
+    document.addEventListener('touchend',journalTouchEnd,{passive:false,capture:true});
+    document.addEventListener('touchcancel',()=>{jTracking=false;jHandled=false;},{passive:true,capture:true});
   }
 
   // Event delegation makes sidebar controls reliable even if earlier handlers fail.
