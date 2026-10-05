@@ -218,7 +218,6 @@ section.hidden{display:none!important;visibility:hidden!important}
 [data-theme="contrast"] .emotion-wheel-title,[data-theme="contrast"] .emotion-wheel-sub{color:#FFF}
 
 /* v41.1 repair styles */
-#journalView,#todayView{touch-action:pan-y;}
 header.v41-fixed-header{position:fixed;top:0;left:0;right:0;z-index:24000;max-width:720px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 12px) max(16px,env(safe-area-inset-left)) 12px max(16px,env(safe-area-inset-right));background:rgba(250,248,241,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
 :root[data-theme="dark"] header.v41-fixed-header{background:rgba(21,27,25,.96)}
 body{padding-top:88px!important}.app{padding-top:16px!important}.v41-primary-viewport{width:100%;overflow:hidden;touch-action:pan-y;position:relative}.v41-primary-track{width:100%}.v41-primary-viewport> .hidden{display:none!important}.v41-slide-left{animation:v41SlideLeft .18s ease-out}.v41-slide-right{animation:v41SlideRight .18s ease-out}@keyframes v41SlideLeft{from{transform:translateX(28px);opacity:.85}to{transform:translateX(0);opacity:1}}@keyframes v41SlideRight{from{transform:translateX(-28px);opacity:.85}to{transform:translateX(0);opacity:1}}
@@ -530,7 +529,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.6 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v41.5 • Sidebar + My Goals + Printer-Friendly Reports + Journal Reader + Emotion Log + Messages to Myself</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -910,34 +909,99 @@ $("journalReaderBack").onclick=closeJournalReader;$("journalReaderClose").onclic
 let journalSwipeStartX=0,journalSwipeStartY=0;
 $("journalReaderPage").addEventListener("touchstart",e=>{const t=e.changedTouches[0];journalSwipeStartX=t.clientX;journalSwipeStartY=t.clientY},{passive:true});
 $("journalReaderPage").addEventListener("touchend",e=>{const t=e.changedTouches[0],dx=t.clientX-journalSwipeStartX,dy=t.clientY-journalSwipeStartY;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.2){moveJournalReader(dx<0?-1:1)}},{passive:true});
-// v41.8: direct iPhone swipe navigation between Today and My Journal.
-(function(){
-  const journal=$("journalView"), today=$("todayView");
-  if(!journal||!today)return;
-  let sx=0,sy=0,active=false,source="";
-  const ignore=el=>!!(el&&el.closest&&el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]"));
-  const begin=(e,src)=>{
-    if(e.touches.length!==1||ignore(e.target))return;
-    const t=e.touches[0]; sx=t.clientX; sy=t.clientY; source=src; active=true;
-  };
-  const end=(e)=>{
-    if(!active)return; active=false;
-    const t=e.changedTouches[0]; if(!t)return;
-    const dx=t.clientX-sx, dy=t.clientY-sy;
-    if(Math.abs(dx)<70 || Math.abs(dx)<Math.abs(dy)*1.2){source="";return;}
-    const src=source; source="";
-    if(src==="journal" && dx>0){
-      if(typeof repairShow==="function") repairShow("today",{skipConfirm:true,direction:"right"});
-    } else if(src==="today" && dx>0){
-      if(typeof repairShow==="function") repairShow("journal",{skipConfirm:true,direction:"right"});
-    }
-  };
-  [journal,today].forEach((el,idx)=>{
-    el.style.touchAction="pan-y";
-    el.addEventListener("touchstart",e=>begin(e,idx===0?"journal":"today"),{passive:true,capture:true});
-    el.addEventListener("touchend",end,{passive:true,capture:true});
-  });
-})();
+// v41.5: swipe right from Today to My Journal. Keep Journal Reader day-swipe independent.
+let todaySwipeStartX=0,todaySwipeStartY=0,todaySwipeTracking=false;
+$("todayView").addEventListener("touchstart",e=>{
+  const t=e.changedTouches[0];
+  const el=e.target;
+  if(el && el.closest && el.closest("input,textarea,select,button,a,[contenteditable=\"true\"]")){todaySwipeTracking=false;return;}
+  todaySwipeTracking=true; todaySwipeStartX=t.clientX; todaySwipeStartY=t.clientY;
+},{passive:true});
+$("todayView").addEventListener("touchend",e=>{
+  if(!todaySwipeTracking)return;
+  todaySwipeTracking=false;
+  const t=e.changedTouches[0],dx=t.clientX-todaySwipeStartX,dy=t.clientY-todaySwipeStartY;
+  if(Math.abs(dx)>70 && Math.abs(dx)>Math.abs(dy)*1.25 && dx>0){
+    if(typeof confirmLeaveDay==='function' && !confirmLeaveDay()) return;
+    show("journal");
+  }
+},{passive:true});
+
+$("menuBtn").onclick=openSidebar;$("sidebarClose").onclick=closeSidebar;$("sidebarOverlay").onclick=closeSidebar;$("sidebarMessagesBtn").onclick=()=>{closeSidebar();openMessages()};$("sidebarEmotionBtn").onclick=()=>{closeSidebar();if(confirmLeaveDay()){show("today");setTimeout(()=>{$("emotionLogDetails")?.setAttribute("open","");$("emotionLogDetails")?.scrollIntoView({behavior:"smooth",block:"center"})},60)}};document.querySelectorAll("[data-side-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.sideTab;closeSidebar();if(confirmLeaveDay())show(tab)});document.querySelectorAll("[data-goal-tab]").forEach(b=>b.onclick=()=>{goalTab=b.dataset.goalTab;renderGoals()});$("addGoalBtn").onclick=()=>openGoalEditor();$("goalModalClose").onclick=closeGoalEditor;$("goalCancelBtn").onclick=closeGoalEditor;$("goalSaveBtn").onclick=saveGoal;$("goalDetailClose").onclick=closeGoalDetail;$("journalReaderMessagesBtn").onclick=openMessages;$("messagesBtn").onclick=openMessages;$("messageIntroClose").onclick=closeMessageIntro;$("messageIntroNotNow").onclick=closeMessageIntro;$("messageIntroWrite").onclick=()=>{closeMessageIntro();openMessageEditor()};$("messageReadClose").onclick=closeMessageReader;$("messageReadDone").onclick=closeMessageReader;$("messageReadList").onclick=showMessageList;$("messagePrev").onclick=()=>{currentMessageIndex=(currentMessageIndex-1+db.messages.length)%db.messages.length;renderMessageReader()};$("messageNext").onclick=()=>{currentMessageIndex=(currentMessageIndex+1)%db.messages.length;renderMessageReader()};$("messageEditorClose").onclick=closeMessageEditor;$("messageEditorCancel").onclick=closeMessageEditor;$("messageEditorSave").onclick=saveMessage;$("addMessageBtn").onclick=()=>openMessageEditor();$("addFriend").onclick=saveFriend;$("cancelFriendEdit").onclick=cancelFriendEdit;$("friendRemindersEnabled").onchange=saveMilestoneSettings;document.querySelectorAll(".milestoneToggle").forEach(x=>x.onchange=saveMilestoneSettings);
+$("printAllReports").onclick=printAllReports;$("printMeetingAttendance").onclick=openAttendanceModal;$('chairInitialsPrompt').onchange=saveMeetingSettings;$('includeInitialsOnAttendance').onchange=saveMeetingSettings;$('rememberNewMeetings').onchange=saveMeetingSettings;
+$("attendanceModalClose").onclick=closeAttendanceModal;$("attendanceCancel").onclick=closeAttendanceModal;document.querySelectorAll('input[name="attendanceMode"]').forEach(x=>x.onchange=updateAttendanceOptions);document.querySelectorAll('input[name="attendanceCountOption"]').forEach(x=>x.onchange=()=>{$("attendanceCount").value=x.value;updateAttendanceOptions()});$("attendanceFrom").onchange=updateAttendanceOptions;$("attendanceTo").onchange=updateAttendanceOptions;$("attendancePrintBtn").onclick=printSelectedMeetingAttendance;$("exportBackup").onclick=exportBackup;
+$("importBackup").onclick=()=>$("backupFile").click();
+$("backupFile").onchange=e=>{importBackupFile(e.target.files[0]);e.target.value=""};$("todayBtn").onclick=()=>{if(!confirmLeaveDay())return;selected=new Date();selected.setHours(12,0,0,0);loadDay()};$("prevDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()-1);loadDay()};$("nextDay").onclick=()=>{if(!confirmLeaveDay())return;selected.setDate(selected.getDate()+1);loadDay()};$("saveDay").onclick=saveDay;$("rerollReflection").onclick=()=>{rerollReflection();markDayDirty()};$("addMeeting").onclick=openMeetingForm;$("meetingTemplate").onchange=fillTemplate;$("closeMeetingModal").onclick=closeMeetingForm;$("saveMeeting").onclick=saveMeeting;$("cancelMeeting").onclick=closeMeetingForm;$("prevMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()-1);renderCalendar()};$("nextMonth").onclick=()=>{if(!confirmLeaveDay())return;month.setMonth(month.getMonth()+1);renderCalendar()};$("runSearch").onclick=runSearch;$("printReport").onclick=printReport;$("setWholeDay").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=true);$("clearFields").onclick=()=>document.querySelectorAll(".reportField").forEach(x=>x.checked=false);$("settingsBtn").onclick=()=>{if(confirmLeaveDay())show("settings")};$("saveRecoverySettings").onclick=saveRecoverySettings;document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.onchange=()=>setAppearance(x.value));$("darkModeToggle").onchange=()=>setAppearance($("darkModeToggle").checked?"dark":"serene");$("addTemplateBtn").onclick=()=>openTemplateEditor();$("templateModalClose").onclick=closeTemplateEditor;$("templateCancel").onclick=closeTemplateEditor;$("templateSave").onclick=saveTemplate;$("addEmotion").onclick=()=>openEmotionModal();$("emotionModalClose").onclick=closeEmotionModal;$("emotionCancel").onclick=closeEmotionModal;$("emotionSave").onclick=saveEmotion;$("emotionType").onchange=updateEmotionForm;$("emotionWheelOpen").onclick=openEmotionWheel;$("emotionWheelClose").onclick=closeEmotionWheel;$("emotionWheelModal").onclick=e=>{if(e.target===$("emotionWheelModal"))closeEmotionWheel()};$("emotionIntensity").oninput=()=>$("emotionIntensityValue").textContent=Number($("emotionIntensity").value).toFixed(1);$("addCustomEmotion").onclick=()=>{const n=$("customEmotionName").value.trim();if(!n){alert("Enter an emotion name.");return}if(DEFAULT_EMOTIONS.includes(n)){alert("That emotion is already in the list.");return}if(!db.emotionTypes.includes(n))db.emotionTypes.push(n);populateEmotionTypes();$("emotionType").value=n;$("customEmotionWrap").classList.add("hidden");updateEmotionForm();persist();renderCustomEmotions()};$("viewEmotionLogs").onclick=()=>{if(!confirmLeaveDay())return;$("q").value="";show("search");$("from").value="";$("to").value="";runSearch()};/* v38.1 touch lock removed: Emotion Log is natively scrollable in v39.2. */
+
+let currentGoalEditId=null,currentGoalDetailId=null,goalTab="active";
+function goalId(){return "goal-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8)}
+function goalStatusLabel(g){return g.status||"Not started"}
+function goalProgress(g){const ms=Array.isArray(g.milestones)?g.milestones:[];if(!ms.length)return null;const done=ms.filter(x=>x.done).length;return Math.round(done/ms.length*100)}
+function renderGoals(){const list=$("goalList"),badge=$("sidebarGoalCount");if(!list)return;const active=db.goals.filter(g=>g.status!=="Completed");const completed=db.goals.filter(g=>g.status==="Completed");if(badge)badge.textContent=String(active.length);const completedCount=$("completedGoalCount");if(completedCount)completedCount.textContent=String(completed.length);document.querySelectorAll("[data-goal-tab]").forEach(b=>b.classList.toggle("active",b.dataset.goalTab===goalTab));let goals=db.goals.slice();if(goalTab==="completed")goals=goals.filter(g=>g.status==="Completed");else if(goalTab==="short")goals=goals.filter(g=>g.type==="short"&&g.status!=="Completed");else if(goalTab==="long")goals=goals.filter(g=>g.type==="long"&&g.status!=="Completed");else goals=goals.filter(g=>g.status!=="Completed");if(!goals.length){list.innerHTML=`<div class="goal-empty"><div style="font-size:30px">🎯</div><strong>${goalTab==="completed"?"No completed goals yet.":"No active goals yet."}</strong><p style="margin-top:7px">Add a goal when you're ready. There are no right or wrong answers.</p><button class="primary" style="margin-top:12px" type="button" onclick="openGoalEditor()">＋ Add Goal</button></div>`;return}list.innerHTML=goals.map(g=>{const p=goalProgress(g),target=g.target?new Date(g.target+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}):"";return `<div class="goal-card" data-goal-open="${esc(g.id)}"><div class="goal-card-head"><span class="goal-check"></span><div style="min-width:0;flex:1"><div class="goal-title">${esc(g.title)}</div><div class="goal-meta"><span class="goal-type-pill">${g.type==="long"?"Long-term":"Short-term"}</span><span class="goal-status ${g.status==="Completed"?"complete":g.status==="Paused"?"paused":""}">${esc(goalStatusLabel(g))}</span></div>${target?`<div class="goal-target">Target: ${esc(target)}</div>`:""}${g.why?`<div class="goal-reason">${esc(g.why)}</div>`:""}${p!==null?`<div class="goal-progress"><div class="goal-progress-track"><div class="goal-progress-fill" style="width:${p}%"></div></div><div class="goal-progress-label">${p}% of milestones complete</div></div>`:""}</div><span style="font-size:22px;color:var(--muted)">›</span></div></div>`}).join("");list.querySelectorAll("[data-goal-open]").forEach(c=>c.onclick=()=>openGoalDetail(c.dataset.goalOpen))}
+function openGoalEditor(id=null){currentGoalEditId=id;const g=id?db.goals.find(x=>x.id===id):null;$("goalModalTitle").textContent=id?"🎯 Edit Goal":"🎯 Add a Goal";$("goalTitleInput").value=g?.title||"";$("goalWhyInput").value=g?.why||"";$("goalProgressInput").value=g?.progressNote||"";$("goalTargetInput").value=g?.target||"";$("goalMilestonesInput").value=(g?.milestones||[]).map(x=>x.label).join("\n");document.querySelectorAll('input[name="goalType"]').forEach(x=>x.checked=(x.value===(g?.type||"short")));$("goalModal").classList.remove("hidden");setTimeout(()=>$('goalTitleInput').focus(),40)}
+function closeGoalEditor(){$("goalModal").classList.add("hidden");currentGoalEditId=null}
+function saveGoal(){const title=$("goalTitleInput").value.trim();if(!title){alert("Give your goal a name first.");$("goalTitleInput").focus();return}const type=document.querySelector('input[name="goalType"]:checked')?.value||"short";const now=new Date().toISOString();const lines=$("goalMilestonesInput").value.split(/\n+/).map(x=>x.trim()).filter(Boolean);if(currentGoalEditId){const g=db.goals.find(x=>x.id===currentGoalEditId);if(g){g.title=title;g.type=type;g.why=$("goalWhyInput").value.trim();g.progressNote=$("goalProgressInput").value.trim();g.target=$("goalTargetInput").value||"";const old=g.milestones||[];g.milestones=lines.map(label=>{const match=old.find(x=>x.label===label);return match||{id:goalId(),label,done:false}});g.updatedAt=now}}else db.goals.unshift({id:goalId(),title,type,why:$("goalWhyInput").value.trim(),progressNote:$("goalProgressInput").value.trim(),target:$("goalTargetInput").value||"",status:"Not started",milestones:lines.map(label=>({id:goalId(),label,done:false})),createdAt:now,updatedAt:now});persist();closeGoalEditor();renderGoals()}
+function openGoalDetail(id){const g=db.goals.find(x=>x.id===id);if(!g)return;currentGoalDetailId=id;const target=g.target?new Date(g.target+"T12:00:00").toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"}):"No target date";const p=goalProgress(g);$("goalDetailTitle").textContent=g.title;$("goalDetailBody").innerHTML=`<div class="goal-detail-meta"><span class="goal-type-pill">${g.type==="long"?"Long-term":"Short-term"}</span><span class="goal-status ${g.status==="Completed"?"complete":g.status==="Paused"?"paused":""}">${esc(goalStatusLabel(g))}</span></div><div class="goal-target">${esc(target)}</div>${g.why?`<div class="goal-reflection"><strong>Why this matters to me</strong><br>${readerText(g.why)}</div>`:""}${g.progressNote?`<div class="goal-reflection"><strong>What progress looks like</strong><br>${readerText(g.progressNote)}</div>`:""}<h4 style="margin-top:18px">Milestones</h4><div class="goal-milestones">${g.milestones?.length?g.milestones.map((m,i)=>`<label class="goal-milestone-row"><input type="checkbox" data-goal-milestone="${i}" ${m.done?"checked":""}><span style="flex:1;${m.done?"text-decoration:line-through;color:var(--muted)":""}">${esc(m.label)}</span></label>`).join(""):`<div class="muted">No milestones added.</div>`}</div>${p!==null?`<div class="goal-progress" style="margin-top:14px"><div class="goal-progress-track"><div class="goal-progress-fill" style="width:${p}%"></div></div><div class="goal-progress-label">${p}% complete</div></div>`:""}<div class="goal-actions"><button class="secondary" id="goalDetailEdit">Edit</button><button class="primary" id="goalDetailStatus">${g.status==="Completed"?"Reopen Goal":"Mark Completed"}</button></div><button class="secondary goal-danger" style="width:100%;margin-top:8px" id="goalDetailDelete">Delete Goal</button>`;$("goalDetailModal").classList.remove("hidden");document.querySelectorAll('[data-goal-milestone]').forEach(x=>x.onchange=()=>{const idx=Number(x.dataset.goalMilestone),goal=db.goals.find(z=>z.id===currentGoalDetailId);if(!goal)return;goal.milestones[idx].done=x.checked;if(goal.status!=="Completed"&&goal.milestones.length&&goal.milestones.every(m=>m.done))goal.status="Nearly there";goal.updatedAt=new Date().toISOString();persist();renderGoals();openGoalDetail(goal.id)});$("goalDetailEdit").onclick=()=>{closeGoalDetail();openGoalEditor(id)};$("goalDetailStatus").onclick=()=>toggleGoalComplete(id);$("goalDetailDelete").onclick=()=>deleteGoal(id)}
+function closeGoalDetail(){$("goalDetailModal").classList.add("hidden");currentGoalDetailId=null}
+function toggleGoalComplete(id){const g=db.goals.find(x=>x.id===id);if(!g)return;if(g.status==="Completed"){g.status="In progress";g.completedAt="";persist();renderGoals();openGoalDetail(id);return}g.status="Completed";g.completedAt=new Date().toISOString();persist();renderGoals();closeGoalDetail()}
+function deleteGoal(id){const g=db.goals.find(x=>x.id===id);if(!g)return;if(!confirm(`Delete “${g.title}”?\\n\\nThis only deletes the goal.`))return;db.goals=db.goals.filter(x=>x.id!==id);persist();closeGoalDetail();renderGoals()}
+function openSidebar(){$("sidebar").classList.add("open");$("sidebarOverlay").classList.add("open");document.body.classList.add("modal-open")}
+function closeSidebar(){$("sidebar").classList.remove("open");$("sidebarOverlay").classList.remove("open");if(!$('goalModal').classList.contains('hidden')||!$('goalDetailModal').classList.contains('hidden')||!$('journalReaderModal').classList.contains('hidden')||!$('messageReadModal').classList.contains('hidden')||!$('messageIntroModal').classList.contains('hidden')||!$('messageEditorModal').classList.contains('hidden'))return;document.body.classList.remove("modal-open")}
+function messageId(){return "msg-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8)}
+function fmtMessageDate(ts){if(!ts)return "";const d=new Date(ts);return d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}
+function messageEsc(v){return esc(v||"")}
+let currentMessageIndex=0,currentMessageEditId=null;
+function renderMessageList(){
+  const list=$("messageList"),count=$("messageCount");
+  if(count)count.textContent=String(db.messages.length);
+  if(!list)return;
+  if(!db.messages.length){list.innerHTML='<div class="message-empty">No messages saved yet.<br><span>Write one for a future version of yourself.</span></div>';return}
+  list.innerHTML=db.messages.map(m=>`<div class="message-list-row"><button class="message-list-main message-list-open" type="button" data-message-open="${messageEsc(m.id)}"><strong>${messageEsc(m.title||"Message to Myself")}</strong><small>Updated ${messageEsc(fmtMessageDate(m.updatedAt||m.createdAt))}</small></button><button class="secondary message-row-action" type="button" data-message-edit="${messageEsc(m.id)}">Edit</button><button class="danger message-row-action" type="button" data-message-del="${messageEsc(m.id)}">Delete</button></div>`).join("");
+  list.querySelectorAll("[data-message-open]").forEach(b=>b.onclick=()=>{const id=b.dataset.messageOpen;const idx=db.messages.findIndex(x=>x.id===id);if(idx>=0){currentMessageIndex=idx;renderMessageReader();$("messageReadModal").classList.remove("hidden")}});
+  list.querySelectorAll("[data-message-edit]").forEach(b=>b.onclick=()=>openMessageEditor(b.dataset.messageEdit));
+  list.querySelectorAll("[data-message-del]").forEach(b=>b.onclick=()=>deleteMessage(b.dataset.messageDel));
+}
+function deleteMessage(id){
+  const m=db.messages.find(x=>x.id===id);if(!m)return;
+  if(!confirm(`Delete “${m.title||"Message to Myself"}”?\n\nThis only deletes this message.`))return;
+  db.messages=db.messages.filter(x=>x.id!==id);persist();renderMessageList();
+}
+function openMessageEditor(id=null){
+  currentMessageEditId=id;const m=id?db.messages.find(x=>x.id===id):null;
+  $("messageEditorTitle").textContent=id?"Edit My Message":"Write a Message to Myself";
+  $("messageTitleInput").value=m?.title||"";$("messageBodyInput").value=m?.body||"";
+  $("messageEditorModal").classList.remove("hidden");setTimeout(()=>$("messageTitleInput").focus(),50);
+}
+function closeMessageEditor(){$("messageEditorModal").classList.add("hidden");currentMessageEditId=null}
+function saveMessage(){
+  const title=$("messageTitleInput").value.trim()||"A Message to Myself",body=$("messageBodyInput").value.trim();
+  if(!body){alert("Write something in your message first.");$("messageBodyInput").focus();return}
+  const now=new Date().toISOString();
+  if(currentMessageEditId){const m=db.messages.find(x=>x.id===currentMessageEditId);if(m){m.title=title;m.body=body;m.updatedAt=now}}
+  else db.messages.unshift({id:messageId(),title,body,createdAt:now,updatedAt:now});
+  persist();renderMessageList();closeMessageEditor();
+}
+function openMessageIntro(){$("messageIntroModal").classList.remove("hidden")}
+function closeMessageIntro(){$("messageIntroModal").classList.add("hidden")}
+function openMessages(){if(!db.messages.length){openMessageIntro();return}currentMessageIndex=0;renderMessageReader();$("messageReadModal").classList.remove("hidden")}
+function closeMessageReader(){$("messageReadModal").classList.add("hidden")}
+function renderMessageReader(){
+  const m=db.messages[currentMessageIndex];if(!m){closeMessageReader();return}
+  $("messageReadTitle").textContent=m.title||"A Message to Myself";
+  $("messageReadMeta").textContent=`Written ${fmtMessageDate(m.createdAt)}${m.updatedAt&&m.updatedAt!==m.createdAt?` • Updated ${fmtMessageDate(m.updatedAt)}`:""}`;
+  $("messageReadPaper").innerHTML=`<div class="message-paper-text">${messageEsc(m.body).replace(/\n/g,"<br>")}</div><div class="message-paper-sign">♡</div>`;
+  const pager=$("messageReadPager");pager.classList.toggle("hidden",db.messages.length<2);$("messagePagerLabel").textContent=`${currentMessageIndex+1} of ${db.messages.length}`;
+}
+function showMessageList(){closeMessageReader();document.querySelectorAll("#settingsView details").forEach(d=>{if(d.id==="messagesSettingsDetails")d.open=true});show("settings");setTimeout(()=>{const el=$("messagesSettingsDetails");if(el)el.scrollIntoView({behavior:"smooth",block:"center"})},80)}
+function setAppearance(theme){if(!["serene","dark","moonlight","neon","ocean","sunrise","blacklight","cosmic","contrast"].includes(theme))return;db.appearance=theme;db.darkMode=theme==="dark";persist();applyTheme()}
+function openEmotionWheel(){$("emotionWheelModal").classList.remove("hidden");renderEmotionWheelHome()}
+function closeEmotionWheel(){$("emotionWheelModal").classList.add("hidden")}
+const EMOTION_WHEEL={Joy:["Happy","Content","Grateful","Proud","Hopeful","Peaceful","Playful","Relieved"],Trust:["Accepted","Safe","Supported","Confident","Secure","Connected"],Fear:["Worried","Nervous","Insecure","Overwhelmed","Scared","Terrified","Panicked"],Surprise:["Amazed","Confused","Startled","Shocked","Speechless"],Sadness:["Lonely","Hurt","Disappointed","Grieving","Heartbroken","Down","Empty"],Disgust:["Uncomfortable","Disapproving","Avoidant","Repulsed"],Anger:["Annoyed","Irritated","Frustrated","Resentful","Jealous","Disrespected","Hostile","Furious","Enraged"],Anticipation:["Curious","Eager","Excited","Restless","Expectant","Motivated"]};
+const EMOTION_OBSERVATIONS={"My body feels tense":["Anxiety","Anger"],"I want to withdraw":["Loneliness","Sadness","Fear"],"I want to lash out":["Anger","Frustration"],"I feel like crying":["Sadness","Hurt","Grief"],"I can't stop thinking about it":["Anxiety","Fear","Resentment"],"I feel numb":["Sadness","Disgust"],"I feel restless":["Anxiety","Anticipation"],"I feel disconnected":["Loneliness","Sadness","Fear"]};
+function chooseWheelEmotion(name){if(!name)return;if(!DEFAULT_EMOTIONS.includes(name)&&!db.emotionTypes.includes(name))db.emotionTypes.push(name);populateEmotionTypes();$("emotionType").value=name;updateEmotionForm();closeEmotionWheel()}
+function renderEmotionWheelHome(){const b=$("emotionWheelBody");$("emotionWheelTitle").textContent="🧭 Emotion Wheel";$("emotionWheelSub").textContent="Start broad, then get more specific.";const groups=["Joy","Trust","Fear","Surprise","Sadness","Disgust","Anger","Anticipation"];b.innerHTML='<div class="emotion-wheel">'+groups.map(g=>`<button type="button" class="emotion-wheel-segment" data-group="${g}"><span>${g}</span></button>`).join('')+'<div class="emotion-wheel-core">How are<br>you feeling?</div></div><div class="emotion-wheel-help"><strong>Not sure?</strong><div class="muted" style="margin-top:3px">Start with what you notice in your body or what you feel like doing.</div><button class="secondary" style="width:100%;margin-top:9px" id="emotionWheelUnsure" type="button">I don\'t know what I\'m feeling</button></div>';b.querySelectorAll('[data-group]').forEach(x=>x.onclick=()=>renderEmotionWheelSpecific(x.dataset.group));$("emotionWheelUnsure").onclick=renderEmotionWheelUnsure}
+function renderEmotionWheelSpecific(group){const b=$("emotionWheelBody");$("emotionWheelTitle").textContent=group;$("emotionWheelSub").textContent="Tap the word that fits best.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back to wheel</button><div class="emotion-wheel-choice">Which one feels closest?</div><div class="emotion-wheel-options">'+(EMOTION_WHEEL[group]||[]).map(x=>`<button class="secondary" type="button" data-emotion-choice="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelHome;b.querySelectorAll('[data-emotion-choice]').forEach(x=>x.onclick=()=>chooseWheelEmotion(x.dataset.emotionChoice))}
+function renderEmotionWheelUnsure(){const b=$("emotionWheelBody");$("emotionWheelTitle").textContent="I don't know what I'm feeling";$("emotionWheelSub").textContent="Choose anything that feels true right now.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back to wheel</button><div class="emotion-wheel-options">'+Object.keys(EMOTION_OBSERVATIONS).map(x=>`<button class="secondary" type="button" data-observation="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelHome;b.querySelectorAll('[data-observation]').forEach(x=>x.onclick=()=>renderEmotionWheelSuggestions(x.dataset.observation))}
 function renderEmotionWheelSuggestions(observation){const b=$("emotionWheelBody"),options=EMOTION_OBSERVATIONS[observation]||[];$("emotionWheelTitle").textContent="Possible emotions";$("emotionWheelSub").textContent="Possibilities, not a diagnosis. Choose what fits.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back</button><div class="emotion-wheel-choice">'+esc(observation)+'</div><div class="emotion-wheel-options">'+options.map(x=>`<button class="secondary" type="button" data-suggested-emotion="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelUnsure;b.querySelectorAll('[data-suggested-emotion]').forEach(x=>x.onclick=()=>chooseWheelEmotion(x.dataset.suggestedEmotion))}
 function updateQuickEnterCount(){const el=$("meetingsQuickCount");if(el)el.textContent=String(db.templates.length)}
 
