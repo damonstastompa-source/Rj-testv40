@@ -419,7 +419,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.6</strong></p>
+<p><strong>Recovery Journal v50.6.1</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -1180,7 +1180,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(tab==='calendar'&&typeof renderCalendar==='function')renderCalendar();
     if(tab==='meetings'&&typeof renderMeetingsTab==='function')renderMeetingsTab();
     if(tab==='journal'&&typeof renderJournalView==='function')renderJournalView();
-    if(tab==='goals'&&typeof renderGoals==='function')renderGoals();if(tab==='emotions'&&typeof renderEmotionsScreen==='function')renderEmotionsScreen();
+    if(tab==='goals'&&typeof renderGoals==='function')renderGoals();if(tab==='emotions'&&typeof renderEmotionsScreen==='function'){requestAnimationFrame(()=>renderEmotionsScreen());}
     if(tab==='settings'){
       try{renderMessageList();renderTemplates();renderCustomEmotions();$v('friendRemindersEnabled').checked=!!db.friendRemindersEnabled;document.querySelectorAll('.milestoneToggle').forEach(x=>x.checked=!!db.milestones[x.value]);applyMeetingSettings();applyTheme()}catch(e){}
     }
@@ -1400,11 +1400,11 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   function emotionDateLabel(d){try{return new Date(d+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}catch(e){return d}}
   window.renderEmotionsScreen=function(){
     const list=document.getElementById('emotionsList'), q=document.getElementById('emotionsQuery'), summary=document.getElementById('emotionsSummary');
-    if(!list||!window.db)return;
+    if(!list||typeof db==='undefined'||!db)return;
     const query=(q?.value||'').trim().toLowerCase();
     let items=(db.emotions||[]).slice().sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))||String(b.id||'').localeCompare(String(a.id||'')));
     if(emotionHistoryFilter!=='all') items=items.filter(e=>String(e.emotion||'')===emotionHistoryFilter);
-    if(query) items=items.filter(e=>[e.emotion,e.what,e.who,e.where,e.response,e.responseWell,e.improve,e.needNow,e.date].some(v=>String(v||'').toLowerCase().includes(query)));
+    if(query) items=items.filter(e=>[e.emotion,e.what,e.who,e.whereWhen,e.response,e.responseWell,e.improve,e.needNow,e.date].some(v=>String(v||'').toLowerCase().includes(query)));
     summary.textContent=(items.length?`${items.length} emotion ${items.length===1?'entry':'entries'}`:'No matching emotion entries');
     if(!items.length){list.innerHTML='<div class="emotions-empty"><strong>🧠 Nothing here yet</strong><div>Log an emotion to start building your emotional history.</div></div>';return;}
     list.innerHTML=items.map(e=>{const preview=e.what||e.response||e.needNow||'No reflection text saved.';return `<div class="emotion-history-card"><div class="emotion-history-head"><div><div class="emotion-history-name">${escLocal(e.emotion||'Emotion')}</div><div class="emotion-history-date">${emotionDateLabel(e.date)}${e.time?' · '+escLocal(e.time):''}</div></div><div class="emotion-history-score">${Number(e.intensity||0).toFixed(1)}/10</div></div><div class="emotion-history-preview">${escLocal(preview).slice(0,180)}${String(preview).length>180?'…':''}</div><div class="emotion-history-actions"><button class="secondary" type="button" data-history-edit="${escLocal(e.id)}">View / Edit</button></div></div>`}).join('');
