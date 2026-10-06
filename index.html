@@ -338,7 +338,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 </style>
 
 <style id="v50-4-1-theme-surface-fix">
-/* v50.4.1 — dark theme surface/contrast repair */
+/* v50.4.2 — dark theme surface/contrast repair */
 :root[data-theme="midnightforest"] .journal-entry-card,
 :root[data-theme="midnightforest"] .journal-empty{
   background:#17221B!important;color:#E7EEE9;border-color:#3B4C41;
@@ -361,6 +361,17 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 }
 </style>
 
+
+<style id="v50-4-2-daily-checkin-collapse">
+.checkin-reflect-toggle{width:100%;margin-top:16px;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:var(--sage);color:var(--ink);font:inherit;font-weight:800;display:flex;align-items:center;justify-content:space-between;cursor:pointer;text-align:left;transition:background .15s ease,border-color .15s ease}
+.checkin-reflect-toggle:active{transform:scale(.995)}
+.checkin-chevron{font-size:20px;line-height:1;transition:transform .15s ease}
+.checkin-reflect-toggle[aria-expanded="true"] .checkin-chevron{transform:rotate(180deg)}
+.checkin-reflect-panel[hidden]{display:none!important}
+.checkin-reflect-panel{padding-top:1px}
+:root[data-theme="midnightforest"] .checkin-reflect-toggle{background:#26382E;color:#E7EEE9;border-color:#405346}
+:root[data-theme="burgundy"] .checkin-reflect-toggle{background:#3A2329;color:#F1E9E9;border-color:#63414A}
+</style>
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -418,7 +429,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 
 <section id="todayView">
 <div class="card"><div class="row between"><h2>📅 <span id="dateLabel"></span></h2><button class="secondary" id="todayBtn">Today</button></div><div class="row between" style="margin-top:12px"><button class="secondary" id="prevDay">‹</button><button class="secondary" id="nextDay">›</button></div></div>
-<div class="card daily-checkin-card"><div class="row between"><div><h3>☀️ Daily Check-In</h3><p class="muted" style="margin-top:5px">A quick snapshot of where I am today.</p></div><span class="daily-checkin-badge">Today</span></div><div class="daily-checkin-question"><strong>How am I doing today?</strong><div class="checkin-moods" id="checkinMoods"><button type="button" data-checkin-mood="struggling">😞<span>Struggling</span></button><button type="button" data-checkin-mood="okay">😐<span>Okay</span></button><button type="button" data-checkin-mood="good">🙂<span>Good</span></button><button type="button" data-checkin-mood="great">😃<span>Great</span></button></div></div><div class="daily-checkin-question"><label for="checkinNeed">What do I need today?</label><textarea id="checkinNeed" rows="2" placeholder="What would help me today?"></textarea></div><div class="daily-checkin-question"><label for="checkinAction">What's one thing I can do for my recovery today?</label><textarea id="checkinAction" rows="2" placeholder="One small action..."></textarea></div></div>
+<div class="card daily-checkin-card"><div class="row between"><div><h3>☀️ Daily Check-In</h3><p class="muted" style="margin-top:5px">A quick snapshot of where I am today.</p></div><span class="daily-checkin-badge">Today</span></div><div class="daily-checkin-question"><strong>How am I doing today?</strong><div class="checkin-moods" id="checkinMoods"><button type="button" data-checkin-mood="struggling">😞<span>Struggling</span></button><button type="button" data-checkin-mood="okay">😐<span>Okay</span></button><button type="button" data-checkin-mood="good">🙂<span>Good</span></button><button type="button" data-checkin-mood="great">😃<span>Great</span></button></div></div><button type="button" class="checkin-reflect-toggle" id="checkinReflectToggle" aria-expanded="false"><span>Want to reflect a little more?</span><span class="checkin-chevron">⌄</span></button><div class="checkin-reflect-panel" id="checkinReflectPanel" hidden><div class="daily-checkin-question"><label for="checkinNeed">What do I need today?</label><textarea id="checkinNeed" rows="2" placeholder="What would help me today?"></textarea></div><div class="daily-checkin-question"><label for="checkinAction">What's one thing I can do for my recovery today?</label><textarea id="checkinAction" rows="2" placeholder="One small action..."></textarea></div></div></div>
 <div class="card"><h3>✨ Positive affirmations</h3>
 <textarea class="entrybox" id="a1" placeholder="Affirmation 1" rows="1"></textarea>
 <textarea class="entrybox" id="a2" placeholder="Affirmation 2" rows="1"></textarea>
@@ -638,7 +649,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.4.1 • Dark theme surface/contrast repair</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.4.2 • Dark theme surface/contrast repair</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1099,6 +1110,17 @@ function renderEmotionWheelUnsure(){const b=$("emotionWheelBody");$("emotionWhee
 function renderEmotionWheelSuggestions(observation){const b=$("emotionWheelBody"),options=EMOTION_OBSERVATIONS[observation]||[];$("emotionWheelTitle").textContent="Possible emotions";$("emotionWheelSub").textContent="Possibilities, not a diagnosis. Choose what fits.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back</button><div class="emotion-wheel-choice">'+esc(observation)+'</div><div class="emotion-wheel-options">'+options.map(x=>`<button class="secondary" type="button" data-suggested-emotion="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelUnsure;b.querySelectorAll('[data-suggested-emotion]').forEach(x=>x.onclick=()=>chooseWheelEmotion(x.dataset.suggestedEmotion))}
 function updateQuickEnterCount(){const el=$("meetingsQuickCount");if(el)el.textContent=String(db.templates.length)}
 
+
+// v50.4.2 — optional Daily Check-In reflection prompts
+const checkinReflectToggle=document.getElementById("checkinReflectToggle");
+const checkinReflectPanel=document.getElementById("checkinReflectPanel");
+if(checkinReflectToggle&&checkinReflectPanel){
+  checkinReflectToggle.addEventListener("click",()=>{
+    const open=checkinReflectToggle.getAttribute("aria-expanded")==="true";
+    checkinReflectToggle.setAttribute("aria-expanded",String(!open));
+    checkinReflectPanel.hidden=open;
+  });
+}
 document.querySelectorAll("#a1,#a2,#a3,#g1,#g2,#g3,#focus,#journal,#reflectionResponse").forEach(el=>el.addEventListener("input",markDayDirty));document.querySelectorAll("#checkinNeed,#checkinAction").forEach(el=>el.addEventListener("input",markDayDirty));document.querySelectorAll("[data-checkin-mood]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-checkin-mood]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");markDayDirty()});loadDay();initGrowingFields();applyTheme();cleanCounter();renderEmotionToday();renderMessageList();renderGoals();setInterval(cleanCounter,60000);
 if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 
