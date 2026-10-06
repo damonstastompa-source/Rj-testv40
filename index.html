@@ -375,9 +375,38 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 <style id="v50-5-helped-and-checkin">
 .helped-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.helped-filters .active{background:var(--forest)!important;color:#fff!important;border-color:var(--forest)!important}.helped-result{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-top:10px}.helped-result-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.helped-result-type{font-weight:800}.helped-result-date{font-size:.88rem;color:var(--muted);white-space:nowrap}.helped-result-text{margin-top:7px;line-height:1.5}.helped-empty{padding:20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}.helped-hero h2{margin-bottom:7px}.journal-reader-checkin{background:var(--mist);border:1px solid var(--line);border-radius:16px;padding:14px}.journal-reader-checkin .checkin-mood-display{font-size:1.05rem;font-weight:800}.journal-reader-checkin .checkin-reflection{margin-top:10px}.journal-reader-checkin .checkin-reflection strong{display:block;margin-bottom:4px}
 </style>
-<style id="v50-5-2-polish">.whb-result-card{border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin:10px 0;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.06)}.whb-result-type{font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--forest);margin-bottom:6px}.whb-result-date{font-size:.78rem;color:var(--muted);margin-bottom:7px}.whb-result-title{font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3}.whb-result-preview{margin-top:7px;font-size:.9rem;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.whb-empty{text-align:center;padding:28px 18px;border:1px dashed var(--line);border-radius:16px;background:var(--mist);color:var(--muted)}.whb-empty strong{display:block;color:var(--ink);margin-bottom:5px}.whb-search-hint{font-size:.76rem;color:var(--muted);margin:5px 2px 0}.whb-filter-row{gap:7px!important}.whb-filter-row button{min-height:38px!important;border-radius:11px!important}</style><style id="v50-6-2-emotions-screen">
+<style id="v50-5-2-polish">.whb-result-card{border:1px solid var(--line);border-radius:16px;padding:15px 16px;margin:10px 0;background:var(--card);box-shadow:0 2px 8px rgba(0,0,0,.06)}.whb-result-type{font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--forest);margin-bottom:6px}.whb-result-date{font-size:.78rem;color:var(--muted);margin-bottom:7px}.whb-result-title{font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3}.whb-result-preview{margin-top:7px;font-size:.9rem;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.whb-empty{text-align:center;padding:28px 18px;border:1px dashed var(--line);border-radius:16px;background:var(--mist);color:var(--muted)}.whb-empty strong{display:block;color:var(--ink);margin-bottom:5px}.whb-search-hint{font-size:.76rem;color:var(--muted);margin:5px 2px 0}.whb-filter-row{gap:7px!important}.whb-filter-row button{min-height:38px!important;border-radius:11px!important}</style><style id="v50-6-3-emotions-screen">
 .emotions-filter-row{scrollbar-width:none}.emotions-filter-row::-webkit-scrollbar{display:none}.emotions-filter-row button{white-space:nowrap;min-height:38px}.emotions-filter-row button.active{background:var(--forest)!important;color:#fff!important;border-color:var(--forest)!important}.emotion-history-card{padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);margin-top:10px}.emotion-history-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.emotion-history-name{font-weight:800;font-size:1.05rem}.emotion-history-date{font-size:.82rem;color:var(--muted);margin-top:3px}.emotion-history-score{font-weight:800;color:var(--forest);white-space:nowrap}.emotion-history-preview{margin-top:8px;color:var(--muted);line-height:1.45}.emotion-history-actions{display:flex;gap:8px;margin-top:10px}.emotion-history-actions button{min-height:36px}.emotions-empty{padding:28px 18px;text-align:center;border:1px dashed var(--line);border-radius:16px;background:var(--mist);color:var(--muted)}.emotions-empty strong{display:block;color:var(--ink);font-size:1rem;margin-bottom:5px}
 </style>
+
+<style id="v50-6-3-secondary-screen-header-cleanup">
+/* v50.6.3: Today owns the personal greeting + recovery counter.
+   Secondary screens should begin with their own content. */
+body:not(.screen-today) .welcome-section,
+body:not(.screen-today) .greeting-section,
+body:not(.screen-today) .recovery-hero,
+body:not(.screen-today) .recovery-counter,
+body:not(.screen-today) [class*="welcome"],
+body:not(.screen-today) [class*="greeting"]{display:none!important}
+</style>
+<script>
+(function(){
+  const secondaryIds = ['calendar','journal','meetings','emotions','goals','settings','what-helped','whatHelped'];
+  function cleanSecondary(){
+    const active = document.querySelector('.screen.active,[data-screen].active,main.active');
+    if(!active) return;
+    const id = (active.id || active.dataset.screen || '').toLowerCase();
+    if(id && id !== 'today'){
+      active.querySelectorAll('.welcome-section,.greeting-section,.recovery-hero,.recovery-counter,[class*="welcome"],[class*="greeting"]').forEach(el=>{
+        el.style.display='none';
+      });
+    }
+  }
+  document.addEventListener('click',()=>setTimeout(cleanSecondary,25),true);
+  window.addEventListener('load',()=>setTimeout(cleanSecondary,50));
+})();
+</script>
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -419,7 +448,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.6.2.2</strong></p>
+<p><strong>Recovery Journal v50.6.3.2</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -582,7 +611,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.6.2.2</strong></p>
+<p><strong>Recovery Journal v50.6.3.2</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -626,7 +655,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.6.2.2</strong></p>
+<p><strong>Recovery Journal v50.6.3.2</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -677,7 +706,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 76px)!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.6.2.2</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.6.3.2</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1431,4 +1460,5 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
+<div id="v50-6-3-about-features" style="display:none"><strong>New in v50.6.3</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions</li><li>🔎 What Helped Me Before?</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-3-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 </body></html>
