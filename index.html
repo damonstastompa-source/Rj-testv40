@@ -459,6 +459,27 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </style>
 
 <style>.aw-hide-hero{display:none!important}.aw-color-row button.active{outline:3px solid var(--forest);outline-offset:1px}</style>
+<style id="affirmations-wall-v1-1-css">
+.aw-doodle-panel{border:1px solid var(--line);border-radius:17px;padding:13px;background:rgba(255,255,255,.28)}
+.aw-control-title{font-size:12px;font-weight:800;letter-spacing:.03em;margin:0 0 8px;color:var(--ink)}
+.aw-doodle-colors{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:13px}
+.aw-dot{width:31px!important;height:31px!important;min-width:31px!important;padding:0!important;border-radius:50%!important;background:var(--dot)!important;border:2px solid rgba(37,48,45,.18)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.aw-dot.active{outline:3px solid var(--forest);outline-offset:3px}
+.aw-thicknesses{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.aw-thicknesses button{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 6px}
+.aw-line{display:inline-block;width:30px;background:currentColor;border-radius:99px}
+.aw-line.thin{height:2px}.aw-line.medium{height:5px}.aw-line.thick{height:9px}
+.aw-drawing-row{display:grid;grid-template-columns:1fr 68px;gap:8px;align-items:stretch}
+.aw-drawing-actions{display:grid;grid-template-rows:1fr 1fr;gap:8px}
+.aw-drawing-actions button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px;font-size:20px}
+.aw-drawing-actions button span{font-size:10px;font-weight:800}
+.aw-stamp-title{margin-top:12px}
+.aw-doodle-tools{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none}
+.aw-doodle-tools::-webkit-scrollbar{display:none}
+.aw-doodle-tools button{min-width:48px;min-height:42px;font-size:21px;padding:5px 10px}
+@media(max-width:520px){.aw-thicknesses button{font-size:13px}.aw-drawing-row{grid-template-columns:1fr 58px}}
+</style>
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -546,17 +567,42 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
       <button type="button" data-aw-color="#D9B7E8" style="--aw-note:#D9B7E8">Lavender</button>
     </div>
 
-    <div class="aw-option-label">Add a little something</div>
-    <div class="aw-doodle-tools">
-      <button type="button" class="secondary" data-aw-stamp="sun">☀️ Sun</button>
-      <button type="button" class="secondary" data-aw-stamp="heart">♡ Heart</button>
-      <button type="button" class="secondary" data-aw-stamp="star">✦ Sparkle</button>
-      <button type="button" class="secondary" data-aw-stamp="flower">✿ Flower</button>
-      <button type="button" class="secondary" id="awClearDrawing">Clear</button>
-    </div>
-    <div class="aw-canvas-wrap">
-      <canvas id="awCanvas" width="720" height="260" aria-label="Draw a doodle"></canvas>
-      <div class="aw-canvas-hint">Draw anything you want. A sun, a heart, a little reminder — make it yours.</div>
+    <div class="aw-option-label">Add a little something <span class="muted">(optional)</span></div>
+    <div class="aw-doodle-panel">
+      <div class="aw-control-title">Doodle Color</div>
+      <div class="aw-doodle-colors" id="awDoodleColors">
+        <button type="button" class="aw-dot active" data-doodle-color="#25302d" style="--dot:#25302d" aria-label="Charcoal"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#E5484D" style="--dot:#E5484D" aria-label="Red"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#F4C430" style="--dot:#F4C430" aria-label="Yellow"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#3B82F6" style="--dot:#3B82F6" aria-label="Blue"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#3E9B52" style="--dot:#3E9B52" aria-label="Green"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#8B5CF6" style="--dot:#8B5CF6" aria-label="Purple"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#E86AA8" style="--dot:#E86AA8" aria-label="Pink"></button>
+        <button type="button" class="aw-dot" data-doodle-color="#FFFFFF" style="--dot:#FFFFFF" aria-label="White"></button>
+      </div>
+      <div class="aw-control-title">Line Thickness</div>
+      <div class="aw-thicknesses" id="awThicknesses">
+        <button type="button" class="secondary" data-doodle-width="3"><span class="aw-line thin"></span>Thin</button>
+        <button type="button" class="secondary active" data-doodle-width="7"><span class="aw-line medium"></span>Medium</button>
+        <button type="button" class="secondary" data-doodle-width="13"><span class="aw-line thick"></span>Thick</button>
+      </div>
+      <div class="aw-drawing-row">
+        <div class="aw-canvas-wrap">
+          <canvas id="awCanvas" width="720" height="260" aria-label="Draw a doodle"></canvas>
+          <div class="aw-canvas-hint">Draw a sun, a heart, a little reminder — make it yours.</div>
+        </div>
+        <div class="aw-drawing-actions">
+          <button type="button" class="secondary" id="awUndoDrawing">↶<span>Undo</span></button>
+          <button type="button" class="secondary" id="awClearDrawing">⌫<span>Clear</span></button>
+        </div>
+      </div>
+      <div class="aw-control-title aw-stamp-title">Doodles</div>
+      <div class="aw-doodle-tools">
+        <button type="button" class="secondary" data-aw-stamp="sun">☀️</button>
+        <button type="button" class="secondary" data-aw-stamp="heart">♡</button>
+        <button type="button" class="secondary" data-aw-stamp="star">✦</button>
+        <button type="button" class="secondary" data-aw-stamp="flower">✿</button>
+      </div>
     </div>
 
     <div class="aw-editor-actions">
@@ -587,7 +633,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.7 Test</strong></p>
+<p><strong>Recovery Journal v50.7.1 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -750,7 +796,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7 Test</strong></p>
+<p><strong>Recovery Journal v50.7.1 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -794,7 +840,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7 Test</strong></p>
+<p><strong>Recovery Journal v50.7.1 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -845,7 +891,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.1 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1653,30 +1699,38 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   }
   function setupCanvas(){
     const c=document.getElementById("awCanvas");if(!c)return;
-    const ctx=c.getContext("2d");ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle="#25302d";ctx.lineWidth=4;
+    const ctx=c.getContext("2d");ctx.lineCap="round";ctx.lineJoin="round";
     let drawing=false,last=null;
+    c.__awColor="#25302d";c.__awWidth=7;c.__awHistory=[];c.__awDirty=false;
     function pos(e){const r=c.getBoundingClientRect(),p=e.touches?.[0]||e;return{x:(p.clientX-r.left)*(c.width/r.width),y:(p.clientY-r.top)*(c.height/r.height)}}
-    function start(e){e.preventDefault();drawing=true;c.__awDirty=true;last=pos(e)}
-    function move(e){if(!drawing)return;e.preventDefault();const p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p}
+    function snapshot(){try{c.__awHistory.push(ctx.getImageData(0,0,c.width,c.height));if(c.__awHistory.length>20)c.__awHistory.shift()}catch(_){}}
+    function start(e){e.preventDefault();snapshot();drawing=true;c.__awDirty=true;last=pos(e)}
+    function move(e){if(!drawing)return;e.preventDefault();const p=pos(e);ctx.strokeStyle=c.__awColor;ctx.lineWidth=c.__awWidth;ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p}
     function end(){drawing=false;last=null}
     c.addEventListener("pointerdown",start);c.addEventListener("pointermove",move);c.addEventListener("pointerup",end);c.addEventListener("pointercancel",end);c.addEventListener("pointerleave",end);
-    c.__awCtx=ctx;c.__awDirty=false;c.__awClear=()=>{ctx.clearRect(0,0,c.width,c.height);c.__awDirty=false};
+    c.__awCtx=ctx;
+    c.__awClear=()=>{ctx.clearRect(0,0,c.width,c.height);c.__awHistory=[];c.__awDirty=false};
+    c.__awUndo=()=>{const img=c.__awHistory.pop();if(img)ctx.putImageData(img,0,0);else ctx.clearRect(0,0,c.width,c.height);c.__awDirty=true};
   }
   function stamp(type){
     const c=document.getElementById("awCanvas"),ctx=c?.__awCtx;if(!c||!ctx)return;
-    ctx.save();ctx.strokeStyle="#25302d";ctx.fillStyle="#25302d";ctx.lineWidth=5;ctx.lineCap="round";ctx.lineJoin="round";
+    c.__awHistory.push(ctx.getImageData(0,0,c.width,c.height));
+    ctx.save();ctx.strokeStyle=c.__awColor;ctx.fillStyle=c.__awColor;ctx.lineWidth=c.__awWidth;ctx.lineCap="round";ctx.lineJoin="round";
     const x=c.width/2,y=c.height/2;
     if(type==="sun"){ctx.beginPath();ctx.arc(x,y,34,0,Math.PI*2);ctx.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;ctx.beginPath();ctx.moveTo(x+45*Math.cos(a),y+45*Math.sin(a));ctx.lineTo(x+65*Math.cos(a),y+65*Math.sin(a));ctx.stroke();}}
     if(type==="heart"){ctx.beginPath();ctx.moveTo(x,y+42);ctx.bezierCurveTo(x-65,y+2,x-48,y-48,x,y-18);ctx.bezierCurveTo(x+48,y-48,x+65,y+2,x,y+42);ctx.stroke();}
     if(type==="star"){for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+70*Math.cos(a),y+70*Math.sin(a));ctx.stroke();}}
     if(type==="flower"){ctx.beginPath();ctx.arc(x,y,13,0,Math.PI*2);ctx.stroke();for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.ellipse(x+30*Math.cos(a),y+30*Math.sin(a),15,25,a,0,Math.PI*2);ctx.stroke();}}
-    ctx.restore();
+    ctx.restore();c.__awDirty=true;
   }
   function openEditor(id=null){
     wallState.editingId=id;document.getElementById("awEditorTitle").textContent=id?"Edit Wall Affirmation":"Add an Affirmation";
     const item=id?allAffirmations().find(x=>x.id===id):null;
     document.getElementById("awText").value=item?.text||"";
     wallState.color=item?.color||colors[Math.floor(Math.random()*colors.length)];
+    const awc=document.getElementById("awCanvas");if(awc){awc.__awColor="#25302d";awc.__awWidth=7;awc.__awClear?.();}
+    document.querySelectorAll("#awDoodleColors .aw-dot").forEach(b=>b.classList.toggle("active",b.dataset.doodleColor==="#25302d"));
+    document.querySelectorAll("#awThicknesses button").forEach(b=>b.classList.toggle("active",b.dataset.doodleWidth==="7"));
     document.querySelectorAll("#awColors [data-aw-color]").forEach(b=>b.classList.toggle("active",b.dataset.awColor===wallState.color));
     const c=document.getElementById("awCanvas");if(c?.__awClear)c.__awClear();
     c.__awDirty=false;if(item?.doodle){const img=new Image();img.onload=()=>{c.__awCtx.drawImage(img,0,0,c.width,c.height);c.__awDirty=false};img.src=item.doodle}
@@ -1729,6 +1783,11 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(e.target.closest("#awSaveBtn")){e.preventDefault();saveEditor();return;}
     if(e.target.closest("#awShuffleBtn")){e.preventDefault();wallState.shuffle++;renderWall();return;}
     if(e.target.closest("#awClearDrawing")){e.preventDefault();document.getElementById("awCanvas")?.__awClear?.();return;}
+    if(e.target.closest("#awUndoDrawing")){e.preventDefault();document.getElementById("awCanvas")?.__awUndo?.();return;}
+    const dc=e.target.closest("[data-doodle-color]");
+    if(dc){const c=document.getElementById("awCanvas");if(c)c.__awColor=dc.dataset.doodleColor;document.querySelectorAll("#awDoodleColors .aw-dot").forEach(b=>b.classList.toggle("active",b===dc));return;}
+    const dw=e.target.closest("[data-doodle-width]");
+    if(dw){const c=document.getElementById("awCanvas");if(c)c.__awWidth=Number(dw.dataset.doodleWidth);document.querySelectorAll("#awThicknesses button").forEach(b=>b.classList.toggle("active",b===dw));return;}
     const color=e.target.closest("[data-aw-color]");if(color){wallState.color=color.dataset.awColor;document.querySelectorAll("#awColors [data-aw-color]").forEach(b=>b.classList.toggle("active",b===color));return;}
     const stampBtn=e.target.closest("[data-aw-stamp]");if(stampBtn){e.preventDefault();stamp(stampBtn.dataset.awStamp);return;}
     const filter=e.target.closest("[data-aw-filter]");if(filter){wallState.filter=filter.dataset.awFilter;document.querySelectorAll("#awFilters [data-aw-filter]").forEach(b=>b.classList.toggle("active",b===filter));renderWall();return;}
