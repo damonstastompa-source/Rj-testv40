@@ -514,6 +514,47 @@ body.gp-mode .personal-greeting,body.gp-mode .counter,body.gp-mode #friendRemind
 @media(max-width:520px){.gp-head-actions{grid-template-columns:1fr auto}.gp-title-row h2{font-size:21px}.gp-pond{min-height:650px;padding-left:4px;padding-right:4px}.gp-stone{width:43vw;min-height:84px}.gp-stone-text{font-size:16px;max-width:38vw}.gp-stone-date{font-size:8px}.gp-layout{gap:15px 0}.gp-pager{font-size:13px}}
 </style>
 
+
+<style id="gratitude-pond-v50-8-5-polish">
+/* v50.8.5 — Gratitude Pond visual polish */
+body.gp-mode{--gp-ink:#eef3f1;--gp-soft:#b8c8c3}
+body.gp-mode #mainContent{padding-top:4px}
+.gp-head{background:linear-gradient(145deg,rgba(34,18,27,.92),rgba(57,27,37,.72));border-color:rgba(208,148,164,.18);box-shadow:0 10px 28px rgba(0,0,0,.16)}
+.gp-icon{background:linear-gradient(145deg,#5b3845,#2e2028);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.gp-title-row h2{letter-spacing:-.025em}.gp-title-row p{color:#bcaeb3}
+.gp-head-actions button{border-radius:14px}.gp-head-actions .primary{background:linear-gradient(135deg,#c77789,#a85c70);box-shadow:0 8px 18px rgba(177,92,112,.2)}
+.gp-tools{background:rgba(30,18,24,.72);border-color:rgba(208,148,164,.16);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.gp-tools input{background:rgba(8,13,14,.38)!important;border-color:rgba(190,211,205,.16)!important;color:#eef3f1!important}
+.gp-meta-row{color:#9faeaa}
+.gp-pond{min-height:650px;border-radius:30px;border-color:rgba(177,207,198,.18);padding:20px 8px 55px;background:
+ radial-gradient(ellipse at 50% 18%,rgba(112,184,171,.20),transparent 25%),
+ radial-gradient(ellipse at 20% 78%,rgba(91,143,137,.12),transparent 23%),
+ radial-gradient(ellipse at 84% 62%,rgba(160,113,149,.10),transparent 25%),
+ linear-gradient(180deg,#081a1d 0%,#0a2528 42%,#0c1d24 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -28px 60px rgba(0,0,0,.25),0 18px 38px rgba(0,0,0,.24)}
+.gp-pond:before{background:
+ radial-gradient(ellipse at 50% 50%,transparent 0 105px,rgba(208,237,231,.055) 107px 109px,transparent 111px 180px),
+ radial-gradient(ellipse at 50% 50%,transparent 0 205px,rgba(208,237,231,.035) 207px 209px,transparent 211px 290px),
+ repeating-radial-gradient(ellipse at 50% 54%,transparent 0 55px,rgba(208,237,231,.022) 57px 58px,transparent 60px 110px);opacity:.85;animation:gpRipple 14s ease-in-out infinite}
+.gp-pond:after{left:3%;right:3%;bottom:9px;height:34px;background:radial-gradient(ellipse,rgba(2,8,10,.78),transparent 68%)}
+.gp-water-glow{position:absolute;left:8%;right:8%;top:7%;height:110px;border-radius:50%;background:radial-gradient(ellipse,rgba(189,230,220,.10),transparent 68%);filter:blur(10px);pointer-events:none}
+.gp-water-line{position:absolute;left:7%;right:7%;height:1px;background:linear-gradient(90deg,transparent,rgba(211,237,231,.13),transparent);opacity:.7;pointer-events:none}.gp-water-line.w1{top:29%}.gp-water-line.w2{top:51%}.gp-water-line.w3{top:73%}
+.gp-bank{filter:saturate(.75);opacity:.72}.gp-lily{opacity:.68;filter:drop-shadow(0 5px 5px rgba(0,0,0,.3))}
+.gp-flower{position:absolute;font-size:25px;opacity:.7;filter:drop-shadow(0 4px 5px rgba(0,0,0,.4));pointer-events:none}.gp-flower.f1{left:8%;top:34%}.gp-flower.f2{right:7%;top:69%;font-size:19px}.gp-flower.f3{left:22%;bottom:7%;font-size:17px}
+.gp-layout{gap:0;padding:4px 8px 0;min-height:575px;align-content:flex-start}
+.gp-stone{width:clamp(120px,32vw,175px);min-height:92px;margin:8px 4px;transition:transform .28s ease,filter .2s ease,box-shadow .28s ease;}
+.gp-stone:hover{filter:brightness(1.06);box-shadow:inset -8px -7px 13px rgba(0,0,0,.22),inset 7px 7px 10px rgba(255,255,255,.16),0 13px 22px rgba(0,0,0,.48)}
+.gp-stone:focus-visible{outline:2px solid rgba(222,238,232,.8);outline-offset:3px}
+.gp-stone.is-rippling{animation:gpStoneRipple .65s ease-out}@keyframes gpStoneRipple{0%{transform:scale(1) rotate(var(--rot,0deg));filter:brightness(1)}45%{transform:scale(1.045) rotate(var(--rot,0deg));filter:brightness(1.13)}100%{transform:scale(1) rotate(var(--rot,0deg));filter:brightness(1)}}
+.gp-stone:after{content:"";position:absolute;left:10%;right:10%;bottom:-10px;height:12px;border-radius:50%;background:rgba(1,8,9,.34);filter:blur(5px);z-index:-1}
+.gp-stone-mark{font-size:14px}.gp-stone-text{font-size:16px;text-shadow:0 1px rgba(255,255,255,.15)}
+.gp-empty{min-height:560px}.gp-empty-inner{background:rgba(5,17,19,.24);border:1px solid rgba(216,236,231,.10);padding:24px 20px;border-radius:24px;backdrop-filter:blur(3px)}
+.gp-empty-icon{font-size:46px}
+.gp-modal{background:rgba(2,7,9,.78)}.gp-sheet{background:linear-gradient(160deg,#12191b,#1a1218 100%);color:#eef3f1;border-color:rgba(216,236,231,.14);box-shadow:0 24px 70px rgba(0,0,0,.65)}
+.gp-sheet .muted,.gp-detail-date{color:#aebdb9}.gp-detail-stone{background:linear-gradient(145deg,#a9a79b,#596662);box-shadow:inset -12px -10px 20px #0004,inset 10px 10px 16px #fff2,0 16px 30px #0007}.gp-detail-text{color:#e8efed}.gp-detail-note{background:rgba(203,222,216,.07);border:1px solid rgba(203,222,216,.09);color:#aebdb9}.gp-ripple-divider{color:#c9899a}.gp-ripple-divider span{background:rgba(203,222,216,.14)}
+.gp-sheet .secondary{background:rgba(255,255,255,.04);border-color:rgba(203,222,216,.15);color:#e8efed}.gp-sheet .secondary:disabled{opacity:.35}
+@media(max-width:520px){.gp-pond{min-height:690px}.gp-layout{gap:2px 0;padding-left:2px;padding-right:2px}.gp-stone{width:44vw;min-height:88px;margin:8px 2px}.gp-stone-text{font-size:15px;max-width:39vw}.gp-water-line{left:4%;right:4%}}
+</style>
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -706,7 +747,7 @@ body.gp-mode .personal-greeting,body.gp-mode .counter,body.gp-mode #friendRemind
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.8.4 Test</strong></p>
+<p><strong>Recovery Journal v50.8.5 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -2020,13 +2061,13 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
       pond.innerHTML=`<div class="gp-empty"><div class="gp-empty-inner"><div class="gp-empty-icon">🪷</div><h3>${state.query?"Nothing matches that reflection.":"Your pond is waiting for your words."}</h3><p>${state.query?"Try another word or clear the search.":"Your saved gratitude entries will appear here as stones. There is nothing else to maintain here — just a place to come back and notice what mattered."}</p>${!state.query?'<button id="gpEmptyToday" class="primary" type="button">Write Today’s Gratitude</button>':''}</div></div>`;
       return;
     }
-    pond.innerHTML=`<div class="gp-bank b1"></div><div class="gp-bank b2"></div><div class="gp-bank b3"></div><div class="gp-bank b4"></div><div class="gp-lily l1"></div><div class="gp-lily l2"></div><div class="gp-lily l3"></div><div class="gp-layout">${state.items.map((x,i)=>{
+    pond.innerHTML=`<div class="gp-water-glow"></div><div class="gp-water-line w1"></div><div class="gp-water-line w2"></div><div class="gp-water-line w3"></div><div class="gp-bank b1"></div><div class="gp-bank b2"></div><div class="gp-bank b3"></div><div class="gp-bank b4"></div><div class="gp-lily l1"></div><div class="gp-lily l2"></div><div class="gp-lily l3"></div><div class="gp-flower f1">✿</div><div class="gp-flower f2">✿</div><div class="gp-flower f3">✦</div><div class="gp-layout">${state.items.map((x,i)=>{
       const rot=[-3,2,-1,3,-2,1][i%6], lift=[0,12,5,18,7,14][i%6];
       const mark=["⌁","♡","✦","◦","⌁","☼"][i%6];
       const text=esc(x.text.length>85?x.text.slice(0,82)+"…":x.text);
       return `<button type="button" class="gp-stone" data-gp-index="${i}" style="transform:translateY(${lift}px) rotate(${rot}deg)" aria-label="Open gratitude reflection"><span class="gp-stone-mark">${mark}</span><span class="gp-stone-text">${text}</span><span class="gp-stone-date">${dayLabel(x.date)}</span></button>`;
     }).join("")}</div>`;
-    pond.querySelectorAll("[data-gp-index]").forEach(b=>b.addEventListener("click",()=>openDetail(Number(b.dataset.gpIndex))));
+    pond.querySelectorAll("[data-gp-index]").forEach(b=>b.addEventListener("click",()=>{b.classList.remove("is-rippling");void b.offsetWidth;b.classList.add("is-rippling");openDetail(Number(b.dataset.gpIndex))}));
   }
   function openDetail(index){
     if(!state.items.length)return; state.currentIndex=Math.max(0,Math.min(index,state.items.length-1));
