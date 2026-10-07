@@ -497,17 +497,21 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </style>
 
 <style id="gratitude-pond-v50-8-css">
-.gp-head{margin-bottom:12px;background:linear-gradient(145deg,var(--card),var(--mist));}
-.gp-title-row{display:flex;align-items:flex-start;gap:12px}.gp-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:16px;background:var(--sage);font-size:26px;flex:0 0 48px}.gp-title-row h2{margin:0;font-size:26px;letter-spacing:-.02em}.gp-title-row p{margin:4px 0 0;line-height:1.4}.gp-head-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:14px}.gp-tools{margin-bottom:12px}.gp-search input{width:100%;box-sizing:border-box}.gp-meta-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:11px;color:var(--muted)}
-.gp-pond{position:relative;min-height:590px;overflow:hidden;border-radius:26px;border:1px solid var(--line);padding:22px 10px 48px;box-sizing:border-box;background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.09),transparent 30%),radial-gradient(circle at 15% 80%,rgba(91,150,136,.16),transparent 26%),radial-gradient(circle at 85% 65%,rgba(160,121,170,.13),transparent 25%),linear-gradient(160deg,#0B1C1D 0%,#0D292A 45%,#101F28 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 15px 35px #0003}
-.gp-pond:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 50% 45%,transparent 0 55px,rgba(255,255,255,.035) 57px 59px,transparent 61px 105px);opacity:.45;pointer-events:none}.gp-pond:after{content:"";position:absolute;left:7%;right:7%;bottom:13px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(5,12,14,.65),transparent 68%);filter:blur(4px);pointer-events:none}
-.gp-bank{position:absolute;width:88px;height:44px;border-radius:50%;background:linear-gradient(145deg,#52645D,#283D39);box-shadow:0 7px 11px #0006;opacity:.8}.gp-bank.b1{left:-15px;top:28px;transform:rotate(14deg)}.gp-bank.b2{right:-18px;top:150px;transform:rotate(-18deg)}.gp-bank.b3{left:-20px;bottom:90px;transform:rotate(-8deg)}.gp-bank.b4{right:-22px;bottom:35px;transform:rotate(17deg)}
-.gp-lily{position:absolute;width:52px;height:28px;border-radius:70% 30% 65% 35%;background:#496F5D99;box-shadow:inset -8px -3px 0 #173C3299}.gp-lily:after{content:"";position:absolute;right:1px;top:0;border-left:13px solid transparent;border-bottom:13px solid #102526;transform:rotate(18deg)}.gp-lily.l1{left:12%;top:18%}.gp-lily.l2{right:12%;top:42%;transform:scale(.72) rotate(22deg)}.gp-lily.l3{left:18%;bottom:16%;transform:scale(.8) rotate(-12deg)}
-.gp-stone{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;width:clamp(120px,34vw,175px);min-height:88px;padding:22px 14px 16px;box-sizing:border-box;border-radius:48% 52% 44% 56% / 55% 46% 54% 45%;border:1px solid rgba(255,255,255,.13);background:linear-gradient(145deg,#9B9A91,#5F6762);color:#15201E;box-shadow:inset -8px -7px 13px rgba(0,0,0,.22),inset 7px 7px 10px rgba(255,255,255,.16),0 10px 15px #0007;cursor:pointer;z-index:2;transition:transform .2s ease,filter .2s ease}.gp-stone:hover{filter:brightness(1.08);transform:translateY(-3px) rotate(0deg)!important}.gp-stone:nth-of-type(2n){background:linear-gradient(145deg,#B0AAA0,#6E706A)}.gp-stone:nth-of-type(3n){background:linear-gradient(145deg,#879B96,#536B67)}.gp-stone:nth-of-type(4n){background:linear-gradient(145deg,#B49B9E,#75656A)}.gp-stone:nth-of-type(5n){background:linear-gradient(145deg,#A89C87,#6D6659)}
-.gp-stone-text{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:18px;font-weight:700;line-height:1.12;max-width:145px;word-break:break-word}.gp-stone-date{position:absolute;bottom:7px;left:0;right:0;text-align:center;font-family:inherit;font-size:9px;font-weight:800;opacity:.62}.gp-stone-mark{position:absolute;right:9px;top:6px;font-size:15px;opacity:.58}.gp-layout{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-around;gap:18px 4px}.gp-empty{min-height:510px;display:flex;align-items:center;justify-content:center;text-align:center;color:#DCE6E3;padding:35px;box-sizing:border-box;position:relative;z-index:2}.gp-empty-inner{max-width:290px}.gp-empty-icon{font-size:50px;margin-bottom:10px}.gp-empty h3{margin:0 0 7px;font-size:21px}.gp-empty p{margin:0;line-height:1.5;color:#B7C8C2}.gp-empty button{margin-top:17px}
+/* v50.8.4 — Gratitude Pond: immersive pond + storage-safe reflection view */
+body.gp-mode .personal-greeting,body.gp-mode .counter,body.gp-mode #friendReminders{display:none!important}
+.gp-head{margin:0 0 10px;background:linear-gradient(145deg,var(--card),var(--mist));padding:14px 15px;border-radius:18px}
+.gp-title-row{display:flex;align-items:center;gap:10px}.gp-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--sage);font-size:23px;flex:0 0 42px}.gp-title-row h2{margin:0;font-size:22px;letter-spacing:-.02em}.gp-title-row p{margin:3px 0 0;line-height:1.35;font-size:13px}.gp-head-actions{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:11px}.gp-head-actions button{min-height:43px}.gp-tools{margin:0 0 10px;padding:11px 13px;border-radius:17px}.gp-search input{width:100%;box-sizing:border-box}.gp-meta-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:7px;font-size:11px;color:var(--muted)}
+.gp-pond{position:relative;min-height:610px;overflow:hidden;border-radius:28px;border:1px solid rgba(170,205,196,.22);padding:22px 7px 48px;box-sizing:border-box;background:radial-gradient(circle at 50% 18%,rgba(141,202,190,.14),transparent 28%),radial-gradient(circle at 20% 76%,rgba(91,150,136,.14),transparent 25%),radial-gradient(circle at 82% 56%,rgba(160,121,170,.12),transparent 24%),linear-gradient(160deg,#081719 0%,#0B2527 45%,#101E27 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 15px 35px #0003}
+.gp-pond:before{content:"";position:absolute;inset:-15%;background:repeating-radial-gradient(ellipse at 52% 48%,transparent 0 48px,rgba(210,239,233,.045) 50px 52px,transparent 54px 100px);opacity:.65;pointer-events:none;animation:gpRipple 11s ease-in-out infinite}@keyframes gpRipple{0%,100%{transform:scale(.96);opacity:.45}50%{transform:scale(1.03);opacity:.72}}
+.gp-pond:after{content:"";position:absolute;left:5%;right:5%;bottom:12px;height:24px;border-radius:50%;background:radial-gradient(ellipse,rgba(4,10,12,.72),transparent 68%);filter:blur(5px);pointer-events:none}
+.gp-bank{position:absolute;width:88px;height:44px;border-radius:50%;background:linear-gradient(145deg,#53655F,#293E3A);box-shadow:0 7px 11px #0007;opacity:.8}.gp-bank.b1{left:-15px;top:24px;transform:rotate(14deg)}.gp-bank.b2{right:-18px;top:148px;transform:rotate(-18deg)}.gp-bank.b3{left:-20px;bottom:88px;transform:rotate(-8deg)}.gp-bank.b4{right:-22px;bottom:34px;transform:rotate(17deg)}
+.gp-lily{position:absolute;width:52px;height:28px;border-radius:70% 30% 65% 35%;background:#496F5D99;box-shadow:inset -8px -3px 0 #173C3299}.gp-lily:after{content:"";position:absolute;right:1px;top:0;border-left:13px solid transparent;border-bottom:13px solid #102526;transform:rotate(18deg)}.gp-lily.l1{left:11%;top:18%}.gp-lily.l2{right:12%;top:42%;transform:scale(.72) rotate(22deg)}.gp-lily.l3{left:18%;bottom:16%;transform:scale(.8) rotate(-12deg)}
+.gp-layout{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-around;gap:20px 2px;padding-top:4px}.gp-stone{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;width:clamp(122px,34vw,176px);min-height:90px;padding:22px 14px 17px;box-sizing:border-box;border-radius:48% 52% 44% 56% / 55% 46% 54% 45%;border:1px solid rgba(255,255,255,.14);background:linear-gradient(145deg,#A5A39A,#5D6762);color:#15201E;box-shadow:inset -8px -7px 13px rgba(0,0,0,.22),inset 7px 7px 10px rgba(255,255,255,.16),0 10px 15px #0007;cursor:pointer;z-index:2;transition:transform .2s ease,filter .2s ease}.gp-stone:active{filter:brightness(1.08)}.gp-stone:nth-of-type(2n){background:linear-gradient(145deg,#B1AAA0,#6E706A)}.gp-stone:nth-of-type(3n){background:linear-gradient(145deg,#879B96,#536B67)}.gp-stone:nth-of-type(4n){background:linear-gradient(145deg,#B49B9E,#75656A)}.gp-stone:nth-of-type(5n){background:linear-gradient(145deg,#A89C87,#6D6659)}
+.gp-stone-text{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:17px;font-weight:700;line-height:1.12;max-width:145px;word-break:break-word}.gp-stone-date{position:absolute;bottom:7px;left:0;right:0;text-align:center;font-family:inherit;font-size:9px;font-weight:800;opacity:.62}.gp-stone-mark{position:absolute;right:9px;top:6px;font-size:15px;opacity:.58}
+.gp-empty{min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;color:#DCE6E3;padding:35px;box-sizing:border-box;position:relative;z-index:2}.gp-empty-inner{max-width:290px}.gp-empty-icon{font-size:50px;margin-bottom:10px}.gp-empty h3{margin:0 0 7px;font-size:21px}.gp-empty p{margin:0;line-height:1.5;color:#B7C8C2}.gp-empty button{margin-top:17px}
 .gp-modal{position:fixed;inset:0;background:rgba(4,10,12,.72);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;padding:12px;z-index:10060}.gp-modal.hidden{display:none!important}.gp-sheet{width:min(620px,100%);max-height:91dvh;overflow:auto;background:var(--cream);color:var(--ink);border:1px solid var(--line);border-radius:25px;padding:18px;box-sizing:border-box;box-shadow:0 22px 60px #0008;-webkit-overflow-scrolling:touch}.gp-detail-stone{width:min(78vw,330px);min-height:165px;margin:17px auto 10px;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;box-sizing:border-box;border-radius:50% 46% 53% 44% / 52% 48% 45% 55%;background:linear-gradient(145deg,#A9A79B,#5F6762);color:#15201E;box-shadow:inset -12px -10px 20px #0003,inset 10px 10px 16px #fff2,0 16px 28px #0005}.gp-detail-stone .big{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:28px;font-weight:700;line-height:1.14}.gp-detail-date{text-align:center;color:var(--muted);font-size:12px}.gp-ripple-divider{display:flex;align-items:center;justify-content:center;gap:9px;margin:17px 0 11px;color:var(--forest)}.gp-ripple-divider span{height:1px;background:var(--line);flex:1}.gp-ripple-divider i{font-style:normal;font-size:24px;line-height:1}.gp-detail-text{font-size:17px;line-height:1.58;text-align:center;margin:0 auto;max-width:500px}.gp-detail-note{margin-top:16px;padding:12px;border-radius:14px;background:var(--mist);color:var(--muted);font-size:12px;text-align:center;line-height:1.45}.gp-pager{margin-top:12px;width:49%}.gp-pager + .gp-pager{float:right}
-[data-theme="midnightforest"] .gp-pond{background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#081713,#0C2820 52%,#0D1D20)}[data-theme="burgundy"] .gp-pond{background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.08),transparent 30%),linear-gradient(160deg,#1A0D15,#32141E 55%,#181018)}[data-theme="cosmic"] .gp-pond{background:radial-gradient(circle at 65% 20%,rgba(183,140,255,.15),transparent 25%),linear-gradient(160deg,#09091B,#17102B 55%,#0C0A18)}[data-theme="blacklight"] .gp-pond{background:linear-gradient(160deg,#050707,#0B1110 55%,#040606)}[data-theme="contrast"] .gp-pond{border-color:#fff;background:#000}.gp-head-actions .primary{white-space:nowrap}
-@media(max-width:520px){.gp-head-actions{grid-template-columns:1fr auto}.gp-title-row h2{font-size:23px}.gp-pond{min-height:650px;padding-left:4px;padding-right:4px}.gp-stone{width:43vw;min-height:84px}.gp-stone-text{font-size:16px;max-width:38vw}.gp-stone-date{font-size:8px}.gp-layout{gap:15px 0}.gp-pager{font-size:13px}}
+[data-theme="midnightforest"] .gp-pond{background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.07),transparent 30%),linear-gradient(160deg,#081713,#0C2820 52%,#0D1D20)}[data-theme="burgundy"] .gp-pond{background:radial-gradient(circle at 50% 15%,rgba(255,255,255,.08),transparent 30%),linear-gradient(160deg,#1A0D15,#32141E 55%,#181018)}[data-theme="cosmic"] .gp-pond{background:radial-gradient(circle at 65% 20%,rgba(183,140,255,.15),transparent 25%),linear-gradient(160deg,#09091B,#17102B 55%,#0C0A18)}[data-theme="blacklight"] .gp-pond{background:linear-gradient(160deg,#050707,#0B1110 55%,#040606)}[data-theme="contrast"] .gp-pond{border-color:#fff;background:#000}
+@media(max-width:520px){.gp-head-actions{grid-template-columns:1fr auto}.gp-title-row h2{font-size:21px}.gp-pond{min-height:650px;padding-left:4px;padding-right:4px}.gp-stone{width:43vw;min-height:84px}.gp-stone-text{font-size:16px;max-width:38vw}.gp-stone-date{font-size:8px}.gp-layout{gap:15px 0}.gp-pager{font-size:13px}}
 </style>
 
 </head>
@@ -702,7 +706,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.8 Test</strong></p>
+<p><strong>Recovery Journal v50.8.4 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -1956,25 +1960,64 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 (function(){
   const state={query:"",shuffle:0,currentIndex:0,items:[]};
   function dayLabel(date){if(!date)return "";try{return new Date(date+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}catch(e){return date}}
+  function candidateDays(obj){
+    if(!obj||typeof obj!=="object")return null;
+    if(obj.days&&typeof obj.days==="object")return obj.days;
+    if(obj.data&&obj.data.days&&typeof obj.data.days==="object")return obj.data.days;
+    return null;
+  }
+  function gratitudeCount(days){
+    let n=0; Object.values(days||{}).forEach(d=>{if(!d||typeof d!=="object")return;[d.g1,d.g2,d.g3,d.gratitude1,d.gratitude2,d.gratitude3].forEach(x=>{if(String(x||"").trim())n++});
+      const arr=Array.isArray(d.gratitude)?d.gratitude:(Array.isArray(d.gratitudes)?d.gratitudes:null); if(arr)n+=arr.filter(x=>String(typeof x==="object"?(x.text||x.value||""):x).trim()).length;
+    }); return n;
+  }
+  function hydrateFromStorage(){
+    try{
+      const current=JSON.parse(localStorage.getItem("recoveryJournalV1")||"null");
+      if(current&&current.days&&gratitudeCount(current.days)>gratitudeCount(db.days)) db.days=current.days;
+      const stores=[localStorage,sessionStorage];
+      for(const store of stores){
+        for(let i=0;i<store.length;i++){
+          const key=store.key(i); if(!key||key==="recoveryJournalV1")continue;
+          let parsed=null; try{parsed=JSON.parse(store.getItem(key)||"")}catch(e){continue}
+          const days=candidateDays(parsed); if(!days)continue;
+          if(gratitudeCount(days)>gratitudeCount(db.days)){
+            Object.entries(days).forEach(([date,val])=>{db.days[date]=Object.assign({},db.days[date]||{},val||{})});
+          }
+        }
+      }
+      // Support older/alternate gratitude field names without changing the journal schema.
+      Object.entries(db.days||{}).forEach(([date,d])=>{
+        if(!d||typeof d!=="object")return;
+        const vals=[d.g1,d.g2,d.g3,d.gratitude1,d.gratitude2,d.gratitude3];
+        const arr=Array.isArray(d.gratitude)?d.gratitude:(Array.isArray(d.gratitudes)?d.gratitudes:null);
+        if(arr) arr.slice(0,3).forEach((x,i)=>{if(!vals[i]&&String(typeof x==="object"?(x.text||x.value||""):x).trim()) db.days[date][`g${i+1}`]=String(typeof x==="object"?(x.text||x.value||""):x).trim()});
+        ["gratitude1","gratitude2","gratitude3"].forEach((k,i)=>{if(!db.days[date][`g${i+1}`]&&String(d[k]||"").trim())db.days[date][`g${i+1}`]=String(d[k]).trim()});
+      });
+    }catch(e){console.warn("Gratitude Pond storage scan",e)}
+  }
   function allGratitudes(){
+    hydrateFromStorage();
     const out=[];
     Object.entries(db.days||{}).forEach(([date,d])=>{
-      [d?.g1,d?.g2,d?.g3].forEach((text,i)=>{if(String(text||"").trim())out.push({id:`${date}:g${i+1}`,date,text:String(text).trim(),slot:i+1})});
+      const vals=[d?.g1,d?.g2,d?.g3];
+      vals.forEach((text,i)=>{if(String(text||"").trim())out.push({id:`${date}:g${i+1}`,date,text:String(text).trim(),slot:i+1})});
     });
     return out.sort((a,b)=>(b.date+a.id).localeCompare(a.date+b.id));
   }
   function filtered(){
     let arr=allGratitudes(); const q=state.query.trim().toLowerCase();
     if(q)arr=arr.filter(x=>x.text.toLowerCase().includes(q));
-    if(state.shuffle){arr=arr.slice().sort((a,b)=>{const aa=Math.sin((a.id.length*17)+(state.shuffle*31)+a.text.length*7);const bb=Math.sin((b.id.length*17)+(state.shuffle*31)+b.text.length*7);return aa-bb})}
+    if(state.shuffle)arr=arr.slice().sort((a,b)=>{const aa=Math.sin((a.id.length*17)+(state.shuffle*31)+a.text.length*7);const bb=Math.sin((b.id.length*17)+(state.shuffle*31)+b.text.length*7);return aa-bb});
     return arr;
   }
   function render(){
+    hydrateFromStorage();
     const pond=document.getElementById("gpPond"); if(!pond)return;
     state.items=filtered();
     const count=document.getElementById("gpCount"); if(count)count.textContent=`${state.items.length} reflection${state.items.length===1?"":"s"}`;
     if(!state.items.length){
-      pond.innerHTML=`<div class="gp-empty"><div class="gp-empty-inner"><div class="gp-empty-icon">🪷</div><h3>${state.query?"Nothing matches that reflection.":"Your pond is waiting for your words."}</h3><p>${state.query?"Try another word or clear the search.":"Your saved gratitude entries will appear here as stones. There is nothing else to maintain here — just a place to come back and notice what mattered."}</p>${!state.query?'<button id="gpEmptyToday" class="primary" type="button">Write Today's Gratitude</button>':''}</div></div>`;
+      pond.innerHTML=`<div class="gp-empty"><div class="gp-empty-inner"><div class="gp-empty-icon">🪷</div><h3>${state.query?"Nothing matches that reflection.":"Your pond is waiting for your words."}</h3><p>${state.query?"Try another word or clear the search.":"Your saved gratitude entries will appear here as stones. There is nothing else to maintain here — just a place to come back and notice what mattered."}</p>${!state.query?'<button id="gpEmptyToday" class="primary" type="button">Write Today’s Gratitude</button>':''}</div></div>`;
       return;
     }
     pond.innerHTML=`<div class="gp-bank b1"></div><div class="gp-bank b2"></div><div class="gp-bank b3"></div><div class="gp-bank b4"></div><div class="gp-lily l1"></div><div class="gp-lily l2"></div><div class="gp-lily l3"></div><div class="gp-layout">${state.items.map((x,i)=>{
@@ -1990,10 +2033,8 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     const x=state.items[state.currentIndex]; if(!x)return;
     document.getElementById("gpDetailTitle").textContent=x.text.length>28?x.text.slice(0,28)+"…":"Gratitude";
     document.getElementById("gpDetailStone").innerHTML=`<div class="big">${esc(x.text)}</div>`;
-    document.getElementById("gpDetailDate").textContent=dayLabel(x.date);
-    document.getElementById("gpDetailText").textContent=x.text;
-    document.getElementById("gpDetailPrev").disabled=state.currentIndex<=0;
-    document.getElementById("gpDetailNext").disabled=state.currentIndex>=state.items.length-1;
+    document.getElementById("gpDetailDate").textContent=dayLabel(x.date); document.getElementById("gpDetailText").textContent=x.text;
+    document.getElementById("gpDetailPrev").disabled=state.currentIndex<=0; document.getElementById("gpDetailNext").disabled=state.currentIndex>=state.items.length-1;
     document.getElementById("gpDetail").classList.remove("hidden");
   }
   function closeDetail(){document.getElementById("gpDetail")?.classList.add("hidden")}
@@ -2001,39 +2042,25 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(window.closeAffirmationsWall)window.closeAffirmationsWall();
     document.querySelectorAll('[id$="View"]').forEach(v=>v.classList.add("hidden"));
     document.getElementById("gratitudePondView")?.classList.remove("hidden");
-    document.querySelector(".personal-greeting")?.classList.add("gp-hide-hero");
-    document.querySelector(".counter")?.classList.add("gp-hide-hero");
-    document.getElementById("friendReminders")?.classList.add("gp-hide-hero");
+    document.body.classList.add("gp-mode");
     document.getElementById("title").textContent="Gratitude Pond";
     document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-    closeSidebar();render();window.scrollTo({top:0,behavior:"auto"});
+    closeSidebar(); render(); window.scrollTo({top:0,behavior:"auto"});
   }
-  window.openGratitudePond=openPond;
-  window.renderGratitudePond=render;
-  // v50.8.3: bind the menu item directly as well as through delegation.
-  // This keeps the pond launch reliable on mobile Safari/iOS where the
-  // existing sidebar click delegation can be intercepted by other handlers.
-  const gpMenuBtn=document.getElementById("sidebarGratitudePondBtn");
-  if(gpMenuBtn){
-    gpMenuBtn.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();openPond();};
-  }
-  window.closeGratitudePond=function(){
-    document.getElementById("gratitudePondView")?.classList.add("hidden");
-    document.querySelectorAll(".gp-hide-hero").forEach(x=>x.classList.remove("gp-hide-hero"));
-    closeDetail();
-  };
+  window.openGratitudePond=openPond; window.renderGratitudePond=render;
+  const gpMenuBtn=document.getElementById("sidebarGratitudePondBtn"); if(gpMenuBtn)gpMenuBtn.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();openPond()};
+  window.closeGratitudePond=function(){document.getElementById("gratitudePondView")?.classList.add("hidden");document.body.classList.remove("gp-mode");closeDetail()};
   document.addEventListener("click",function(e){
-    if(e.target.closest("#sidebarGratitudePondBtn")){e.preventDefault();e.stopPropagation();openPond();return;}
-    if(e.target.closest("#gpTodayBtn,#gpEmptyToday")){e.preventDefault();window.closeGratitudePond();if(typeof show==="function")show("today",{skipConfirm:true});return;}
-    if(e.target.closest("#gpShuffleBtn")){e.preventDefault();state.shuffle++;render();return;}
-    if(e.target.closest("#gpDetailClose")){closeDetail();return;}
-    if(e.target.closest("#gpDetailPrev")){if(state.currentIndex>0)openDetail(state.currentIndex-1);return;}
-    if(e.target.closest("#gpDetailNext")){if(state.currentIndex<state.items.length-1)openDetail(state.currentIndex+1);return;}
+    if(e.target.closest("#sidebarGratitudePondBtn")){e.preventDefault();e.stopImmediatePropagation();openPond();return}
+    if(e.target.closest("#gpTodayBtn,#gpEmptyToday")){e.preventDefault();window.closeGratitudePond();if(typeof show==="function")show("today",{skipConfirm:true});return}
+    if(e.target.closest("#gpShuffleBtn")){e.preventDefault();state.shuffle++;render();return}
+    if(e.target.closest("#gpDetailClose")){closeDetail();return}
+    if(e.target.closest("#gpDetailPrev")){if(state.currentIndex>0)openDetail(state.currentIndex-1);return}
+    if(e.target.closest("#gpDetailNext")){if(state.currentIndex<state.items.length-1)openDetail(state.currentIndex+1);return}
     if(e.target.closest("#sidebarAffirmationsWallBtn"))window.closeGratitudePond();
-    const nav=e.target.closest("[data-side-tab], [data-tab], .nav button, #todayBtn, #settingsBtn");
-    if(nav && !e.target.closest("#sidebarGratitudePondBtn"))window.closeGratitudePond();
+    const nav=e.target.closest("[data-side-tab], [data-tab], .nav button, #todayBtn, #settingsBtn"); if(nav&&!e.target.closest("#sidebarGratitudePondBtn"))window.closeGratitudePond();
   },true);
-  document.addEventListener("input",function(e){if(e.target.id==="gpQuery"){state.query=e.target.value;state.shuffle=0;render();}},true);
+  document.addEventListener("input",function(e){if(e.target.id==="gpQuery"){state.query=e.target.value;state.shuffle=0;render()}},true);
   document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDetail()});
 })();
 </script>
