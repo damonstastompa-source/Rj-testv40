@@ -532,7 +532,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
   <div class="sidebar-section-label">Tools</div>
   <button class="sidebar-item" data-side-tab="journal" type="button"><span class="side-icon">📖</span><span>My Journal</span></button>
 <button class="sidebar-item" id="sidebarAffirmationsWallBtn" type="button"><span class="side-icon">✨</span><span>Affirmations Wall</span></button>
-  <button class="sidebar-item" id="sidebarGratitudePondBtn" type="button"><span class="side-icon">🪷</span><span>Gratitude Pond</span></button>
+  <button class="sidebar-item" id="sidebarGratitudePondBtn" type="button" aria-label="Open Gratitude Pond"><span class="side-icon">🪷</span><span>Gratitude Pond</span></button>
   <button class="sidebar-item" data-side-tab="helped" type="button"><span class="side-icon">🔎</span><span>What Helped Me Before?</span></button>
   <button class="sidebar-item" id="sidebarEmotionBtn" type="button"><span class="side-icon">🧠</span><span>Emotion Log</span></button>
   <button class="sidebar-item" id="sidebarReportsBtn" data-side-tab="search" type="button"><span class="side-icon">📊</span><span>Reports</span></button>
@@ -1533,6 +1533,11 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(close){e.preventDefault();e.stopPropagation();closeSidebar();return;}
     const reports=e.target.closest('#sidebarReportsBtn');
     if(reports){e.preventDefault();e.stopPropagation();closeSidebar();repairShow('search');$v('title').textContent='Reports';return;}
+    // v50.8.2: Gratitude Pond is a dedicated top-level screen, not a normal data-side-tab.
+    // Handle it in the app's primary sidebar delegation so mobile Safari cannot leave the
+    // sidebar open when another feature-level listener is added later in the document.
+    const gratitudePond=e.target.closest('#sidebarGratitudePondBtn');
+    if(gratitudePond){e.preventDefault();e.stopPropagation();closeSidebar();if(typeof window.openGratitudePond==='function'){window.openGratitudePond();}return;}
     const item=e.target.closest('#sidebar [data-side-tab]');
     if(item){e.preventDefault();e.stopPropagation();const tab=item.dataset.sideTab;closeSidebar();repairShow(tab);if(tab==="helped"&&typeof initHelped==="function")initHelped();return;}
     const msg=e.target.closest('#sidebarMessagesBtn,#messagesBtn');
@@ -1979,7 +1984,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     closeSidebar();render();window.scrollTo({top:0,behavior:"auto"});
   }
   window.openGratitudePond=openPond;
-  // v50.8.1: bind the menu item directly as well as through delegation.
+  // v50.8.2: bind the menu item directly as well as through delegation.
   // This keeps the pond launch reliable on mobile Safari/iOS where the
   // existing sidebar click delegation can be intercepted by other handlers.
   const gpMenuBtn=document.getElementById("sidebarGratitudePondBtn");
