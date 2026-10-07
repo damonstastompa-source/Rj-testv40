@@ -480,6 +480,21 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 @media(max-width:520px){.aw-thicknesses button{font-size:13px}.aw-drawing-row{grid-template-columns:1fr 58px}}
 </style>
 
+
+<style id="aw-polish-v50-7-3">
+.aw-wall-surface{position:relative;min-height:540px;padding:18px 8px 42px;border-radius:24px;overflow:hidden;background:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1.5px) 0 0/25px 25px,rgba(22,28,25,.94)}
+.aw-wall-note{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;box-sizing:border-box;width:44%;min-height:112px;margin:0 0 28px 2%;padding:28px 13px 14px;border:0;border-radius:2px;color:#26302d;font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:20px;font-weight:700;line-height:1.15;box-shadow:0 8px 17px #0004;cursor:pointer;transition:.18s;z-index:1}
+.aw-wall-note:nth-child(even){margin-left:53%;margin-top:-55px}
+.aw-wall-note:nth-child(3n){margin-top:8px}
+.aw-wall-note:nth-child(4n){margin-top:-25px}
+.aw-wall-note:hover{transform:rotate(0deg) scale(1.025)!important;z-index:5;box-shadow:0 14px 24px #0005}
+.aw-wall-note:before{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%) rotate(-1deg);width:62px;height:16px;background:#fff7}
+.aw-wall-note.aw-yellow{background:#f4dc70}.aw-wall-note.aw-pink{background:#e8a2b4}.aw-wall-note.aw-blue{background:#9fd5e7}.aw-wall-note.aw-sage{background:#b8d3b7}.aw-wall-note.aw-lavender{background:#c9b8df}.aw-wall-note.aw-cream{background:#f1e4c2}
+.aw-wall-note.aw-small{min-height:92px;font-size:18px}.aw-wall-note.aw-large{min-height:145px;font-size:22px}
+.aw-wall-note .aw-favorite{position:absolute;right:7px;top:4px;font-family:system-ui;font-size:14px;opacity:.6}
+.aw-wall-note .aw-doodle-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none;opacity:.9}
+.aw-wall-note .aw-note-text{position:relative;z-index:2;word-break:break-word}
+</style>
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -633,7 +648,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.7.2 Test</strong></p>
+<p><strong>Recovery Journal v50.7.3 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -796,7 +811,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.2 Test</strong></p>
+<p><strong>Recovery Journal v50.7.3 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -840,7 +855,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.2 Test</strong></p>
+<p><strong>Recovery Journal v50.7.3 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -891,7 +906,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.2 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.3 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1650,7 +1665,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 <script id="affirmations-wall-v1-js">
 (function(){
   const wallState={filter:"all",query:"",shuffle:0,currentId:null,editingId:null,color:"#F4C2D0",drawing:null};
-  const colors=["#F4C2D0","#F4D98B","#A9D7E8","#B8DDAF","#D9B7E8","#F2B48C"];
+  const colors=["#F4D96B","#E8A2B4","#9FD5E7","#B8D3B7","#C9B8DF","#F1E4C2"];
   function escW(v){return typeof esc==="function"?esc(v??""):String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
   function ensureWall(){db.affirmationWall=Array.isArray(db.affirmationWall)?db.affirmationWall:[];return db.affirmationWall}
   function allAffirmations(){
@@ -1692,7 +1707,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
       <button type="button" class="aw-note" data-aw-note="${escW(x.id)}" style="--note:${x.color||colors[i%colors.length]};--rot:${x.rotation??((i%7)-3)}deg">
         ${x.favorite?'<span class="aw-note-heart">♥</span>':''}
         <span class="aw-note-text">${escW(x.text)}</span>
-        <span class="aw-note-date">${escW(x.date||"")}${x.native?"":" · Wall"}</span>
+        
         ${x.doodle?`<img class="aw-note-doodle" src="${x.doodle}" alt="">`:""}
       </button>`).join("");
     wall.querySelectorAll("[data-aw-note]").forEach(b=>b.addEventListener("click",()=>openDetail(b.dataset.awNote)));
@@ -1802,7 +1817,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(e.target.id==="awQuery"){wallState.query=e.target.value;renderWall();}
   },true);
 
-  // v50.7.2 navigation fix:
+  // v50.7.3 navigation fix:
   // The wall is a real top-level screen, but it must never replace/intercept
   // the app's normal navigation. Always tear it down before another screen opens.
   window.closeAffirmationsWall = function(){
@@ -1839,4 +1854,17 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 })();
 </script>
 
+
+<script id="aw-order-persistence-v50-7-3">
+(function(){
+  const key="affirmationsWallOrder";
+  document.addEventListener("click",function(e){
+    const b=e.target.closest("#awShuffleBtn"); if(!b)return;
+    const raw=JSON.parse(localStorage.getItem("affirmationWall")||"[]");
+    const ids=raw.map((x,i)=>x.id||("wall-"+i));
+    for(let i=ids.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]]}
+    localStorage.setItem(key,JSON.stringify(ids));
+  },true);
+})();
+</script>
 </body></html>
