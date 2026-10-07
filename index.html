@@ -1537,7 +1537,32 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     // Handle it in the app's primary sidebar delegation so mobile Safari cannot leave the
     // sidebar open when another feature-level listener is added later in the document.
     const gratitudePond=e.target.closest('#sidebarGratitudePondBtn');
-    if(gratitudePond){e.preventDefault();e.stopPropagation();closeSidebar();if(typeof window.openGratitudePond==='function'){window.openGratitudePond();}return;}
+    if(gratitudePond){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      try{
+        closeSidebar();
+        if(typeof window.openGratitudePond==='function'){
+          window.openGratitudePond();
+        }else{
+          // Hard fallback: show the dedicated Pond screen even if the feature
+          // initializer has not exposed its launcher yet.
+          document.querySelectorAll('[id$="View"]').forEach(v=>v.classList.add('hidden'));
+          const pond=document.getElementById('gratitudePondView');
+          if(pond)pond.classList.remove('hidden');
+          const title=document.getElementById('title');
+          if(title)title.textContent='Gratitude Pond';
+        }
+      }catch(err){
+        console.error('Gratitude Pond navigation',err);
+        document.querySelectorAll('[id$="View"]').forEach(v=>v.classList.add('hidden'));
+        const pond=document.getElementById('gratitudePondView');
+        if(pond)pond.classList.remove('hidden');
+        const title=document.getElementById('title');
+        if(title)title.textContent='Gratitude Pond';
+      }
+      return;
+    }
     const item=e.target.closest('#sidebar [data-side-tab]');
     if(item){e.preventDefault();e.stopPropagation();const tab=item.dataset.sideTab;closeSidebar();repairShow(tab);if(tab==="helped"&&typeof initHelped==="function")initHelped();return;}
     const msg=e.target.closest('#sidebarMessagesBtn,#messagesBtn');
@@ -1984,12 +2009,13 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     closeSidebar();render();window.scrollTo({top:0,behavior:"auto"});
   }
   window.openGratitudePond=openPond;
-  // v50.8.2: bind the menu item directly as well as through delegation.
+  window.renderGratitudePond=render;
+  // v50.8.3: bind the menu item directly as well as through delegation.
   // This keeps the pond launch reliable on mobile Safari/iOS where the
   // existing sidebar click delegation can be intercepted by other handlers.
   const gpMenuBtn=document.getElementById("sidebarGratitudePondBtn");
   if(gpMenuBtn){
-    gpMenuBtn.onclick=function(e){e.preventDefault();e.stopPropagation();openPond();};
+    gpMenuBtn.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();openPond();};
   }
   window.closeGratitudePond=function(){
     document.getElementById("gratitudePondView")?.classList.add("hidden");
