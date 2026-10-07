@@ -407,6 +407,58 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 })();
 </script>
 
+
+<style id="affirmations-wall-v1-css">
+.aw-intro{display:flex;gap:13px;align-items:center;padding:18px 18px 17px}
+.aw-intro-icon{width:48px;height:48px;border-radius:15px;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:27px;flex:0 0 auto}
+.aw-intro h2{margin:0;font-size:25px}.aw-intro p{margin:4px 0 0;line-height:1.35}
+.aw-toolbar{padding:14px 16px}
+.aw-search-row{display:grid;grid-template-columns:1fr auto;gap:9px;align-items:center}
+.aw-search-row input{min-width:0}.aw-search-row button{white-space:nowrap}
+.aw-filters{display:flex;gap:7px;overflow-x:auto;padding:10px 0 1px;scrollbar-width:none}
+.aw-filters::-webkit-scrollbar{display:none}.aw-filters button{white-space:nowrap;min-height:38px}
+.aw-wall{position:relative;min-height:520px;border-radius:22px;padding:20px 10px 26px;overflow:hidden;
+  background:linear-gradient(135deg,rgba(38,42,40,.98),rgba(26,31,29,.98));
+  border:1px solid var(--line);box-shadow:inset 0 0 0 1px #ffffff08,0 8px 25px #00000012}
+.aw-wall:before{content:"";position:absolute;inset:0;opacity:.12;pointer-events:none;
+  background-image:radial-gradient(#fff 0.7px,transparent .7px);background-size:17px 17px}
+.aw-note{position:relative;display:inline-flex;vertical-align:top;flex-direction:column;justify-content:center;
+  width:43%;min-height:116px;margin:9px 2.7%;padding:18px 15px 14px;
+  background:var(--note);color:#25302d;border:0;border-radius:2px;
+  box-shadow:2px 5px 13px #0000003b;cursor:pointer;transform:rotate(var(--rot));
+  transition:transform .15s ease,box-shadow .15s ease;overflow:hidden}
+.aw-note:nth-child(3n){margin-top:23px}.aw-note:nth-child(4n){margin-top:-2px}
+.aw-note:hover{transform:rotate(0deg) translateY(-2px);box-shadow:4px 9px 17px #0000004a}
+.aw-note:before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:56px;height:13px;
+  background:#ffffff62;border-left:1px solid #ffffff35;border-right:1px solid #ffffff35}
+.aw-note-text{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:21px;font-weight:700;line-height:1.12;word-break:break-word}
+.aw-note-date{font-family:inherit;font-size:10px;font-weight:700;opacity:.62;margin-top:9px}
+.aw-note-doodle{position:absolute;right:7px;bottom:6px;width:44px;height:44px;object-fit:contain;opacity:.85}
+.aw-note-heart{position:absolute;right:8px;top:7px;font-size:18px}
+.aw-empty{min-height:470px;display:flex;align-items:center;justify-content:center;text-align:center;color:#d6ddd8;padding:35px}
+.aw-empty-inner{max-width:280px}.aw-empty-inner .big{font-size:48px;margin-bottom:10px}
+.aw-empty-inner h3{margin:0 0 7px;font-size:22px}.aw-empty-inner p{margin:0 0 18px;line-height:1.45;color:#aeb9b3}
+.aw-add-btn{width:100%;margin:13px 0 20px;padding:15px 18px;border-radius:16px;background:var(--forest);color:#fff;font-size:16px;box-shadow:0 6px 15px #23433B24}
+.aw-modal{position:fixed;inset:0;background:rgba(12,17,15,.62);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  display:flex;align-items:flex-end;justify-content:center;padding:12px;z-index:10050}
+.aw-modal.hidden{display:none!important}.aw-sheet{width:min(720px,100%);max-height:94dvh;overflow:auto;background:var(--cream);
+  color:var(--ink);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:0 20px 55px #00000045;-webkit-overflow-scrolling:touch}
+.aw-option-label{font-size:13px;font-weight:800;margin:15px 0 7px}.aw-color-row{display:flex;gap:7px;flex-wrap:wrap}
+.aw-color-row button{background:var(--aw-note);color:#25302d;border:1px solid #00000018;padding:9px 12px}
+.aw-doodle-tools{display:flex;gap:7px;flex-wrap:wrap}.aw-doodle-tools button{padding:8px 10px}
+.aw-canvas-wrap{position:relative;margin-top:10px;border:1px solid var(--line);border-radius:15px;background:#fffdf8;overflow:hidden}
+#awCanvas{display:block;width:100%;height:210px;touch-action:none;cursor:crosshair}
+.aw-canvas-hint{position:absolute;bottom:6px;left:9px;right:9px;font-size:10px;text-align:center;color:#718078;pointer-events:none}
+.aw-editor-actions{display:flex;gap:8px;margin-top:13px}.aw-editor-actions button{flex:1}
+.aw-detail-sheet{max-width:520px}.aw-detail-note{position:relative;min-height:220px;border-radius:3px;padding:35px 28px 24px;
+  background:var(--detail-note,#F4C2D0);color:#25302d;box-shadow:3px 8px 18px #0000002c;transform:rotate(-1deg);overflow:hidden}
+.aw-detail-note:before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:75px;height:15px;background:#ffffff62}
+.aw-detail-note .detail-text{font-family:"Bradley Hand","Segoe Print","Comic Sans MS",cursive;font-size:30px;font-weight:700;line-height:1.15}
+.aw-detail-note img{display:block;max-width:150px;max-height:95px;margin:14px auto 0}.aw-detail-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:15px}
+@media(max-width:520px){.aw-search-row{grid-template-columns:1fr}.aw-note{width:44%;margin-left:2%;margin-right:2%;min-height:105px;padding:16px 11px}.aw-note-text{font-size:18px}.aw-detail-actions{grid-template-columns:1fr}.aw-wall{min-height:470px}}
+</style>
+
+<style>.aw-hide-hero{display:none!important}.aw-color-row button.active{outline:3px solid var(--forest);outline-offset:1px}</style>
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -428,6 +480,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
   <div class="sidebar-divider"></div>
   <div class="sidebar-section-label">Tools</div>
   <button class="sidebar-item" data-side-tab="journal" type="button"><span class="side-icon">📖</span><span>My Journal</span></button>
+<button class="sidebar-item" id="sidebarAffirmationsWallBtn" type="button"><span class="side-icon">✨</span><span>Affirmations Wall</span></button>
   <button class="sidebar-item" data-side-tab="helped" type="button"><span class="side-icon">🔎</span><span>What Helped Me Before?</span></button>
   <button class="sidebar-item" id="sidebarEmotionBtn" type="button"><span class="side-icon">🧠</span><span>Emotion Log</span></button>
   <button class="sidebar-item" id="sidebarReportsBtn" data-side-tab="search" type="button"><span class="side-icon">📊</span><span>Reports</span></button>
@@ -443,17 +496,103 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <div class="counter"><div class="eyebrow" style="color:#c7cbd1" id="counterName">Your Recovery</div><div class="big" id="counter">Set your clean date</div><small id="daysClean"></small></div>
 <div id="friendReminders"></div>
 
+
+<section id="affirmationsWallView" class="hidden">
+  <div class="aw-intro card">
+    <div class="aw-intro-icon">💛</div>
+    <div>
+      <h2>✨ Affirmations Wall</h2>
+      <p class="muted">A collection of the things you've chosen to believe about yourself.</p>
+    </div>
+  </div>
+
+  <div class="aw-toolbar card">
+    <div class="aw-search-row">
+      <input id="awQuery" type="search" placeholder="🔎 Search affirmations..." autocomplete="off">
+      <button id="awShuffleBtn" class="primary" type="button">⤨ Shuffle Wall</button>
+    </div>
+    <div class="aw-filters" id="awFilters">
+      <button type="button" class="secondary active" data-aw-filter="all">All</button>
+      <button type="button" class="secondary" data-aw-filter="recent">Recent</button>
+      <button type="button" class="secondary" data-aw-filter="month">This Month</button>
+      <button type="button" class="secondary" data-aw-filter="doodle">With Doodles</button>
+    </div>
+  </div>
+
+  <div id="awWall" class="aw-wall" aria-live="polite"></div>
+
+  <button id="awAddBtn" class="aw-add-btn" type="button">＋ Add a New Affirmation</button>
+</section>
+
+<div id="awEditor" class="aw-modal hidden" role="dialog" aria-modal="true" aria-labelledby="awEditorTitle">
+  <div class="aw-sheet">
+    <div class="row between">
+      <div>
+        <div class="eyebrow">AFFIRMATIONS WALL</div>
+        <h2 id="awEditorTitle">Add an Affirmation</h2>
+      </div>
+      <button id="awEditorClose" class="secondary" type="button">✕</button>
+    </div>
+
+    <label for="awText">What do you want to remind yourself?</label>
+    <textarea id="awText" rows="3" maxlength="180" placeholder="I am sunshine."></textarea>
+
+    <div class="aw-option-label">Choose your note</div>
+    <div id="awColors" class="aw-color-row">
+      <button type="button" data-aw-color="#F4C2D0" style="--aw-note:#F4C2D0">Rose</button>
+      <button type="button" data-aw-color="#F4D98B" style="--aw-note:#F4D98B">Sun</button>
+      <button type="button" data-aw-color="#A9D7E8" style="--aw-note:#A9D7E8">Sky</button>
+      <button type="button" data-aw-color="#B8DDAF" style="--aw-note:#B8DDAF">Sage</button>
+      <button type="button" data-aw-color="#D9B7E8" style="--aw-note:#D9B7E8">Lavender</button>
+    </div>
+
+    <div class="aw-option-label">Add a little something</div>
+    <div class="aw-doodle-tools">
+      <button type="button" class="secondary" data-aw-stamp="sun">☀️ Sun</button>
+      <button type="button" class="secondary" data-aw-stamp="heart">♡ Heart</button>
+      <button type="button" class="secondary" data-aw-stamp="star">✦ Sparkle</button>
+      <button type="button" class="secondary" data-aw-stamp="flower">✿ Flower</button>
+      <button type="button" class="secondary" id="awClearDrawing">Clear</button>
+    </div>
+    <div class="aw-canvas-wrap">
+      <canvas id="awCanvas" width="720" height="260" aria-label="Draw a doodle"></canvas>
+      <div class="aw-canvas-hint">Draw anything you want. A sun, a heart, a little reminder — make it yours.</div>
+    </div>
+
+    <div class="aw-editor-actions">
+      <button id="awCancelBtn" class="secondary" type="button">Cancel</button>
+      <button id="awSaveBtn" class="primary" type="button">Save to My Wall</button>
+    </div>
+  </div>
+</div>
+
+<div id="awDetail" class="aw-modal hidden" role="dialog" aria-modal="true">
+  <div class="aw-sheet aw-detail-sheet">
+    <div class="row between">
+      <h2 id="awDetailTitle">Affirmation</h2>
+      <button id="awDetailClose" class="secondary" type="button">✕</button>
+    </div>
+    <div id="awDetailNote" class="aw-detail-note"></div>
+    <div id="awDetailMeta" class="muted" style="margin-top:10px"></div>
+    <div class="aw-detail-actions">
+      <button id="awDetailEdit" class="primary" type="button">✎ Edit</button>
+      <button id="awDetailFavorite" class="secondary" type="button">♡ Favorite</button>
+      <button id="awDetailDelete" class="danger" type="button">Delete</button>
+    </div>
+  </div>
+</div>
+
 <section id="aboutView" class="hidden">
 <div class="card about-page-card">
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.6.4.2</strong></p>
+<p><strong>Recovery Journal v50.7 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
 <ul><li><strong>Affirmations</strong> — three positive statements for today.</li><li><strong>Gratitude</strong> — three things you're grateful for.</li><li><strong>Today's Focus</strong> — one thing you want to practice, remember, or carry with you today.</li><li><strong>Living the Program</strong> — an optional daily reflection with an original prompt. Tap <strong>Another</strong> for a different reflection.</li><li><strong>My Emotions</strong> — a dedicated screen for browsing, searching, filtering, editing, and reviewing your emotion history.</li><li><strong>Emotion Log</strong> — slow down and record what you're feeling, how intense it was, what happened, how you responded, and what you need now.</li><li><strong>Emotion Wheel</strong> — use the wheel when you know something is going on but need help finding the words.</li><li><strong>Journal</strong> — write whatever you need to get out.</li><li><strong>Meetings</strong> — record meetings, topics, notes, time, and place. If enabled in Settings, you can collect drawn chairperson initials for attendance records.</li></ul>
-<h4>Daily Check-In</h4><p>A quick daily snapshot of how you are doing. Choose a mood, then optionally expand <strong>Want to reflect a little more?</strong> to record what you need and one recovery action. Your check-in becomes part of that day’s journal.</p><h4>Journal View</h4><p>Open <strong>My Journal</strong> from the navigation menu to browse your recovery story chronologically. Search your entries, filter by date or category, and open any day in the Journal Reader. The Journal Reader includes Daily Check-In information when it was recorded, with subtle <strong>Today</strong> navigation for older days.</p>
+<h4>Affirmations Wall</h4><p>Turn affirmations from your journal into a personal sticky-note wall. Add your own notes, colors, doodles, and freehand drawings, then shuffle or search the wall.</p><h4>Daily Check-In</h4><p>A quick daily snapshot of how you are doing. Choose a mood, then optionally expand <strong>Want to reflect a little more?</strong> to record what you need and one recovery action. Your check-in becomes part of that day’s journal.</p><h4>Journal View</h4><p>Open <strong>My Journal</strong> from the navigation menu to browse your recovery story chronologically. Search your entries, filter by date or category, and open any day in the Journal Reader. The Journal Reader includes Daily Check-In information when it was recorded, with subtle <strong>Today</strong> navigation for older days.</p>
 <h4>What Helped Me Before?</h4><p>Use <strong>☰ → What Helped Me Before?</strong> to search your own recovery history. Find past journal entries, gratitudes, affirmations, meetings, emotions, goals, and Messages to Myself by keyword or category.</p><h4>My Goals</h4><p>Track short-term and long-term goals, optional milestones, status, target dates, and personal reflections. Completed goals remain available from the Completed goals view.</p>
 <h4>Messages to Myself</h4><p>Keep one or more personal letters for your future self. The letter icon at the top opens a clean, scrollable reading view. Create, edit, add, or delete messages from <strong>Settings → My Recovery → Messages to Myself</strong>. The optional Writing Guide is there if it helps.</p>
 <h4>Your Recovery</h4><p>Your clean date powers your personal clean-time counter. You can change it from <strong>My Recovery → Clean Time</strong>.</p>
@@ -611,7 +750,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.6.4.2</strong></p>
+<p><strong>Recovery Journal v50.7 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -655,7 +794,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.6.4.2</strong></p>
+<p><strong>Recovery Journal v50.7 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -706,7 +845,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.6.4.2</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1461,4 +1600,166 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
 })();
 </script>
 <div id="v50-6-4-about-features" style="display:none"><strong>New in v50.6.4</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions</li><li>🔎 What Helped Me Before?</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+
+<script id="affirmations-wall-v1-js">
+(function(){
+  const wallState={filter:"all",query:"",shuffle:0,currentId:null,editingId:null,color:"#F4C2D0",drawing:null};
+  const colors=["#F4C2D0","#F4D98B","#A9D7E8","#B8DDAF","#D9B7E8","#F2B48C"];
+  function escW(v){return typeof esc==="function"?esc(v??""):String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+  function ensureWall(){db.affirmationWall=Array.isArray(db.affirmationWall)?db.affirmationWall:[];return db.affirmationWall}
+  function allAffirmations(){
+    const out=[], seen=new Set(), wall=ensureWall();
+    Object.keys(db.days||{}).sort().forEach(date=>{
+      const d=db.days[date]||{};
+      [d.a1,d.a2,d.a3].forEach((text,i)=>{
+        text=String(text||"").trim(); if(!text)return;
+        const key=date+"|"+text;
+        if(seen.has(key))return; seen.add(key);
+        out.push({id:"day:"+date+":"+i,text,date,color:colors[(date.charCodeAt(8)||0+i)%colors.length],rotation:((date.charCodeAt(9)||i)%7)-3,doodle:null,favorite:false,source:"Daily Journal",native:false});
+      });
+    });
+    wall.forEach(x=>out.push({...x,native:true}));
+    return out;
+  }
+  function filtered(){
+    let items=allAffirmations();
+    const q=wallState.query.trim().toLowerCase();
+    if(q)items=items.filter(x=>x.text.toLowerCase().includes(q));
+    const now=new Date(), month=now.toISOString().slice(0,7);
+    if(wallState.filter==="recent")items=items.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,18);
+    if(wallState.filter==="month")items=items.filter(x=>String(x.date).startsWith(month));
+    if(wallState.filter==="doodle")items=items.filter(x=>x.doodle);
+    if(wallState.shuffle)items.sort((a,b)=>{
+      const aa=Math.sin((a.id.length*17)+(wallState.shuffle*31)),bb=Math.sin((b.id.length*17)+(wallState.shuffle*31));
+      return aa-bb;
+    });
+    return items;
+  }
+  function renderWall(){
+    const wall=document.getElementById("awWall");if(!wall)return;
+    const items=filtered();
+    if(!items.length){
+      wall.innerHTML=`<div class="aw-empty"><div class="aw-empty-inner"><div class="big">✨</div><h3>${wallState.query?"Nothing matches that yet.":"Your wall is waiting for your words."}</h3><p>${wallState.query?"Try another word or clear the search.":"Add your first affirmation, or keep writing them in your daily journal and they'll appear here."}</p><button type="button" class="primary" id="awEmptyAdd">＋ Add an Affirmation</button></div></div>`;
+      document.getElementById("awEmptyAdd")?.addEventListener("click",openEditor);return;
+    }
+    wall.innerHTML=items.map((x,i)=>`
+      <button type="button" class="aw-note" data-aw-note="${escW(x.id)}" style="--note:${x.color||colors[i%colors.length]};--rot:${x.rotation??((i%7)-3)}deg">
+        ${x.favorite?'<span class="aw-note-heart">♥</span>':''}
+        <span class="aw-note-text">${escW(x.text)}</span>
+        <span class="aw-note-date">${escW(x.date||"")}${x.native?"":" · Wall"}</span>
+        ${x.doodle?`<img class="aw-note-doodle" src="${x.doodle}" alt="">`:""}
+      </button>`).join("");
+    wall.querySelectorAll("[data-aw-note]").forEach(b=>b.addEventListener("click",()=>openDetail(b.dataset.awNote)));
+  }
+  function setupCanvas(){
+    const c=document.getElementById("awCanvas");if(!c)return;
+    const ctx=c.getContext("2d");ctx.lineCap="round";ctx.lineJoin="round";ctx.strokeStyle="#25302d";ctx.lineWidth=4;
+    let drawing=false,last=null;
+    function pos(e){const r=c.getBoundingClientRect(),p=e.touches?.[0]||e;return{x:(p.clientX-r.left)*(c.width/r.width),y:(p.clientY-r.top)*(c.height/r.height)}}
+    function start(e){e.preventDefault();drawing=true;c.__awDirty=true;last=pos(e)}
+    function move(e){if(!drawing)return;e.preventDefault();const p=pos(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p}
+    function end(){drawing=false;last=null}
+    c.addEventListener("pointerdown",start);c.addEventListener("pointermove",move);c.addEventListener("pointerup",end);c.addEventListener("pointercancel",end);c.addEventListener("pointerleave",end);
+    c.__awCtx=ctx;c.__awDirty=false;c.__awClear=()=>{ctx.clearRect(0,0,c.width,c.height);c.__awDirty=false};
+  }
+  function stamp(type){
+    const c=document.getElementById("awCanvas"),ctx=c?.__awCtx;if(!c||!ctx)return;
+    ctx.save();ctx.strokeStyle="#25302d";ctx.fillStyle="#25302d";ctx.lineWidth=5;ctx.lineCap="round";ctx.lineJoin="round";
+    const x=c.width/2,y=c.height/2;
+    if(type==="sun"){ctx.beginPath();ctx.arc(x,y,34,0,Math.PI*2);ctx.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;ctx.beginPath();ctx.moveTo(x+45*Math.cos(a),y+45*Math.sin(a));ctx.lineTo(x+65*Math.cos(a),y+65*Math.sin(a));ctx.stroke();}}
+    if(type==="heart"){ctx.beginPath();ctx.moveTo(x,y+42);ctx.bezierCurveTo(x-65,y+2,x-48,y-48,x,y-18);ctx.bezierCurveTo(x+48,y-48,x+65,y+2,x,y+42);ctx.stroke();}
+    if(type==="star"){for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+70*Math.cos(a),y+70*Math.sin(a));ctx.stroke();}}
+    if(type==="flower"){ctx.beginPath();ctx.arc(x,y,13,0,Math.PI*2);ctx.stroke();for(let i=0;i<8;i++){const a=i*Math.PI/4;ctx.beginPath();ctx.ellipse(x+30*Math.cos(a),y+30*Math.sin(a),15,25,a,0,Math.PI*2);ctx.stroke();}}
+    ctx.restore();
+  }
+  function openEditor(id=null){
+    wallState.editingId=id;document.getElementById("awEditorTitle").textContent=id?"Edit Wall Affirmation":"Add an Affirmation";
+    const item=id?allAffirmations().find(x=>x.id===id):null;
+    document.getElementById("awText").value=item?.text||"";
+    wallState.color=item?.color||colors[Math.floor(Math.random()*colors.length)];
+    document.querySelectorAll("#awColors [data-aw-color]").forEach(b=>b.classList.toggle("active",b.dataset.awColor===wallState.color));
+    const c=document.getElementById("awCanvas");if(c?.__awClear)c.__awClear();
+    c.__awDirty=false;if(item?.doodle){const img=new Image();img.onload=()=>{c.__awCtx.drawImage(img,0,0,c.width,c.height);c.__awDirty=false};img.src=item.doodle}
+    document.getElementById("awEditor").classList.remove("hidden");
+    setTimeout(()=>document.getElementById("awText").focus(),50);
+  }
+  function closeEditor(){document.getElementById("awEditor").classList.add("hidden");wallState.editingId=null}
+  function saveEditor(){
+    const text=document.getElementById("awText").value.trim();if(!text){alert("Write something you want to remember.");return}
+    const c=document.getElementById("awCanvas"),drawing=c?.__awDirty?c.toDataURL("image/png"):null;
+    const wall=ensureWall(),existing=wall.find(x=>x.id===wallState.editingId);
+    if(existing){existing.text=text;existing.color=wallState.color;if(c?.__awDirty)existing.doodle=drawing;}
+    else wall.push({id:"wall:"+Date.now()+":"+Math.random().toString(36).slice(2),text,date:new Date().toISOString().slice(0,10),color:wallState.color,rotation:(Math.random()*6-3).toFixed(1),doodle:drawing,favorite:false,source:"Affirmations Wall"});
+    persist();closeEditor();renderWall();
+  }
+  function openDetail(id){
+    const item=allAffirmations().find(x=>x.id===id);if(!item)return;wallState.currentId=id;
+    const note=document.getElementById("awDetailNote");note.style.setProperty("--detail-note",item.color||colors[0]);
+    note.innerHTML=`<div class="detail-text">${escW(item.text)}</div>${item.doodle?`<img src="${item.doodle}" alt="Doodle">`:""}`;
+    document.getElementById("awDetailTitle").textContent=item.text.length>28?item.text.slice(0,28)+"…":item.text;
+    document.getElementById("awDetailMeta").textContent=`${item.date||""} · ${item.source||"Affirmation"}`;
+    document.getElementById("awDetailFavorite").textContent=item.favorite?"♥ Favorited":"♡ Favorite";
+    document.getElementById("awDetailEdit").disabled=!item.native;
+    document.getElementById("awDetailDelete").disabled=!item.native;
+    document.getElementById("awDetail").classList.remove("hidden");
+  }
+  function closeDetail(){document.getElementById("awDetail").classList.add("hidden");wallState.currentId=null}
+  function editCurrent(){const item=ensureWall().find(x=>x.id===wallState.currentId);if(!item)return;closeDetail();openEditor(item.id)}
+  function deleteCurrent(){const id=wallState.currentId;if(!id)return;if(!confirm("Remove this affirmation from your wall?"))return;db.affirmationWall=ensureWall().filter(x=>x.id!==id);persist();closeDetail();renderWall()}
+  function favoriteCurrent(){const item=ensureWall().find(x=>x.id===wallState.currentId);if(!item)return;item.favorite=!item.favorite;persist();openDetail(item.id);renderWall()}
+  function openWall(){
+    // Hide all regular views and the Today-only hero content.
+    document.querySelectorAll('[id$="View"]').forEach(v=>v.classList.add("hidden"));
+    document.getElementById("affirmationsWallView").classList.remove("hidden");
+    document.querySelector(".personal-greeting")?.classList.add("aw-hide-hero");
+    document.querySelector(".counter")?.classList.add("aw-hide-hero");
+    document.getElementById("friendReminders")?.classList.add("aw-hide-hero");
+    document.getElementById("title").textContent="Affirmations Wall";
+    document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+    closeSidebar();renderWall();
+  }
+  window.openAffirmationsWall=openWall;
+  window.renderAffirmationsWall=renderWall;
+
+  document.addEventListener("click",function(e){
+    const t=e.target.closest("#sidebarAffirmationsWallBtn");
+    if(t){e.preventDefault();e.stopPropagation();openWall();return;}
+    if(e.target.closest("#awAddBtn")){e.preventDefault();openEditor();return;}
+    if(e.target.closest("#awEditorClose,#awCancelBtn")){e.preventDefault();closeEditor();return;}
+    if(e.target.closest("#awSaveBtn")){e.preventDefault();saveEditor();return;}
+    if(e.target.closest("#awShuffleBtn")){e.preventDefault();wallState.shuffle++;renderWall();return;}
+    if(e.target.closest("#awClearDrawing")){e.preventDefault();document.getElementById("awCanvas")?.__awClear?.();return;}
+    const color=e.target.closest("[data-aw-color]");if(color){wallState.color=color.dataset.awColor;document.querySelectorAll("#awColors [data-aw-color]").forEach(b=>b.classList.toggle("active",b===color));return;}
+    const stampBtn=e.target.closest("[data-aw-stamp]");if(stampBtn){e.preventDefault();stamp(stampBtn.dataset.awStamp);return;}
+    const filter=e.target.closest("[data-aw-filter]");if(filter){wallState.filter=filter.dataset.awFilter;document.querySelectorAll("#awFilters [data-aw-filter]").forEach(b=>b.classList.toggle("active",b===filter));renderWall();return;}
+    if(e.target.closest("#awDetailClose")){closeDetail();return;}
+    if(e.target.closest("#awDetailEdit")){editCurrent();return;}
+    if(e.target.closest("#awDetailDelete")){deleteCurrent();return;}
+    if(e.target.closest("#awDetailFavorite")){favoriteCurrent();return;}
+  },true);
+
+  document.addEventListener("input",function(e){
+    if(e.target.id==="awQuery"){wallState.query=e.target.value;renderWall();}
+  },true);
+
+  // Patch the main screen switcher so the wall remains a real top-level destination.
+  const originalShow=window.show;
+  if(originalShow&&!originalShow.__awWrapped){
+    const wrapped=function(tab){
+      if(tab!=="wall"){
+        document.getElementById("affirmationsWallView")?.classList.add("hidden");
+        document.querySelectorAll(".aw-hide-hero").forEach(x=>x.classList.remove("aw-hide-hero"));
+      }
+      return originalShow.apply(this,arguments);
+    };
+    wrapped.__awWrapped=true;window.show=wrapped;
+  }
+
+  window.addEventListener("load",setupCanvas);
+  document.addEventListener("touchstart",e=>{if(e.target.closest(".aw-modal"))e.stopPropagation()},{passive:true});
+  document.addEventListener("touchmove",e=>{if(e.target.closest(".aw-modal"))e.stopPropagation()},{passive:true});
+  document.addEventListener("DOMContentLoaded",setupCanvas);
+})();
+</script>
+
 </body></html>
