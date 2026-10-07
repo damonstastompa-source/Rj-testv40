@@ -633,7 +633,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.7.1 Test</strong></p>
+<p><strong>Recovery Journal v50.7.2 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -796,7 +796,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.1 Test</strong></p>
+<p><strong>Recovery Journal v50.7.2 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -840,7 +840,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.1 Test</strong></p>
+<p><strong>Recovery Journal v50.7.2 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -891,7 +891,7 @@ body:not(.screen-today) [class*="greeting"]{display:none!important}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.1 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.2 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1762,7 +1762,8 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   function deleteCurrent(){const id=wallState.currentId;if(!id)return;if(!confirm("Remove this affirmation from your wall?"))return;db.affirmationWall=ensureWall().filter(x=>x.id!==id);persist();closeDetail();renderWall()}
   function favoriteCurrent(){const item=ensureWall().find(x=>x.id===wallState.currentId);if(!item)return;item.favorite=!item.favorite;persist();openDetail(item.id);renderWall()}
   function openWall(){
-    // Hide all regular views and the Today-only hero content.
+    // Hide regular content while the wall is open. Navigation away calls
+    // closeAffirmationsWall(), which restores the normal app state.
     document.querySelectorAll('[id$="View"]').forEach(v=>v.classList.add("hidden"));
     document.getElementById("affirmationsWallView").classList.remove("hidden");
     document.querySelector(".personal-greeting")?.classList.add("aw-hide-hero");
@@ -1801,18 +1802,35 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(e.target.id==="awQuery"){wallState.query=e.target.value;renderWall();}
   },true);
 
-  // Patch the main screen switcher so the wall remains a real top-level destination.
-  const originalShow=window.show;
-  if(originalShow&&!originalShow.__awWrapped){
-    const wrapped=function(tab){
-      if(tab!=="wall"){
-        document.getElementById("affirmationsWallView")?.classList.add("hidden");
-        document.querySelectorAll(".aw-hide-hero").forEach(x=>x.classList.remove("aw-hide-hero"));
-      }
-      return originalShow.apply(this,arguments);
+  // v50.7.2 navigation fix:
+  // The wall is a real top-level screen, but it must never replace/intercept
+  // the app's normal navigation. Always tear it down before another screen opens.
+  window.closeAffirmationsWall = function(){
+    document.getElementById("affirmationsWallView")?.classList.add("hidden");
+    document.querySelectorAll(".aw-hide-hero").forEach(x=>x.classList.remove("aw-hide-hero"));
+    document.getElementById("awEditor")?.classList.add("hidden");
+    document.getElementById("awDetail")?.classList.add("hidden");
+  };
+
+  // Capture the app's existing navigation function without replacing it.
+  const appShow = window.show;
+  if(appShow && !appShow.__awOriginal){
+    appShow.__awOriginal = true;
+    const navShow = function(tab){
+      window.closeAffirmationsWall();
+      return appShow.apply(this, arguments);
     };
-    wrapped.__awWrapped=true;window.show=wrapped;
+    navShow.__awOriginal = appShow;
+    window.__awNavigate = navShow;
   }
+
+  // Listen for ordinary navigation clicks and close the wall first.
+  // This deliberately excludes the Affirmations Wall button itself.
+  document.addEventListener("click", function(e){
+    if(e.target.closest("#sidebarAffirmationsWallBtn")) return;
+    const nav = e.target.closest("[data-side-tab], [data-tab], .nav button, #todayBtn, #settingsBtn");
+    if(nav) window.closeAffirmationsWall();
+  }, true);
 
   window.addEventListener("load",setupCanvas);
   document.addEventListener("touchstart",e=>{if(e.target.closest(".aw-modal"))e.stopPropagation()},{passive:true});
