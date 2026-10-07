@@ -1979,6 +1979,13 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     closeSidebar();render();window.scrollTo({top:0,behavior:"auto"});
   }
   window.openGratitudePond=openPond;
+  // v50.8.1: bind the menu item directly as well as through delegation.
+  // This keeps the pond launch reliable on mobile Safari/iOS where the
+  // existing sidebar click delegation can be intercepted by other handlers.
+  const gpMenuBtn=document.getElementById("sidebarGratitudePondBtn");
+  if(gpMenuBtn){
+    gpMenuBtn.onclick=function(e){e.preventDefault();e.stopPropagation();openPond();};
+  }
   window.closeGratitudePond=function(){
     document.getElementById("gratitudePondView")?.classList.add("hidden");
     document.querySelectorAll(".gp-hide-hero").forEach(x=>x.classList.remove("gp-hide-hero"));
