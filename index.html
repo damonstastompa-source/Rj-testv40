@@ -747,7 +747,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.1 Test Release</strong></p>
+<p><strong>Recovery Journal v50.9.2 Test Release</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -1813,11 +1813,11 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.1 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.2 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
-  const wallState={filter:"all",query:"",shuffle:0,currentId:null,editingId:null,color:"#F4C2D0",drawing:null};
+  const wallState={filter:"all",query:"",shuffle:0,orderIds:[],currentId:null,editingId:null,color:"#F4C2D0",drawing:null};
   const colors=["#F4D96B","#E8A2B4","#9FD5E7","#B8D3B7","#C9B8DF","#F1E4C2"];
   function escW(v){return typeof esc==="function"?esc(v??""):String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
   function ensureWall(){db.affirmationWall=Array.isArray(db.affirmationWall)?db.affirmationWall:[];return db.affirmationWall}
@@ -1843,10 +1843,14 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(wallState.filter==="recent")items=items.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,18);
     if(wallState.filter==="month")items=items.filter(x=>String(x.date).startsWith(month));
     if(wallState.filter==="doodle")items=items.filter(x=>x.doodle);
-    if(wallState.shuffle)items.sort((a,b)=>{
-      const aa=Math.sin((a.id.length*17)+(wallState.shuffle*31)),bb=Math.sin((b.id.length*17)+(wallState.shuffle*31));
-      return aa-bb;
-    });
+    if(wallState.orderIds.length){
+      const rank=new Map(wallState.orderIds.map((id,i)=>[id,i]));
+      items.sort((a,b)=>{
+        const ai=rank.has(a.id)?rank.get(a.id):Number.MAX_SAFE_INTEGER;
+        const bi=rank.has(b.id)?rank.get(b.id):Number.MAX_SAFE_INTEGER;
+        return ai-bi;
+      });
+    }
     return items;
   }
   function renderWall(){
@@ -1950,7 +1954,15 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
     if(e.target.closest("#awAddBtn")){e.preventDefault();openEditor();return;}
     if(e.target.closest("#awEditorClose,#awCancelBtn")){e.preventDefault();closeEditor();return;}
     if(e.target.closest("#awSaveBtn")){e.preventDefault();saveEditor();return;}
-    if(e.target.closest("#awShuffleBtn")){e.preventDefault();wallState.shuffle++;renderWall();return;}
+    if(e.target.closest("#awShuffleBtn")){
+      e.preventDefault();e.stopPropagation();
+      const items=filtered();
+      for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}
+      wallState.orderIds=items.map(x=>x.id);
+      wallState.shuffle++;
+      renderWall();
+      return;
+    }
     if(e.target.closest("#awClearDrawing")){e.preventDefault();document.getElementById("awCanvas")?.__awClear?.();return;}
     if(e.target.closest("#awUndoDrawing")){e.preventDefault();document.getElementById("awCanvas")?.__awUndo?.();return;}
     const dc=e.target.closest("[data-doodle-color]");
