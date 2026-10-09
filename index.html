@@ -747,7 +747,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.0 Release</strong></p>
+<p><strong>Recovery Journal v50.9.1 Test Release</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -890,6 +890,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <label>Friend name</label><input id="friendName" placeholder="Name">
 <label>Clean date</label><input type="date" id="friendDate">
 <div class="row" style="margin-top:10px"><button type="button" class="primary" style="flex:1" id="addFriend">Add friend</button><button class="secondary hidden" id="cancelFriendEdit" type="button">Cancel edit</button></div>
+<p id="friendSaveStatus" class="muted" role="status" aria-live="polite" style="margin-top:8px;min-height:1.2em"></p>
 <div id="friendsList" style="margin-top:12px"></div>
 </div>
 </details>
@@ -1198,17 +1199,20 @@ function renderFriends(){let list=$("friendsList"),count=$("friendsCount");if(co
 let editingFriendId=null;function startFriendEdit(id){const f=db.friends.find(x=>x.id===id);if(!f)return;editingFriendId=id;$("friendName").value=f.name;$("friendDate").value=f.date;$("addFriend").textContent="Save changes";$("cancelFriendEdit").classList.remove("hidden");$("friendName").focus()}function cancelFriendEdit(){$("friendName").value="";$('friendDate').value="";editingFriendId=null;$('addFriend').textContent="Add friend";$('cancelFriendEdit').classList.add("hidden")}
 function friendId(){try{if(window.crypto&&typeof window.crypto.randomUUID==="function")return window.crypto.randomUUID()}catch(e){}return "friend-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,10)}
 function saveFriend(){
-  const name=$("friendName").value.trim(),date=$("friendDate").value;
-  if(!name||!date){alert("Enter a friend name and clean date.");return}
+  const name=$("friendName")?.value?.trim()||"", date=$("friendDate")?.value||"", status=$("friendSaveStatus");
+  const say=(msg,isError=false)=>{if(status){status.textContent=msg;status.style.color=isError?"var(--danger, #c44)":"var(--muted, inherit)"}};
+  if(!name||!date){say("Enter a friend name and clean date.",true);return}
   const chosen=parseLocalDate(date),today=new Date();today.setHours(23,59,59,999);
-  if(Number.isNaN(chosen.getTime())){alert("Choose a valid clean date.");return}
-  if(chosen>today){alert("Clean date cannot be in the future.");return}
+  if(Number.isNaN(chosen.getTime())){say("Choose a valid clean date.",true);return}
+  if(chosen>today){say("Clean date cannot be in the future.",true);return}
   const previous=JSON.stringify(db.friends||[]);
-  if(editingFriendId){const f=db.friends.find(x=>x.id===editingFriendId);if(!f){alert("That friend could not be found. Please try again.");return}if(f.date!==date&&!confirm(`Change ${f.name}'s clean date? This will recalculate their milestones.`))return;f.name=name;f.date=date}
-  else{db.friends=db.friends||[];db.friends.push({id:friendId(),name,date})}
-  try{persist()}catch(err){try{db.friends=JSON.parse(previous)}catch(e){};alert("Recovery Journal couldn't save this friend to this device. Your existing friends were preserved. Check available device storage and try again.");renderFriends();return}
-  cancelFriendEdit();renderFriends();renderFriendReminders();renderCalendar();
+  if(editingFriendId){const f=(db.friends||[]).find(x=>x.id===editingFriendId);if(!f){say("That friend could not be found. Please try again.",true);return}if(f.date!==date&&!confirm(`Change ${f.name}'s clean date? This will recalculate their milestones.`))return;f.name=name;f.date=date}
+  else{db.friends=Array.isArray(db.friends)?db.friends:[];db.friends.push({id:friendId(),name,date})}
+  try{persist()}catch(err){try{db.friends=JSON.parse(previous)}catch(e){};say("Couldn't save to this device. Your existing friends were preserved; check device storage and try again.",true);renderFriends();return}
+  try{cancelFriendEdit();renderFriends();renderFriendReminders();renderCalendar();say("Friend saved.");}
+  catch(err){say("Friend was saved, but the screen couldn't refresh. Reopen Friends to verify.",true);try{renderFriends()}catch(e){}}
 }
+
 function saveRecoverySettings(){let name=$("userName").value.trim(),v=$("cleanDate").value;if(v&&new Date(v+"T12:00:00")>new Date()){alert("Clean date cannot be in the future.");return}if(db.cleanDate&&v!==db.cleanDate&&!confirm("Change your recovery date?"))return;db.name=name;db.cleanDate=v;persist();cleanCounter();alert("Recovery settings saved locally.")}
 function saveMilestoneSettings(){db.friendRemindersEnabled=$("friendRemindersEnabled").checked;document.querySelectorAll(".milestoneToggle").forEach(x=>db.milestones[x.value]=x.checked);persist();renderFriendReminders();renderCalendar()}
 function renderCalendar(){let y=month.getFullYear(),m=month.getMonth();$("monthLabel").textContent=month.toLocaleDateString(undefined,{month:"long",year:"numeric"});let c=$("calendar");c.innerHTML=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(x=>`<div class="dow">${x}</div>`).join("");let first=new Date(y,m,1).getDay(),last=new Date(y,m+1,0).getDate();for(let i=0;i<first;i++)c.insertAdjacentHTML("beforeend","<div></div>");for(let d=1;d<=last;d++){let dt=new Date(y,m,d),key=iso(dt),has=!!db.days[key]||db.meetings.some(x=>x.date===key)||db.emotions.some(x=>x.date===key)||friendMilestonesForDate(dt).length,sel=key===iso(selected);c.insertAdjacentHTML("beforeend",`<button class="day ${has?"has":""} ${friendMilestonesForDate(dt).length?"friend-day":""} ${sel?"sel":""}" data-date="${key}">${d}</button>`)}c.querySelectorAll("[data-date]").forEach(b=>b.onclick=()=>{selected=new Date(b.dataset.date+"T12:00:00");loadDay();show("today");renderCalendar()})}
@@ -1568,6 +1572,14 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   }
   document.querySelectorAll('.nav').forEach(n=>n.style.display='none');
 
+  // Friends save reliability: capture the tap before any other delegated handler can consume it.
+  document.addEventListener('click',function(e){
+    const button=e.target && e.target.closest ? e.target.closest('#addFriend') : null;
+    if(!button)return;
+    e.preventDefault(); e.stopPropagation(); if(e.stopImmediatePropagation)e.stopImmediatePropagation();
+    try{saveFriend()}catch(err){const status=$v('friendSaveStatus');if(status)status.textContent='Could not save friend: '+(err&&err.message?err.message:'unexpected error');else alert('Could not save friend. Please try again.');}
+  },true);
+
   // Dedicated Clean Time and Friends pages.
   const syncFriendReminderControls=()=>{
     const a=$v('friendRemindersEnabled'),b=$v('friendRemindersEnabledFriends');
@@ -1801,7 +1813,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js");
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.0</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.1 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
