@@ -1,4 +1,4 @@
-const CACHE = "recovery-journal-v50-9-3-11-meeting-manager";
+const CACHE = "recovery-journal-v50-9-3-12-meeting-manager-dialog";
 self.addEventListener("install", event => { self.skipWaiting(); });
 self.addEventListener("activate", event => {
   event.waitUntil(

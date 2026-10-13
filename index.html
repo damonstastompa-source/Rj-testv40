@@ -326,7 +326,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 #sidebar.sidebar .sidebar-item:hover,#sidebar.sidebar .sidebar-item:active,#sidebar.sidebar .sidebar-item.active{background:rgba(255,255,255,.13)!important;border-color:rgba(255,255,255,.18)!important}
 .sidebar-overlay.open{background:rgba(0,0,0,.48)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 
-/* v50.9.3.11 — dedicated Quick Enter meeting manager */
+/* v50.9.3.12 — centered manager and explicit template-entry dialog */
 #templateModal{z-index:10060}
 .template-manager-modal{position:fixed;inset:0;z-index:10050;background:rgba(4,3,10,.76);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 .template-manager-modal.hidden{display:none!important}
@@ -337,6 +337,16 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 #meetingsQuickToggle{min-height:48px;padding:8px 10px}
 #manageTemplatesBtn{min-height:44px;white-space:nowrap}
 @media(min-width:700px){.template-manager-modal{align-items:center;padding:24px}.template-manager-sheet{border-radius:24px;max-height:88dvh}}
+/* v50.9.3.12: keep the manager below the iPhone status/safe area and center it naturally */
+.template-manager-modal{align-items:center!important;padding:calc(env(safe-area-inset-top) + 14px) 12px calc(env(safe-area-inset-bottom) + 14px)!important}
+.template-manager-sheet{width:min(760px,100%);max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 28px)!important;border-radius:24px!important;padding:20px 16px calc(20px + env(safe-area-inset-bottom))!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+/* Add/edit template opens as a real, centered form dialog—not a focused field at the bottom */
+#templateModal:not(.hidden){position:fixed!important;inset:0!important;z-index:10060!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:calc(env(safe-area-inset-top) + 16px) 14px calc(env(safe-area-inset-bottom) + 16px)!important;background:rgba(4,3,10,.72)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#templateModal.hidden{display:none!important}
+#templateModal .meeting-sheet{width:min(560px,100%)!important;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 32px)!important;overflow-y:auto!important;border-radius:24px!important;background:var(--surface,#130f20)!important;color:var(--ink,#f4efff)!important;border:1px solid var(--line,rgba(190,160,255,.28))!important;box-shadow:0 20px 60px rgba(0,0,0,.45)!important;padding:20px!important}
+#templateModal .meeting-sheet input{width:100%;min-height:48px;margin:6px 0 12px}
+#templateModal .meeting-sheet .row{gap:10px;flex-wrap:wrap}
+#templateModal .meeting-sheet .row button{flex:1;min-height:48px}
 </style>
 <style>
 /* v50.1 interaction/layout repair — preserved in v50.2 */
@@ -772,7 +782,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.11 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.12 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -937,7 +947,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.11 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.12 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -981,7 +991,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.11 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.12 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1032,7 +1042,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.11 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.12 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1400,7 +1410,7 @@ function renderMeetingsTab(){
   document.querySelectorAll("[data-quick-mtab]").forEach(b=>b.onclick=()=>{show("today");openMeetingForm();setTimeout(()=>{$("meetingTemplate").value=b.dataset.quickMtab;fillTemplate()},0)});
   document.querySelectorAll("[data-quick-fav]").forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();toggleTemplateFavorite(Number(b.dataset.quickFav))});
 }
-let editingTemplateIndex=null;function toggleTemplateFavorite(index){if(!db.templates[index])return;db.templates[index].favorite=!db.templates[index].favorite;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates()}function openTemplateEditor(index=null){editingTemplateIndex=index;const t=index===null?{name:"",time:"",place:""}:db.templates[index];$("templateName").value=t?.name||"";$("templateTime").value=t?.time||"";$("templatePlace").value=t?.place||"";$("templateSave").textContent=index===null?"Save template":"Save changes";$("templateModal").classList.remove("hidden");$("templateName").focus()}function closeTemplateEditor(){$("templateModal").classList.add("hidden");editingTemplateIndex=null}function saveTemplate(){const name=$("templateName").value.trim(),time=$("templateTime").value.trim(),place=$("templatePlace").value.trim();if(!name){alert("Enter a meeting name.");return}const old=editingTemplateIndex===null?null:db.templates[editingTemplateIndex];const t={name,time,place,favorite:!!old?.favorite};if(editingTemplateIndex===null)db.templates.push(t);else db.templates[editingTemplateIndex]=t;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates();closeTemplateEditor()}
+let editingTemplateIndex=null;function toggleTemplateFavorite(index){if(!db.templates[index])return;db.templates[index].favorite=!db.templates[index].favorite;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates()}function openTemplateEditor(index=null){editingTemplateIndex=index;const t=index===null?{name:"",time:"",place:""}:db.templates[index];$("templateName").value=t?.name||"";$("templateTime").value=t?.time||"";$("templatePlace").value=t?.place||"";$("templateSave").textContent=index===null?"Save template":"Save changes";$("templateModal").classList.remove("hidden");document.activeElement?.blur?.()}function closeTemplateEditor(){$("templateModal").classList.add("hidden");editingTemplateIndex=null}function saveTemplate(){const name=$("templateName").value.trim(),time=$("templateTime").value.trim(),place=$("templatePlace").value.trim();if(!name){alert("Enter a meeting name.");return}const old=editingTemplateIndex===null?null:db.templates[editingTemplateIndex];const t={name,time,place,favorite:!!old?.favorite};if(editingTemplateIndex===null)db.templates.push(t);else db.templates[editingTemplateIndex]=t;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates();closeTemplateEditor()}
 let journalFilter="all",journalDateFilter="";
 function journalDayHasContent(date,d){return !!(d&&(d.journal||d.a1||d.a2||d.a3||d.g1||d.g2||d.g3||d.focus||d.reflectionResponse||d.checkinMood||d.checkinNeed||d.checkinAction))||db.meetings.some(m=>m.date===date)||db.emotions.some(e=>e.date===date)}
 function journalPreview(d,date){if(d&&d.journal&&d.journal.trim())return d.journal.trim();if(d&&d.focus&&d.focus.trim())return "Focus: "+d.focus.trim();if(d&&d.reflectionResponse&&d.reflectionResponse.trim())return d.reflectionResponse.trim();if(db.emotions.some(e=>e.date===date))return "Emotion entries recorded for this day.";if(db.meetings.some(m=>m.date===date))return "Meeting activity recorded for this day.";return "No journal text saved for this day yet."}
@@ -1846,7 +1856,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.11 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.12 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
