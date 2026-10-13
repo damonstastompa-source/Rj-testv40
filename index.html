@@ -760,7 +760,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.9 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.10 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -925,7 +925,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.9 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.10 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -969,7 +969,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.9 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.10 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1020,7 +1020,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.9 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.10 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1380,10 +1380,12 @@ function renderMeetingsTab(){
   $("recentMeetingsCount").textContent=recent.length;
   $("recentMeetingsList").innerHTML=recent.length?recent.map(m=>card(m,true)).join(""):"<p class='muted'>No meetings recorded yet.</p>";
   const quickTemplates=db.templates.map((x,i)=>({x,i})).sort((a,b)=>Number(!!b.x.favorite)-Number(!!a.x.favorite)||a.x.name.localeCompare(b.x.name));
-  $("meetingsQuickList").innerHTML=db.templates.length?quickTemplates.map(({x,i})=>`<button class="secondary" style="width:100%;margin-top:7px;text-align:left" data-quick-mtab="${i}">${x.favorite?"★ ":""}${esc(x.name)}<br><span class="muted">${esc(x.place)} • ${esc(x.time)}</span></button>`).join(""):"<p class='muted'>Your saved meetings will appear here after you enter them.</p>";
+  updateQuickEnterCount();
+  $("meetingsQuickList").innerHTML=db.templates.length?quickTemplates.map(({x,i})=>`<div class="quick-template-row" style="display:flex;gap:8px;align-items:stretch;margin-top:7px"><button class="secondary" type="button" style="flex:1;min-width:0;text-align:left" data-quick-mtab="${i}">${esc(x.name)}<br><span class="muted">${esc(x.place)} • ${esc(x.time)}</span></button><button class="secondary quick-favorite-toggle" type="button" style="min-width:48px;font-size:1.2em;color:${x.favorite?'#e6bd55':'var(--muted)'}" title="${x.favorite?'Remove favorite':'Add favorite'}" aria-label="${x.favorite?'Remove favorite':'Add favorite'}" aria-pressed="${!!x.favorite}" data-quick-fav="${i}">${x.favorite?"★":"☆"}</button></div>`).join(""):"<p class='muted'>Your saved meetings will appear here after you enter them.</p>";
   document.querySelectorAll("[data-mtab-edit]").forEach(b=>b.onclick=()=>{show("today");editMeeting(b.dataset.mtabEdit)});
   document.querySelectorAll("[data-mtab-del]").forEach(b=>b.onclick=()=>{if(confirm("Delete this meeting?")){db.meetings=db.meetings.filter(x=>x.id!==b.dataset.mtabDel);persist();renderMeetings();renderMeetingsTab()}});
   document.querySelectorAll("[data-quick-mtab]").forEach(b=>b.onclick=()=>{show("today");openMeetingForm();setTimeout(()=>{$("meetingTemplate").value=b.dataset.quickMtab;fillTemplate()},0)});
+  document.querySelectorAll("[data-quick-fav]").forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();toggleTemplateFavorite(Number(b.dataset.quickFav))});
 }
 let editingTemplateIndex=null;function toggleTemplateFavorite(index){if(!db.templates[index])return;db.templates[index].favorite=!db.templates[index].favorite;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates()}function openTemplateEditor(index=null){editingTemplateIndex=index;const t=index===null?{name:"",time:"",place:""}:db.templates[index];$("templateName").value=t?.name||"";$("templateTime").value=t?.time||"";$("templatePlace").value=t?.place||"";$("templateSave").textContent=index===null?"Save template":"Save changes";$("templateModal").classList.remove("hidden");$("templateName").focus()}function closeTemplateEditor(){$("templateModal").classList.add("hidden");editingTemplateIndex=null}function saveTemplate(){const name=$("templateName").value.trim(),time=$("templateTime").value.trim(),place=$("templatePlace").value.trim();if(!name){alert("Enter a meeting name.");return}const old=editingTemplateIndex===null?null:db.templates[editingTemplateIndex];const t={name,time,place,favorite:!!old?.favorite};if(editingTemplateIndex===null)db.templates.push(t);else db.templates[editingTemplateIndex]=t;persist();renderTemplates();renderMeetingsTab();renderMeetingTemplates();closeTemplateEditor()}
 let journalFilter="all",journalDateFilter="";
@@ -1506,7 +1508,7 @@ function renderEmotionWheelHome(){const b=$("emotionWheelBody");$("emotionWheelT
 function renderEmotionWheelSpecific(group){const b=$("emotionWheelBody");$("emotionWheelTitle").textContent=group;$("emotionWheelSub").textContent="Tap the word that fits best.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back to wheel</button><div class="emotion-wheel-choice">Which one feels closest?</div><div class="emotion-wheel-options">'+(EMOTION_WHEEL[group]||[]).map(x=>`<button class="secondary" type="button" data-emotion-choice="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelHome;b.querySelectorAll('[data-emotion-choice]').forEach(x=>x.onclick=()=>chooseWheelEmotion(x.dataset.emotionChoice))}
 function renderEmotionWheelUnsure(){const b=$("emotionWheelBody");$("emotionWheelTitle").textContent="I don't know what I'm feeling";$("emotionWheelSub").textContent="Choose anything that feels true right now.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back to wheel</button><div class="emotion-wheel-options">'+Object.keys(EMOTION_OBSERVATIONS).map(x=>`<button class="secondary" type="button" data-observation="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelHome;b.querySelectorAll('[data-observation]').forEach(x=>x.onclick=()=>renderEmotionWheelSuggestions(x.dataset.observation))}
 function renderEmotionWheelSuggestions(observation){const b=$("emotionWheelBody"),options=EMOTION_OBSERVATIONS[observation]||[];$("emotionWheelTitle").textContent="Possible emotions";$("emotionWheelSub").textContent="Possibilities, not a diagnosis. Choose what fits.";b.innerHTML='<button class="secondary emotion-wheel-back" id="emotionWheelBack" type="button">‹ Back</button><div class="emotion-wheel-choice">'+esc(observation)+'</div><div class="emotion-wheel-options">'+options.map(x=>`<button class="secondary" type="button" data-suggested-emotion="${x}">${x}</button>`).join('')+'</div>';$("emotionWheelBack").onclick=renderEmotionWheelUnsure;b.querySelectorAll('[data-suggested-emotion]').forEach(x=>x.onclick=()=>chooseWheelEmotion(x.dataset.suggestedEmotion))}
-function updateQuickEnterCount(){const el=$("meetingsQuickCount");if(el)el.textContent=String(db.templates.length)}
+function updateQuickEnterCount(){const n=Array.isArray(db.templates)?db.templates.length:0;const el=$("meetingsQuickCount");if(el)el.textContent=String(n);const settingsCount=$("templateCount");if(settingsCount)settingsCount.textContent=String(n)}
 
 
 // v50.4.2 — optional Daily Check-In reflection prompts
@@ -1831,7 +1833,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.9 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.10 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
