@@ -1,4 +1,4 @@
-const CACHE = "recovery-journal-v50-9-3-2-glass-navigation";
+const CACHE = "recovery-journal-v50-9-3-4-glass-70-opacity";
 self.addEventListener("install", event => { self.skipWaiting(); });
 self.addEventListener("activate", event => {
   event.waitUntil(
