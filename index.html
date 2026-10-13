@@ -790,7 +790,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.13 Time Picker Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -955,7 +955,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.13 Time Picker Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -999,7 +999,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.13 Time Picker Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1018,6 +1018,8 @@ body.gp-mode #mainContent{padding-top:4px}
 <p>Record meeting time, place, name, topic, and notes. Optional chairperson initials can be collected for attendance records. Print attendance sheets and journal reports, including emotion information when appropriate.</p>
 <h4>Appearance</h4>
 <p>Choose from <strong>11 themes</strong>: Serene, Dark, Moonlight, Neon, Ocean, Sunrise, Black Light, Cosmic, High Contrast, Midnight Forest, and Dark Burgundy. Theme choices stay on this device.</p>
+<h4>Backup & Restore (v50.9.3.18)</h4>
+<p>Choose <strong>Export backup</strong> and save or share the dated JSON file somewhere outside this browser, such as the iPhone Files app. The backup includes all data stored in this installation, including journal days, meetings and favorites, Quick Enter templates, emotions, goals, messages, friends, appearance, and settings. Before restoring, Recovery Journal validates the file and shows a summary. Restore replaces the current local data only after confirmation. Keep the backup file until you have checked that your entries are present.</p>
 <h4>Privacy & Data</h4>
 <p>Your journal is designed to stay on your device. No account is required and journal data is not uploaded to a Recovery Journal server. Use <strong>Backup & Transfer</strong> before moving to another device or installation.</p>
 <div class="help"><strong>Note:</strong><p style="margin:6px 0 0">Recovery Journal is a tool for reflection. Use it in whatever way supports your recovery.</p></div>
@@ -1044,13 +1046,14 @@ body.gp-mode #mainContent{padding-top:4px}
 <button class="primary" style="width:100%;margin-top:10px" id="exportBackup">Export backup</button>
 <button style="width:100%;margin-top:10px" id="importBackup">Import backup</button>
 <input type="file" id="backupFile" accept="application/json,.json" hidden>
-<p class="muted" style="margin-top:8px">Importing replaces the data currently stored in this app with the backup you choose.</p>
-<div class="help"><strong>How to update or transfer your save data</strong><ol><li><strong>Before updating:</strong> open the old app that contains your journal and go to Settings → Backup & Transfer → <strong>Export backup</strong>.</li><li>Save or share the JSON backup somewhere you can find it again, such as Files or Messages to yourself.</li><li>Install/open the updated Recovery Journal version.</li><li>Go to Settings → Backup & Transfer → <strong>Import backup</strong>, then choose your saved JSON file.</li><li>Confirm the import. Your journal entries, meetings, templates, topics, name, and clean date will be restored.</li></ol></div>
+<p id="backupStatus" class="muted" role="status" aria-live="polite" style="margin-top:8px">No backup action performed in this session.</p>
+<p class="muted" style="margin-top:8px">Restore checks the file and shows its contents before confirmation. A successful restore replaces current data; a failed restore attempts to keep the existing data intact.</p>
+<div class="help"><strong>How to update or transfer your save data</strong><ol><li><strong>Before updating:</strong> open the old app that contains your journal and go to Settings → Backup & Transfer → <strong>Export backup</strong>.</li><li>Save or share the JSON backup somewhere you can find it again, such as Files or Messages to yourself.</li><li>Install/open the updated Recovery Journal version.</li><li>Go to Settings → Backup & Transfer → <strong>Import backup</strong>, then choose your saved JSON file.</li><li>Confirm the import. Your journal entries, Daily Check-In, affirmations, gratitudes, meetings, Quick Enter templates and favorites, topics, emotions, goals, Messages to Myself, friends, themes, settings, name, and clean date will be restored.</li></ol></div>
 <div class="backup-note"><strong>Important:</strong> Do not delete the old app or clear its website data until you have successfully exported and verified your backup.</div>
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.13 Time Picker Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.18 Backup & Restore Polish Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1175,26 +1178,61 @@ const $=id=>document.getElementById(id), iso=d=>{const x=new Date(d);return x.ge
 function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
 function applyMenuOpacity(){let pct=Number(db.menuOpacity);if(!Number.isFinite(pct))pct=70;pct=Math.max(35,Math.min(95,pct));db.menuOpacity=pct;document.documentElement.style.setProperty('--sidebar-opacity',(pct/100).toFixed(2));const slider=document.getElementById('menuOpacitySlider');const value=document.getElementById('menuOpacityValue');if(slider)slider.value=String(pct);if(value)value.textContent=String(pct)}
 function applyTheme(){applyMenuOpacity();const theme=["serene","dark","moonlight","neon","ocean","sunrise","blacklight","cosmic","contrast","midnightforest","burgundy"].includes(db.appearance)?db.appearance:(db.darkMode?"dark":"serene");db.appearance=theme;db.darkMode=theme==="dark";document.documentElement.dataset.theme=theme==="serene"?"light":theme;const t=$("darkModeToggle");if(t)t.checked=theme==="dark";document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.checked=x.value===theme);const meta=document.querySelector('meta[name="theme-color"]');if(meta){const colors={serene:"#23433B",dark:"#111715",moonlight:"#101827",neon:"#070910",ocean:"#0B1B2A",sunrise:"#F4E7D1",blacklight:"#090B0E",cosmic:"#0B0814",contrast:"#000000",midnightforest:"#101512",burgundy:"#130C0F"};meta.setAttribute("content",colors[theme]||colors.serene)}}
-function backupPayload(){return {format:"Recovery Journal Backup",version:1,exportedAt:new Date().toISOString(),data:db}}
+function backupPayload(){return {format:"Recovery Journal Backup",version:2,appVersion:"v50.9.3.18",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(db))}}
 async function exportBackup(){
-  const json=JSON.stringify(backupPayload(),null,2);
-  const file=new File([json],`recovery-journal-backup-${iso(new Date())}.json`,{type:"application/json"});
   try{
-    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){await navigator.share({title:"Recovery Journal Backup",text:"Recovery Journal data backup",files:[file]});return}
-  }catch(e){if(e&&e.name==="AbortError")return}
-  const url=URL.createObjectURL(file),a=document.createElement("a");a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    const payload=backupPayload(),json=JSON.stringify(payload,null,2);
+    const file=new File([json],`recovery-journal-backup-${iso(new Date())}-v50.9.3.18.json`,{type:"application/json"});
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      try{await navigator.share({title:"Recovery Journal Backup",text:`Complete local backup • ${new Date(payload.exportedAt).toLocaleString()}`,files:[file]});setBackupStatus(`Backup shared successfully • ${new Date(payload.exportedAt).toLocaleString()}`);return}
+      catch(e){if(e&&e.name==="AbortError"){setBackupStatus("Export cancelled. No backup was shared.");return}}
+    }
+    const url=URL.createObjectURL(file),a=document.createElement("a");a.href=url;a.download=file.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    setBackupStatus(`Backup export started • ${file.name}`);
+  }catch(e){setBackupStatus("Backup could not be created. Your existing data has not been changed.");}
+}
+function setBackupStatus(message){const el=$("backupStatus");if(el)el.textContent=message}
+function validateBackup(parsed){
+  if(!parsed||typeof parsed!=="object"||Array.isArray(parsed))throw new Error("The selected file is not a JSON object.");
+  if(parsed.format && parsed.format!=="Recovery Journal Backup")throw new Error("This file was not created by Recovery Journal.");
+  if(parsed.version && Number(parsed.version)>2)throw new Error("This backup was created by a newer backup format. Update Recovery Journal before restoring it.");
+  const incoming=parsed.data&&typeof parsed.data==="object"?parsed.data:parsed;
+  if(!incoming||typeof incoming!=="object"||!incoming.days||typeof incoming.days!=="object"||Array.isArray(incoming.days)||!Array.isArray(incoming.meetings)||!Array.isArray(incoming.templates)||!Array.isArray(incoming.topics))throw new Error("Required journal sections are missing.");
+  const arrays=["friends","emotions","emotionTypes","messages","goals"];
+  for(const key of arrays){if(incoming[key]!==undefined&&!Array.isArray(incoming[key]))throw new Error(`The ${key} section is damaged.`)}
+  for(const [date,day] of Object.entries(incoming.days)){if(!day||typeof day!=="object"||Array.isArray(day))throw new Error(`The journal entry for ${date} is not readable.`)}
+  for(const key of ["meetings","templates","topics"]){if(incoming[key].some(x=>!x||typeof x!=="object"||Array.isArray(x)))throw new Error(`The ${key} section contains unreadable records.`)}
+  return incoming;
+}
+function normalizeBackupData(incoming){
+  return {...incoming,days:incoming.days||{},meetings:incoming.meetings||[],templates:incoming.templates||[],topics:incoming.topics||[],cleanDate:incoming.cleanDate||"",name:typeof incoming.name==="string"?incoming.name:"",friends:Array.isArray(incoming.friends)?incoming.friends:[],milestones:Object.assign({"30":true,"60":true,"90":true,"6m":true,"9m":true,"1y":true,"18m":true,"yearly":true},incoming.milestones||{}),friendRemindersEnabled:typeof incoming.friendRemindersEnabled==="boolean"?incoming.friendRemindersEnabled:true,chairInitialsPrompt:typeof incoming.chairInitialsPrompt==="boolean"?incoming.chairInitialsPrompt:false,includeInitialsOnAttendance:typeof incoming.includeInitialsOnAttendance==="boolean"?incoming.includeInitialsOnAttendance:true,rememberNewMeetings:typeof incoming.rememberNewMeetings==="boolean"?incoming.rememberNewMeetings:true,emotions:Array.isArray(incoming.emotions)?incoming.emotions:[],emotionTypes:Array.isArray(incoming.emotionTypes)?incoming.emotionTypes:[],messages:Array.isArray(incoming.messages)?incoming.messages:[],goals:Array.isArray(incoming.goals)?incoming.goals:[],darkMode:typeof incoming.darkMode==="boolean"?incoming.darkMode:false,appearance:incoming.appearance||"serene",menuOpacity:incoming.menuOpacity??70};
 }
 function importBackupFile(file){
   if(!file)return;
   const reader=new FileReader();
+  reader.onerror=()=>{setBackupStatus("The selected file could not be read. Your current data is unchanged.")};
   reader.onload=()=>{
+    let incoming;
     try{
-      const parsed=JSON.parse(reader.result), incoming=parsed&&parsed.data?parsed.data:parsed;
-      if(!incoming||typeof incoming!=="object"||typeof incoming.days!=="object"||!Array.isArray(incoming.meetings)||!Array.isArray(incoming.templates)||!Array.isArray(incoming.topics))throw new Error("Invalid backup");
-      if(!confirm("Import this backup? This will replace the data currently stored in this app."))return;
-      db={days:incoming.days||{},meetings:incoming.meetings||[],templates:incoming.templates||[],topics:incoming.topics||[],cleanDate:incoming.cleanDate||"",name:typeof incoming.name==="string"?incoming.name:"",friends:incoming.friends||[],milestones:Object.assign({"30":true,"60":true,"90":true,"6m":true,"9m":true,"1y":true,"18m":true,"yearly":true},incoming.milestones||{}),friendRemindersEnabled:typeof incoming.friendRemindersEnabled==="boolean"?incoming.friendRemindersEnabled:true,chairInitialsPrompt:typeof incoming.chairInitialsPrompt==="boolean"?incoming.chairInitialsPrompt:false,includeInitialsOnAttendance:typeof incoming.includeInitialsOnAttendance==="boolean"?incoming.includeInitialsOnAttendance:true,rememberNewMeetings:typeof incoming.rememberNewMeetings==="boolean"?incoming.rememberNewMeetings:true,emotions:Array.isArray(incoming.emotions)?incoming.emotions:[],emotionTypes:Array.isArray(incoming.emotionTypes)?incoming.emotionTypes:[],messages:Array.isArray(incoming.messages)?incoming.messages:[],goals:Array.isArray(incoming.goals)?incoming.goals:[],darkMode:typeof incoming.darkMode==="boolean"?incoming.darkMode:false};
-      persist();applyTheme();loadDay();cleanCounter();renderTemplates();renderFriends();renderMeetingsTab();renderCustomEmotions();renderGoals();alert("Backup imported successfully.");
-    }catch(e){alert("That file is not a valid Recovery Journal backup.");}
+      const parsed=JSON.parse(reader.result);incoming=validateBackup(parsed);
+      const exported=parsed.exportedAt?new Date(parsed.exportedAt):null;
+      const validExported=exported&&Number.isFinite(exported.getTime());
+      const summary=`Backup details\n\nCreated: ${validExported?exported.toLocaleString():"Date not recorded"}\nApp version: ${parsed.appVersion||"Older backup"}\nJournal days: ${Object.keys(incoming.days).length}\nMeetings: ${incoming.meetings.length}\nQuick Enter templates: ${incoming.templates.length}\nEmotion logs: ${(incoming.emotions||[]).length}\nGoals: ${(incoming.goals||[]).length}\nMessages to myself: ${(incoming.messages||[]).length}\n\nRestoring will replace the data currently stored in this app.`;
+      if(!confirm(summary+"\n\nContinue with restore?")){setBackupStatus("Restore cancelled. Your current data was not changed.");return}
+    }catch(e){alert(`Backup could not be validated.\n\n${e.message||"The file is unreadable."}\n\nYour current data has not been changed.`);setBackupStatus("Restore stopped: invalid or incompatible backup.");return}
+    // Preserve the current state and storage string so a failed write can be rolled back.
+    const previousDb=db,previousStorage=localStorage.getItem(KEY);
+    try{
+      const replacement=normalizeBackupData(incoming);
+      localStorage.setItem(KEY,JSON.stringify(replacement));db=replacement;
+      applyTheme();loadDay();cleanCounter();renderTemplates();renderFriends();renderMeetingsTab();renderCustomEmotions();renderGoals();
+      const stamp=new Date().toLocaleString();setBackupStatus(`Last successful restore: ${stamp}`);alert("Backup restored successfully. Your recovered data is loaded.");
+    }catch(e){
+      db=previousDb;
+      try{if(previousStorage===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,previousStorage)}catch(rollbackError){}
+      try{applyTheme();loadDay();cleanCounter();renderTemplates();renderFriends();renderMeetingsTab();renderCustomEmotions();renderGoals()}catch(renderError){}
+      alert("Restore failed. Recovery Journal attempted to preserve your previous data. Please keep your backup file and try again when storage is available.");setBackupStatus("Restore failed; previous data was preserved where browser storage allowed.");
+    }
   };
   reader.readAsText(file);
 }
@@ -1864,7 +1902,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.13 Time Picker Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
