@@ -314,12 +314,13 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 :root[data-theme="burgundy"]{color-scheme:dark;--ink:#F1E9E9;--forest:#C47C89;--sage:#3A2329;--mist:#2B1B20;--cream:#130C0F;--bg:#10090C;--card:#211317;--sand:#40272E;--line:#5A3942;--muted:#B9A9AD;--rose:#E0A0AA}
 [data-theme="burgundy"] body{background:linear-gradient(180deg,#10090C 0%,#1D1015 58%,#120B0E 100%);color:var(--ink)}[data-theme="burgundy"] html{background:#10090C}[data-theme="burgundy"] .card,[data-theme="burgundy"] .meeting,[data-theme="burgundy"] input,[data-theme="burgundy"] textarea,[data-theme="burgundy"] select,[data-theme="burgundy"] .day,[data-theme="burgundy"] .attendance-option-list label{background:#211317;color:var(--ink);border-color:#51343C}[data-theme="burgundy"] .nav,[data-theme="burgundy"] header.v41-fixed-header{background:rgba(19,12,15,.98);border-color:#51343C}[data-theme="burgundy"] button.primary{background:#B86F7C;color:#180C10}[data-theme="burgundy"] button.secondary{background:#3A2329;color:#F1E9E9;border-color:#63414A}[data-theme="burgundy"] .counter{background:linear-gradient(135deg,#2A1119,#552532)}[data-theme="burgundy"] .emotion-card,[data-theme="burgundy"] .program-card{background:linear-gradient(135deg,#2A181E,#321B23);border-color:#63414A}
 
-/* v50.9.3.6: preserve underlying page colors while drawer is open */
-/* v50.9.3.6: adjustable frosted-glass drawer; lighter non-desaturating backdrop */
-#sidebar.sidebar{background:rgba(20,22,26,var(--sidebar-opacity,.70))!important;color:#F4F5F4!important;border-right:1px solid rgba(255,255,255,.18)!important;backdrop-filter:blur(28px) saturate(150%)!important;-webkit-backdrop-filter:blur(28px) saturate(150%)!important;box-shadow:18px 0 54px rgba(0,0,0,.48)!important}
+/* v50.9.3.7: smoother theme-tinted glass; reduce gray haze without changing opacity control */
+#sidebar.sidebar{background:rgba(20,12,18,var(--sidebar-opacity,.70))!important;color:#F4F5F4!important;border-right:1px solid rgba(255,255,255,.16)!important;backdrop-filter:blur(18px) saturate(220%) contrast(1.06)!important;-webkit-backdrop-filter:blur(18px) saturate(220%) contrast(1.06)!important;box-shadow:12px 0 34px rgba(0,0,0,.32)!important}
 :root[data-theme="midnightforest"] #sidebar.sidebar{background:rgba(13,25,18,var(--sidebar-opacity,.70))!important}
 :root[data-theme="burgundy"] #sidebar.sidebar{background:rgba(35,12,20,var(--sidebar-opacity,.70))!important}
 :root[data-theme="neon"] #sidebar.sidebar{background:rgba(10,12,25,var(--sidebar-opacity,.70))!important}
+:root[data-theme="cosmic"] #sidebar.sidebar{background:rgba(27,14,49,var(--sidebar-opacity,.70))!important}
+:root[data-theme="ocean"] #sidebar.sidebar{background:rgba(9,34,52,var(--sidebar-opacity,.70))!important}
 #sidebar.sidebar .sidebar-item,#sidebar.sidebar .sidebar-brand{color:#F4F5F4!important}
 #sidebar.sidebar .sidebar-section-label,#sidebar.sidebar .sidebar-note{color:rgba(244,245,244,.72)!important}
 #sidebar.sidebar .sidebar-item:hover,#sidebar.sidebar .sidebar-item:active,#sidebar.sidebar .sidebar-item.active{background:rgba(255,255,255,.13)!important;border-color:rgba(255,255,255,.18)!important}
@@ -759,7 +760,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.6 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.7 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -923,7 +924,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.6 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.7 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -967,7 +968,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.6 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.7 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1018,7 +1019,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.6 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.7 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1517,7 +1518,7 @@ if(checkinReflectToggle&&checkinReflectPanel){
   });
 }
 document.querySelectorAll("#a1,#a2,#a3,#g1,#g2,#g3,#focus,#journal,#reflectionResponse").forEach(el=>el.addEventListener("input",markDayDirty));document.querySelectorAll("#checkinNeed,#checkinAction").forEach(el=>el.addEventListener("input",markDayDirty));document.querySelectorAll("[data-checkin-mood]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-checkin-mood]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");markDayDirty()});loadDay();initGrowingFields();applyTheme();cleanCounter();renderEmotionToday();renderMessageList();renderGoals();setInterval(cleanCounter,60000);
-if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.6");
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.7");
 
 /* ===== v41.1 navigation repair ===== */
 (function(){
@@ -1828,7 +1829,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.6 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.7 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
