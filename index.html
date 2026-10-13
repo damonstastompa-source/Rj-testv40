@@ -598,6 +598,30 @@ body.gp-mode #mainContent{padding-top:4px}
 #templateManagerClose{position:sticky;top:0;z-index:5;flex-shrink:0}
 @media(max-width:420px){.template-manager-modal{padding-top:calc(env(safe-area-inset-top) + 126px)!important}.template-manager-sheet{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 145px)!important}}
 </style>
+
+<style id="v50-9-3-19-light-theme-contrast">
+/* v50.9.3.19: Ocean and Sunrise light-theme control contrast polish */
+:root[data-theme="ocean"],:root[data-theme="sunrise"]{color-scheme:light}
+[data-theme="ocean"] button:not(.primary):not(.danger):not(.nav-toggle),
+[data-theme="sunrise"] button:not(.primary):not(.danger):not(.nav-toggle){color:var(--ink);}
+[data-theme="ocean"] button.secondary,[data-theme="sunrise"] button.secondary,
+[data-theme="ocean"] .secondary,[data-theme="sunrise"] .secondary{background:var(--sage);color:var(--ink);border:1px solid var(--line);}
+[data-theme="ocean"] button.primary,[data-theme="ocean"] .primary{background:#0D6072;color:#FFFFFF;border:1px solid #084957;}
+[data-theme="sunrise"] button.primary,[data-theme="sunrise"] .primary{background:#984936;color:#FFFFFF;border:1px solid #783526;}
+[data-theme="ocean"] input:not([type="checkbox"]):not([type="radio"]),[data-theme="ocean"] textarea,[data-theme="ocean"] select,
+[data-theme="sunrise"] input:not([type="checkbox"]):not([type="radio"]),[data-theme="sunrise"] textarea,[data-theme="sunrise"] select{background:#FFFFFF;color:var(--ink);border:1px solid var(--line);}
+[data-theme="ocean"] input::placeholder,[data-theme="ocean"] textarea::placeholder{color:#526A71;opacity:1}
+[data-theme="sunrise"] input::placeholder,[data-theme="sunrise"] textarea::placeholder{color:#756158;opacity:1}
+[data-theme="ocean"] button:disabled,[data-theme="sunrise"] button:disabled{color:#555D60;background:#E2E6E6;opacity:1}
+[data-theme="ocean"] .nav button,[data-theme="sunrise"] .nav button{color:var(--ink)}
+[data-theme="ocean"] .nav button.active{background:#0D6072;color:#FFFFFF}
+[data-theme="sunrise"] .nav button.active{background:#984936;color:#FFFFFF}
+[data-theme="ocean"] .menu-drawer button,[data-theme="sunrise"] .menu-drawer button{color:var(--ink)}
+[data-theme="ocean"] .menu-drawer .active,[data-theme="sunrise"] .menu-drawer .active{color:#FFFFFF}
+[data-theme="ocean"] input[type="range"],[data-theme="sunrise"] input[type="range"]{accent-color:var(--forest)}
+[data-theme="ocean"] .card button:not(.primary):not(.danger),[data-theme="sunrise"] .card button:not(.primary):not(.danger){text-shadow:none}
+</style>
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -790,7 +814,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.19 Ocean & Sunrise Contrast Polish Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -955,7 +979,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.19 Ocean & Sunrise Contrast Polish Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -999,7 +1023,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.19 Ocean & Sunrise Contrast Polish Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1018,7 +1042,8 @@ body.gp-mode #mainContent{padding-top:4px}
 <p>Record meeting time, place, name, topic, and notes. Optional chairperson initials can be collected for attendance records. Print attendance sheets and journal reports, including emotion information when appropriate.</p>
 <h4>Appearance</h4>
 <p>Choose from <strong>11 themes</strong>: Serene, Dark, Moonlight, Neon, Ocean, Sunrise, Black Light, Cosmic, High Contrast, Midnight Forest, and Dark Burgundy. Theme choices stay on this device.</p>
-<h4>Backup & Restore (v50.9.3.18)</h4>
+<h4>Theme Readability (v50.9.3.19)</h4><p>Improved text and control contrast in Ocean and Sunrise themes, including buttons, form fields, navigation states, placeholders, and sliders while preserving each theme’s overall appearance.</p>
+<h4>Backup & Restore (v50.9.3.19)</h4>
 <p>Choose <strong>Export backup</strong> and save or share the dated JSON file somewhere outside this browser, such as the iPhone Files app. The backup includes all data stored in this installation, including journal days, meetings and favorites, Quick Enter templates, emotions, goals, messages, friends, appearance, and settings. Before restoring, Recovery Journal validates the file and shows a summary. Restore replaces the current local data only after confirmation. Keep the backup file until you have checked that your entries are present.</p>
 <h4>Privacy & Data</h4>
 <p>Your journal is designed to stay on your device. No account is required and journal data is not uploaded to a Recovery Journal server. Use <strong>Backup & Transfer</strong> before moving to another device or installation.</p>
@@ -1053,7 +1078,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.18 Backup & Restore Polish Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.19 Ocean & Sunrise Contrast Polish Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1178,11 +1203,11 @@ const $=id=>document.getElementById(id), iso=d=>{const x=new Date(d);return x.ge
 function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
 function applyMenuOpacity(){let pct=Number(db.menuOpacity);if(!Number.isFinite(pct))pct=70;pct=Math.max(35,Math.min(95,pct));db.menuOpacity=pct;document.documentElement.style.setProperty('--sidebar-opacity',(pct/100).toFixed(2));const slider=document.getElementById('menuOpacitySlider');const value=document.getElementById('menuOpacityValue');if(slider)slider.value=String(pct);if(value)value.textContent=String(pct)}
 function applyTheme(){applyMenuOpacity();const theme=["serene","dark","moonlight","neon","ocean","sunrise","blacklight","cosmic","contrast","midnightforest","burgundy"].includes(db.appearance)?db.appearance:(db.darkMode?"dark":"serene");db.appearance=theme;db.darkMode=theme==="dark";document.documentElement.dataset.theme=theme==="serene"?"light":theme;const t=$("darkModeToggle");if(t)t.checked=theme==="dark";document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.checked=x.value===theme);const meta=document.querySelector('meta[name="theme-color"]');if(meta){const colors={serene:"#23433B",dark:"#111715",moonlight:"#101827",neon:"#070910",ocean:"#0B1B2A",sunrise:"#F4E7D1",blacklight:"#090B0E",cosmic:"#0B0814",contrast:"#000000",midnightforest:"#101512",burgundy:"#130C0F"};meta.setAttribute("content",colors[theme]||colors.serene)}}
-function backupPayload(){return {format:"Recovery Journal Backup",version:2,appVersion:"v50.9.3.18",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(db))}}
+function backupPayload(){return {format:"Recovery Journal Backup",version:2,appVersion:"v50.9.3.19",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(db))}}
 async function exportBackup(){
   try{
     const payload=backupPayload(),json=JSON.stringify(payload,null,2);
-    const file=new File([json],`recovery-journal-backup-${iso(new Date())}-v50.9.3.18.json`,{type:"application/json"});
+    const file=new File([json],`recovery-journal-backup-${iso(new Date())}-v50.9.3.19.json`,{type:"application/json"});
     if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
       try{await navigator.share({title:"Recovery Journal Backup",text:`Complete local backup • ${new Date(payload.exportedAt).toLocaleString()}`,files:[file]});setBackupStatus(`Backup shared successfully • ${new Date(payload.exportedAt).toLocaleString()}`);return}
       catch(e){if(e&&e.name==="AbortError"){setBackupStatus("Export cancelled. No backup was shared.");return}}
@@ -1902,7 +1927,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.18 Backup & Restore Polish Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.19 Ocean & Sunrise Contrast Polish Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
