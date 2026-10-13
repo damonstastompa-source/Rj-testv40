@@ -98,10 +98,11 @@ function buildPrintReport(){
   let out=`<div class="print-report"><h1>Recovery Journal</h1><div class="meta">${escHtml(title)}</div>`;
   keys.forEach(date=>{
     let d=db.days[date]||{}, meetings=db.meetings.filter(x=>x.date===date);
-    let has = (fields.includes("affirmations")&&(d.a1||d.a2||d.a3)) || (fields.includes("gratitude")&&(d.g1||d.g2||d.g3)) || (fields.includes("reflection")&&(d.reflectionResponse||Number.isInteger(d.reflectionIndex))) || (fields.includes("journal")&&d.journal) || (fields.includes("meetings")&&meetings.length);
+    let has = (fields.includes("affirmations")&&(d.a1||d.a2||d.a3)) || (fields.includes("gratitude")&&(d.g1||d.g2||d.g3)) || (fields.includes("reflection")&&(d.reflectionResponse||Number.isInteger(d.reflectionIndex))) || (fields.includes("journal")&&d.journal) || (fields.includes("meetings")&&meetings.length) || (fields.includes("checkin")&&(d.checkinMood||d.checkinNeed||d.checkinAction));
     if(!has) return;
     let nice=new Date(date+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
     out+=`<div class="dayblock"><h2>${escHtml(nice)}</h2>`;
+    if(fields.includes("checkin")&&(d.checkinMood||d.checkinNeed||d.checkinAction)){const cm={struggling:"😞 Struggling",okay:"😐 Okay",good:"🙂 Good",great:"😃 Great"};out+=`<div><h2>Daily Check-In</h2>${d.checkinMood?`<div class="item"><strong>How I was doing:</strong> ${escHtml(cm[d.checkinMood]||d.checkinMood)}</div>`:""}${d.checkinNeed?`<div class="item"><strong>What I needed:</strong> ${escHtml(d.checkinNeed)}</div>`:""}${d.checkinAction?`<div class="item"><strong>Recovery action:</strong> ${escHtml(d.checkinAction)}</div>`:""}</div>`;}
     if(fields.includes("affirmations")) out+=`<div><h2>Positive Affirmations</h2>${[d.a1,d.a2,d.a3].filter(Boolean).map((x,i)=>`<div class="item"><span class="label">${i+1}.</span> ${escHtml(x)}</div>`).join("")||'<div class="meta">None recorded.</div>'}</div>`;
     if(fields.includes("gratitude")) out+=`<div><h2>Three Things I'm Grateful For</h2>${[d.g1,d.g2,d.g3].filter(Boolean).map((x,i)=>`<div class="item"><span class="label">${i+1}.</span> ${escHtml(x)}</div>`).join("")||'<div class="meta">None recorded.</div>'}</div>`;
     if(fields.includes("focus") && d.focus) out+=`<div><h2>Today's Focus</h2><div class="item">${escHtml(d.focus).replace(/\n/g,"<br>")}</div></div>`;
@@ -124,6 +125,7 @@ function buildAllReports(){
     let d=db.days[date]||{}, meetings=db.meetings.filter(x=>x.date===date);
     let nice=new Date(date+"T12:00:00").toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
     out+=`<div class="dayblock"><h2>${escHtml(nice)}</h2>`;
+    if(d.checkinMood||d.checkinNeed||d.checkinAction){const cm={struggling:"😞 Struggling",okay:"😐 Okay",good:"🙂 Good",great:"😃 Great"};out+=`<div><h2>Daily Check-In</h2>${d.checkinMood?`<div class="item"><strong>How I was doing:</strong> ${escHtml(cm[d.checkinMood]||d.checkinMood)}</div>`:""}${d.checkinNeed?`<div class="item"><strong>What I needed:</strong> ${escHtml(d.checkinNeed)}</div>`:""}${d.checkinAction?`<div class="item"><strong>Recovery action:</strong> ${escHtml(d.checkinAction)}</div>`:""}</div>`;}
     if(d.a1||d.a2||d.a3) out+=`<div><h2>Positive Affirmations</h2>${[d.a1,d.a2,d.a3].filter(Boolean).map((x,i)=>`<div class="item"><span class="label">${i+1}.</span> ${escHtml(x)}</div>`).join("")}</div>`;
     if(d.g1||d.g2||d.g3) out+=`<div><h2>Three Things I'm Grateful For</h2>${[d.g1,d.g2,d.g3].filter(Boolean).map((x,i)=>`<div class="item"><span class="label">${i+1}.</span> ${escHtml(x)}</div>`).join("")}</div>`;
     if(d.focus) out+=`<div><h2>Today's Focus</h2><div class="item">${escHtml(d.focus).replace(/\n/g,"<br>")}</div></div>`;
