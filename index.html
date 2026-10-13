@@ -555,6 +555,17 @@ body.gp-mode #mainContent{padding-top:4px}
 @media(max-width:520px){.gp-pond{min-height:690px}.gp-layout{gap:2px 0;padding-left:2px;padding-right:2px}.gp-stone{width:44vw;min-height:88px;margin:8px 2px}.gp-stone-text{font-size:15px;max-width:39vw}.gp-water-line{left:4%;right:4%}}
 </style>
 
+
+/* v50.9.3.2: enforce the frosted-glass drawer treatment across themes */
+#sidebar.sidebar{background:rgba(20,25,28,.78)!important;color:#F4F5F4!important;border-right:1px solid rgba(255,255,255,.18)!important;backdrop-filter:blur(28px) saturate(150%)!important;-webkit-backdrop-filter:blur(28px) saturate(150%)!important;box-shadow:18px 0 54px rgba(0,0,0,.38)!important}
+:root[data-theme="midnightforest"] #sidebar.sidebar{background:rgba(13,25,18,.80)!important}
+:root[data-theme="burgundy"] #sidebar.sidebar{background:rgba(35,12,20,.80)!important}
+:root[data-theme="neon"] #sidebar.sidebar{background:rgba(10,12,25,.80)!important}
+#sidebar.sidebar .sidebar-item,#sidebar.sidebar .sidebar-brand{color:#F4F5F4!important}
+#sidebar.sidebar .sidebar-section-label,#sidebar.sidebar .sidebar-note{color:rgba(244,245,244,.72)!important}
+#sidebar.sidebar .sidebar-item:hover,#sidebar.sidebar .sidebar-item:active,#sidebar.sidebar .sidebar-item.active{background:rgba(255,255,255,.13)!important;border-color:rgba(255,255,255,.18)!important}
+.sidebar-overlay.open{background:rgba(0,0,0,.38)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -747,7 +758,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3 Release Candidate</strong></p>
+<p><strong>Recovery Journal v50.9.3.2 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -911,7 +922,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.3 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.2 Test</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -955,7 +966,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.7.3 Test</strong></p>
+<p><strong>Recovery Journal v50.9.3.2 Test</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1006,7 +1017,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.7.3 Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.2 Test</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1635,11 +1646,11 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3"
       return;
     }
     const item=e.target.closest('#sidebar [data-side-tab]');
-    if(item){e.preventDefault();e.stopPropagation();const tab=item.dataset.sideTab;closeSidebar();repairShow(tab);if(tab==="helped"&&typeof initHelped==="function")initHelped();return;}
+    if(item){e.preventDefault();e.stopImmediatePropagation();const tab=item.dataset.sideTab;try{if(typeof window.closeAffirmationsWall==='function')window.closeAffirmationsWall();if(typeof window.closeGratitudePond==='function')window.closeGratitudePond();}catch(err){console.warn('Feature cleanup before sidebar navigation',err)}closeSidebar();repairShow(tab);if(tab==="helped"&&typeof initHelped==="function")initHelped();return;}
     const msg=e.target.closest('#sidebarMessagesBtn,#messagesBtn');
     if(msg){e.preventDefault();e.stopPropagation();closeSidebar();openMessages();return;}
     const emotion=e.target.closest('#sidebarEmotionBtn');
-    if(emotion){e.preventDefault();e.stopPropagation();closeSidebar();repairShow('emotions',{skipConfirm:true});return;}
+    if(emotion){e.preventDefault();e.stopImmediatePropagation();try{if(typeof window.closeAffirmationsWall==='function')window.closeAffirmationsWall();if(typeof window.closeGratitudePond==='function')window.closeGratitudePond();}catch(err){console.warn('Feature cleanup before My Emotions',err)}closeSidebar();repairShow('emotions',{skipConfirm:true});return;}
   },true);
 
   // Make the primary swipe area actually respond on iPhone.
@@ -1815,7 +1826,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3"
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3 Release Candidate</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.2 Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
