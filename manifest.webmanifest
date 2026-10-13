@@ -1,6 +1,6 @@
 {
   "id": "./",
-  "name": "Recovery Journal v50.9.3.4",
+  "name": "Recovery Journal v50.9.3.5",
   "short_name": "Recovery Journal",
   "start_url": "./",
   "scope": "./",
@@ -26,5 +26,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "50.9.3.4"
+  "version": "50.9.3.5"
 }
