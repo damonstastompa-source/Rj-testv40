@@ -756,6 +756,56 @@ body.gp-mode #mainContent{padding-top:4px}
 }
 </style>
 
+
+<style id="v509325-ocean-sunrise-journal-hard-override">
+/* v50.9.3.25: final hard override for Journal history cards in Ocean/Sunrise.
+   These two themes are light themes; their Journal cards must not inherit the
+   dark --card values used by the original theme definitions. */
+:root[data-theme="ocean"] .journal-list .journal-entry-card,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card {
+  background: #FFFDF8 !important;
+  background-image: none !important;
+  color: #24343A !important;
+  border: 1px solid #BFD4D7 !important;
+  box-shadow: 0 5px 18px rgba(30,55,60,.10) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+:root[data-theme="sunrise"] .journal-list .journal-entry-card {
+  background: #FFF9F3 !important;
+  color: #3C302B !important;
+  border-color: #DEC8B8 !important;
+  box-shadow: 0 5px 18px rgba(70,40,30,.10) !important;
+}
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-date,
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-preview,
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-meta,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-date,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-preview,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-meta {
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-date { color:#16313B !important; -webkit-text-fill-color:#16313B !important; }
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-preview,
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-meta { color:#60777D !important; -webkit-text-fill-color:#60777D !important; }
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-date { color:#3C302B !important; -webkit-text-fill-color:#3C302B !important; }
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-preview,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-meta { color:#7D6C62 !important; -webkit-text-fill-color:#7D6C62 !important; }
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-meta,
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-meta {
+  border-top-color: currentColor !important;
+  border-top-color: #C4D9DC !important;
+}
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-meta { border-top-color:#E3CBB9 !important; }
+:root[data-theme="ocean"] .journal-list .journal-entry-card .journal-entry-today {
+  background:#0D6072 !important; color:#FFF !important;
+}
+:root[data-theme="sunrise"] .journal-list .journal-entry-card .journal-entry-today {
+  background:#A95442 !important; color:#FFF !important;
+}
+</style>
+
 </head>
 <body>
 <!-- v41 navigation sidebar -->
