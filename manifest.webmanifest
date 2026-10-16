@@ -1,6 +1,6 @@
 {
   "id": "./",
-  "name": "Recovery Journal v50.9.3.12",
+  "name": "Recovery Journal v51",
   "short_name": "Recovery Journal",
   "start_url": "./",
   "scope": "./",
@@ -9,8 +9,8 @@
     "standalone"
   ],
   "orientation": "portrait",
-  "background_color": "#F3F0E7",
-  "theme_color": "#23433B",
+  "background_color": "#0B0D17",
+  "theme_color": "#070910",
   "description": "A private, local-first recovery journal with affirmations, gratitude reflections, meetings, emotion history, goals, and recovery tools.",
   "categories": [
     "lifestyle",
@@ -26,5 +26,5 @@
       "purpose": "any maskable"
     }
   ],
-  "version": "50.9.3.12"
+  "version": "51"
 }

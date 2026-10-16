@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#23433B">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="default" id="appleStatusBarStyle">
 <meta name="apple-mobile-web-app-title" content="Recovery Journal">
 <link rel="manifest" href="manifest.webmanifest">
 <title>Recovery Journal</title>
@@ -326,7 +326,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 #sidebar.sidebar .sidebar-item:hover,#sidebar.sidebar .sidebar-item:active,#sidebar.sidebar .sidebar-item.active{background:rgba(255,255,255,.13)!important;border-color:rgba(255,255,255,.18)!important}
 .sidebar-overlay.open{background:rgba(0,0,0,.48)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 
-/* v50.9.3.12 — centered manager and explicit template-entry dialog */
+/* v51 — centered manager and explicit template-entry dialog */
 #templateModal{z-index:10060}
 .template-manager-modal{position:fixed;inset:0;z-index:10050;background:rgba(4,3,10,.76);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 .template-manager-modal.hidden{display:none!important}
@@ -337,7 +337,7 @@ header.v41-fixed-header .journal-top-icon{color:var(--ink)!important;stroke:curr
 #meetingsQuickToggle{min-height:48px;padding:8px 10px}
 #manageTemplatesBtn{min-height:44px;white-space:nowrap}
 @media(min-width:700px){.template-manager-modal{align-items:center;padding:24px}.template-manager-sheet{border-radius:24px;max-height:88dvh}}
-/* v50.9.3.12: keep the manager below the iPhone status/safe area and center it naturally */
+/* v51: keep the manager below the iPhone status/safe area and center it naturally */
 .template-manager-modal{align-items:center!important;padding:calc(env(safe-area-inset-top) + 14px) 12px calc(env(safe-area-inset-bottom) + 14px)!important}
 .template-manager-sheet{width:min(760px,100%);max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 28px)!important;border-radius:24px!important;padding:20px 16px calc(20px + env(safe-area-inset-bottom))!important;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 /* Add/edit template opens as a real, centered form dialog—not a focused field at the bottom */
@@ -590,6 +590,11 @@ body.gp-mode #mainContent{padding-top:4px}
 </style>
 
 
+<style id="v51-safe-area-theme">/* v51 — keep iOS safe-area surfaces inside the active theme */
+html,body{background-color:var(--bg)!important;}
+body{min-height:100dvh;padding-bottom:env(safe-area-inset-bottom)!important;}
+@supports (padding: max(0px)){body{padding-bottom:max(env(safe-area-inset-bottom),0px)!important;}}
+</style>
 <style id="time-picker-styles">.time-picker-modal{position:fixed;inset:0;z-index:10080;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(5,8,20,.68);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.time-picker-modal.hidden{display:none!important}.time-picker-sheet{width:min(440px,100%);max-height:min(88dvh,680px);overflow:auto;padding:20px;border-radius:22px;border:1px solid var(--border,rgba(255,255,255,.18));background:var(--card,#17192a);color:var(--text,#f7f7ff);box-shadow:0 24px 80px rgba(0,0,0,.48)}.time-picker-sheet h2{font-size:1.25rem;margin:0}.time-picker-wheels{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) minmax(0,1.1fr);gap:7px;align-items:center;margin:20px 0 8px}.time-wheel-column{min-width:0;display:flex;flex-direction:column;align-items:stretch}.time-wheel-arrow{border:0;background:transparent;color:var(--accent,#a99aff);font-size:17px;font-weight:800;min-height:30px;cursor:pointer;touch-action:manipulation}.time-wheel{height:156px;overflow-y:auto;overscroll-behavior:contain;scroll-snap-type:y mandatory;scrollbar-width:none;position:relative;border-radius:13px;touch-action:pan-y;-webkit-overflow-scrolling:touch;background:rgba(120,120,150,.08)}.time-wheel::-webkit-scrollbar{display:none}.time-wheel::before,.time-wheel::after{content:"";display:block;height:52px;pointer-events:none}.time-wheel-option{height:52px;display:flex;align-items:center;justify-content:center;scroll-snap-align:center;flex-shrink:0;font-size:1.1rem;color:var(--muted,#9ca3b8);font-variant-numeric:tabular-nums;cursor:pointer;user-select:none}.time-wheel-option.selected{background:rgba(139,119,255,.20);color:var(--text,#fff);font-size:1.32rem;font-weight:800;border-top:1px solid rgba(169,154,255,.42);border-bottom:1px solid rgba(169,154,255,.42)}.time-wheel-colon{font-size:1.5rem;font-weight:800;align-self:center;margin-top:-10px}.time-wheel-label{text-align:center;font-size:.65rem;letter-spacing:.1em;color:var(--muted,#9ca3b8);margin-top:6px}.time-picker-preview{text-align:center;font-size:1.45rem;font-weight:800;letter-spacing:.02em;margin:12px 0 18px}.time-picker-actions{gap:10px}.time-picker-actions button{flex:1;min-height:44px}#mTime,#templateTime{cursor:pointer}@media(max-width:380px){.time-picker-sheet{padding:15px}.time-picker-wheels{gap:4px}.time-wheel-option{font-size:1rem}.time-wheel-option.selected{font-size:1.2rem}}</style>
 <style id="v509317-manager-navigation-fix">
 /* v50.9.3.17 — manager respects fixed app header and dismisses on navigation */
@@ -808,7 +813,7 @@ body.gp-mode #mainContent{padding-top:4px}
 
 
 <style id="v509326-ocean-sunrise-reader-contrast">
-/* v50.9.3.26 — Ocean/Sunrise are light themes. Give the Journal Reader its own
+/* v51 — Ocean/Sunrise are light themes. Give the Journal Reader its own
    light-theme palette so the individual-day view never inherits dark card/ink values. */
 :root[data-theme="ocean"] {
   color-scheme: light;
@@ -896,6 +901,25 @@ body.gp-mode #mainContent{padding-top:4px}
 }
 </style>
 
+
+<style id="v51-clean-theme-surface">
+/* v51 clean build: theme owns the full iOS safe-area surface and keyboard-adjacent page area. */
+html,body{background-color:var(--bg)!important;}
+body{background-image:none;}
+:root[data-theme="neon"] html,:root[data-theme="neon"] body{background-color:#070910!important;}
+:root[data-theme="cosmic"] html,:root[data-theme="cosmic"] body{background-color:#0B0814!important;}
+:root[data-theme="blacklight"] html,:root[data-theme="blacklight"] body{background-color:#090B0E!important;}
+:root[data-theme="midnightforest"] html,:root[data-theme="midnightforest"] body{background-color:#101512!important;}
+:root[data-theme="burgundy"] html,:root[data-theme="burgundy"] body{background-color:#130C0F!important;}
+:root[data-theme="dark"] html,:root[data-theme="dark"] body{background-color:#111715!important;}
+:root[data-theme="moonlight"] html,:root[data-theme="moonlight"] body{background-color:#101827!important;}
+/* Keep fixed header and reader surfaces aligned with the active theme. */
+:root[data-theme="neon"] header.v41-fixed-header{background:rgba(11,13,23,.96)!important;}
+:root[data-theme="cosmic"] header.v41-fixed-header{background:rgba(11,8,20,.96)!important;}
+:root[data-theme="blacklight"] header.v41-fixed-header{background:rgba(9,11,14,.96)!important;}
+:root[data-theme="midnightforest"] header.v41-fixed-header{background:rgba(16,21,18,.96)!important;}
+:root[data-theme="burgundy"] header.v41-fixed-header{background:rgba(19,12,15,.96)!important;}
+</style>
 </head>
 <body>
 <!-- v41 navigation sidebar -->
@@ -1088,7 +1112,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <h2>ⓘ About Recovery Journal</h2>
 <p class="muted" style="margin-top:5px">Learn what Recovery Journal does and how its features fit together.</p>
 <div class="about-content" style="margin-top:16px">
-<p><strong>Recovery Journal v50.9.3.26 Ocean & Sunrise Journal Reader Contrast Fix Test</strong></p>
+<p><strong>Recovery Journal v51</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, and notice patterns in your thoughts and emotions.</p>
 <h4>Your Daily Entry</h4>
@@ -1253,7 +1277,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details open>
 <summary>🌿 My Recovery</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.26 Ocean & Sunrise Journal Reader Contrast Fix Test</strong></p>
+<p><strong>Recovery Journal v51</strong></p>
 <div class="message-settings-card">
 <details id="messagesSettingsDetails">
 <summary><span><svg class="message-inline-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13.5c0-2.2 1.8-4 4-4h20c2.2 0 4 1.8 4 4v17c0 2.2-1.8 4-4 4H23l-8.5 6v-6H14c-2.2 0-4-1.8-4-4z"/><path d="M16 18h16M16 23h11"/><path class="heart" d="M25.8 22.6c1.8-2.7 6.3-1.5 6.3 1.8 0 3.2-3.1 5.1-6.3 7.3-3.2-2.2-6.3-4.1-6.3-7.3 0-3.3 4.5-4.5 6.3-1.8z"/><path class="arrow" d="M8 20.5a16 16 0 0 0 3.8 16.1"/><path class="arrow" d="M7.8 30.8 7 38l6.7-1.7"/></svg><strong>Messages to Myself</strong></span><span class="setting-count" id="messageCount">0</span></summary>
@@ -1297,7 +1321,7 @@ body.gp-mode #mainContent{padding-top:4px}
 <details>
 <summary>ℹ️ About Recovery Journal</summary>
 <div class="about-content">
-<p><strong>Recovery Journal v50.9.3.26 Ocean & Sunrise Journal Reader Contrast Fix Test</strong></p>
+<p><strong>Recovery Journal v51</strong></p>
 <h4>What is Recovery Journal?</h4>
 <p>A private, device-based journal built to help you pause each day, reflect on your recovery, keep track of meetings, notice emotional patterns, and look back on your own progress.</p>
 <h4>Daily Check-In</h4>
@@ -1316,8 +1340,8 @@ body.gp-mode #mainContent{padding-top:4px}
 <p>Record meeting time, place, name, topic, and notes. Optional chairperson initials can be collected for attendance records. Print attendance sheets and journal reports, including emotion information when appropriate.</p>
 <h4>Appearance</h4>
 <p>Choose from <strong>11 themes</strong>: Serene, Dark, Moonlight, Neon, Ocean, Sunrise, Black Light, Cosmic, High Contrast, Midnight Forest, and Dark Burgundy. Theme choices stay on this device.</p>
-<h4>Theme Readability (v50.9.3.26)</h4><p>Improved Ocean and Sunrise readability across the Journal history and individual-day Journal Reader, including paper surfaces, headings, body text, dividers, navigation buttons, and header controls.</p>
-<h4>Backup & Restore (v50.9.3.26)</h4>
+<h4>Theme Readability (v51)</h4><p>Improved Ocean and Sunrise readability across the Journal history and individual-day Journal Reader, including paper surfaces, headings, body text, dividers, navigation buttons, and header controls.</p>
+<h4>Backup & Restore (v51)</h4>
 <p>Choose <strong>Export backup</strong> and save or share the dated JSON file somewhere outside this browser, such as the iPhone Files app. The backup includes all data stored in this installation, including journal days, meetings and favorites, Quick Enter templates, emotions, goals, messages, friends, appearance, and settings. Before restoring, Recovery Journal validates the file and shows a summary. Restore replaces the current local data only after confirmation. Keep the backup file until you have checked that your entries are present.</p>
 <h4>Privacy & Data</h4>
 <p>Your journal is designed to stay on your device. No account is required and journal data is not uploaded to a Recovery Journal server. Use <strong>Backup & Transfer</strong> before moving to another device or installation.</p>
@@ -1352,7 +1376,7 @@ body.gp-mode #mainContent{padding-top:4px}
 </div>
 </details>
 </div>
-<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v50.9.3.26 Ocean & Sunrise Journal Reader Contrast Fix Test</span></div>
+<div style="text-align:center;margin:18px 0 4px"><span class="muted" style="font-size:11px;letter-spacing:.04em;opacity:.75">Recovery Journal v51</span></div>
 </section>
 </div>
 <!-- v41 Goals -->
@@ -1476,12 +1500,12 @@ let selected=new Date(); selected.setHours(12,0,0,0); let month=new Date(selecte
 const $=id=>document.getElementById(id), iso=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
 function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
 function applyMenuOpacity(){let pct=Number(db.menuOpacity);if(!Number.isFinite(pct))pct=70;pct=Math.max(35,Math.min(95,pct));db.menuOpacity=pct;document.documentElement.style.setProperty('--sidebar-opacity',(pct/100).toFixed(2));const slider=document.getElementById('menuOpacitySlider');const value=document.getElementById('menuOpacityValue');if(slider)slider.value=String(pct);if(value)value.textContent=String(pct)}
-function applyTheme(){applyMenuOpacity();const theme=["serene","dark","moonlight","neon","ocean","sunrise","blacklight","cosmic","contrast","midnightforest","burgundy"].includes(db.appearance)?db.appearance:(db.darkMode?"dark":"serene");db.appearance=theme;db.darkMode=theme==="dark";document.documentElement.dataset.theme=theme==="serene"?"light":theme;const t=$("darkModeToggle");if(t)t.checked=theme==="dark";document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.checked=x.value===theme);const meta=document.querySelector('meta[name="theme-color"]');if(meta){const colors={serene:"#23433B",dark:"#111715",moonlight:"#101827",neon:"#070910",ocean:"#0B1B2A",sunrise:"#F4E7D1",blacklight:"#090B0E",cosmic:"#0B0814",contrast:"#000000",midnightforest:"#101512",burgundy:"#130C0F"};meta.setAttribute("content",colors[theme]||colors.serene)}}
-function backupPayload(){return {format:"Recovery Journal Backup",version:2,appVersion:"v50.9.3.26",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(db))}}
+function applyTheme(){applyMenuOpacity();const theme=["serene","dark","moonlight","neon","ocean","sunrise","blacklight","cosmic","contrast","midnightforest","burgundy"].includes(db.appearance)?db.appearance:(db.darkMode?"dark":"serene");db.appearance=theme;db.darkMode=theme==="dark";document.documentElement.dataset.theme=theme==="serene"?"light":theme;const t=$("darkModeToggle");if(t)t.checked=theme==="dark";document.querySelectorAll('input[name="themeChoice"]').forEach(x=>x.checked=x.value===theme);const meta=document.querySelector('meta[name="theme-color"]');const status=document.getElementById("appleStatusBarStyle");if(meta){const colors={serene:"#23433B",dark:"#111715",moonlight:"#101827",neon:"#070910",ocean:"#0B1B2A",sunrise:"#F4E7D1",blacklight:"#090B0E",cosmic:"#0B0814",contrast:"#000000",midnightforest:"#101512",burgundy:"#130C0F"};meta.setAttribute("content",colors[theme]||colors.serene)}if(status){const lightThemes=["serene","ocean","sunrise"];status.setAttribute("content",lightThemes.includes(theme)?"default":"black-translucent")} }
+function backupPayload(){return {format:"Recovery Journal Backup",version:2,appVersion:"v51",exportedAt:new Date().toISOString(),data:JSON.parse(JSON.stringify(db))}}
 async function exportBackup(){
   try{
     const payload=backupPayload(),json=JSON.stringify(payload,null,2);
-    const file=new File([json],`recovery-journal-backup-${iso(new Date())}-v50.9.3.26.json`,{type:"application/json"});
+    const file=new File([json],`recovery-journal-backup-${iso(new Date())}-v51.json`,{type:"application/json"});
     if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
       try{await navigator.share({title:"Recovery Journal Backup",text:`Complete local backup • ${new Date(payload.exportedAt).toLocaleString()}`,files:[file]});setBackupStatus(`Backup shared successfully • ${new Date(payload.exportedAt).toLocaleString()}`);return}
       catch(e){if(e&&e.name==="AbortError"){setBackupStatus("Export cancelled. No backup was shared.");return}}
@@ -2201,7 +2225,7 @@ if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js?v=50.9.3.
   setInterval(bindEmotionsScreen,1500);
 })();
 </script>
-<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v50.9.3.26 Ocean & Sunrise Journal Reader Contrast Fix Test</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
+<div id="v50-6-4-about-features" style="display:none"><strong>Recovery Journal v51</strong><ul><li>☀️ Daily Check-In with optional reflection prompts</li><li>🧠 My Emotions history screen</li><li>🔎 What Helped Me Before? recovery-history search</li><li>✨ Affirmations Wall with customizable notes and doodles</li><li>🌊 Gratitude Pond with existing gratitude reflections, stone browsing, search, and shuffle</li><li>📖 Journal Reader improvements, including Daily Check-In</li><li>🌲 Midnight Forest and 🍷 Dark Burgundy themes</li><li>🤝 Friends clean-date tracking and milestone reminders</li><li>⭐ Favorite meeting templates that sort to the top of Quick Enter</li><li>🔒 Local-first storage and backup/export tools</li></ul></div><script>document.addEventListener("click",()=>setTimeout(()=>{const a=document.querySelector("[id*=about i],[class*=about i]"),n=document.getElementById("v50-6-4-about-features");if(a&&n&&!a.contains(n)){n.style.display="block";a.appendChild(n)}},30),true)</script>
 
 <script id="affirmations-wall-v1-js">
 (function(){
